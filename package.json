@@ -1,0 +1,43 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --config=node_modules/laravel-mix/setup/webpack.config.js --watch",
+    "tailwind": "npx tailwindcss -i ./assets/css/tailwind.css -o ./dist/style.css --watch",
+    "make:block": "plop block",
+    "blocks:build": "node build-blocks.js",
+    "blocks:watch": "node build-blocks.js --watch"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.2",
+    "cssnano": "^4.1.10",
+    "import-glob-loader": "^1.1.0",
+    "laravel-mix": "^6.0.18"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "browser-sync": "^2.29.3",
+    "browser-sync-webpack-plugin": "^2.3.0",
+    "npm-run-all": "^4.1.5",
+    "plop": "^4.0.4",
+    "postcss": "^8.5.6",
+    "sass": "^1.93.2",
+    "sass-loader": "^12.1.0",
+    "tailwindcss": "^3.4.17",
+    "uglify-js": "^3.3.11"
+  },
+  "name": "tosha504-my-start-theme",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.org/Automattic/_s.svg?branch=master)](https://travis-ci.org/Automattic/_s)",
+  "main": "webpack.mix.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tosha504/tosha504-my-start-theme.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tosha504/tosha504-my-start-theme/issues"
+  },
+  "homepage": "https://github.com/tosha504/tosha504-my-start-theme#readme"
+}

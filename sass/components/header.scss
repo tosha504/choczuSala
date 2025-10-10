@@ -1,0 +1,89 @@
+@use "./__breakpoints" as b;
+@use "sass:map";
+@use "./burger.scss";
+.header {
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+
+  ul {
+    list-style: none;
+  }
+  &__logo {
+    &_link {
+      display: flex;
+      align-items: center;
+    }
+    img {
+      max-width: 150px;
+    }
+  }
+
+  .container,
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    @media (min-width: map.get(b.$grid-breakpoints, md)) {
+      gap: 30px;
+    }
+  }
+
+  &__nav {
+    [aria-current] {
+      @media (hover: hover) {
+        &:hover {
+        }
+      }
+    }
+
+    a {
+      color: white;
+      text-transform: uppercase;
+      line-height: 24px;
+      letter-spacing: 0.1em;
+      font-size: 13px;
+      font-weight: 400;
+
+      @media (hover: hover) {
+        &:hover {
+        }
+      }
+    }
+  }
+
+  //__mobile
+  &__nav {
+    ul {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    @media (max-width: map.get(b.$grid-breakpoints, xl)) {
+      padding: 50px;
+      position: fixed;
+      background: var(--primary);
+      left: -100%;
+      top: 0;
+      bottom: 0;
+      width: 80%;
+      z-index: 1000;
+
+      overflow: auto;
+      transition: all 0.5s;
+      ul {
+        flex-direction: column;
+        margin-bottom: auto;
+        align-items: start;
+      }
+      &.active {
+        left: 0;
+
+        a {
+        }
+      }
+    }
+  }
+}

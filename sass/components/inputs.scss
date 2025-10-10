@@ -1,0 +1,38 @@
+@use "./__breakpoints" as b;
+@use "sass:map";
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="color"],
+input[type="submit"],
+textarea,
+select {
+  padding: 0.75rem;
+  border: none;
+  width: 100%;
+  border: 1px solid var(--black);
+  font-size: 1rem;
+  background-color: var(--white);
+
+  &::placeholder {
+    color: red;
+  }
+
+  &:focus {
+    border: 1px solid #18bce5 !important;
+  }
+
+  &.wpcf7-not-valid {
+    border: 1px solid red;
+  }
+}

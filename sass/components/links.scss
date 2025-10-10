@@ -1,0 +1,18 @@
+@use "./__breakpoints" as b;
+@use "sass:map";
+a {
+  color: var(--black);
+  transition: 0.3s;
+
+  &,
+  &:active,
+  &:hover {
+    outline: none;
+    text-decoration: none;
+  }
+  &:not(.header__logo_link) {
+    &:hover {
+      background-color: var(--white);
+    }
+  }
+}

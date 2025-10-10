@@ -1,0 +1,40 @@
+@use "./__breakpoints" as b;
+@use "sass:map";
+.burger {
+  border: none;
+  background-color: transparent;
+  position: relative;
+  cursor: pointer;
+  z-index: 6;
+  margin-left: auto;
+  span {
+    display: none;
+    width: 32px;
+    height: 2px;
+    background-color: #fff;
+    margin: 4px 0;
+    transition: 0.35s;
+
+    &.active {
+      &:nth-child(1) {
+        transform: translate(0, 6px) rotate(-45deg);
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        transform: translate(0, -6px) rotate(45deg);
+      }
+    }
+
+    @media (max-width: map.get(b.$grid-breakpoints, xl)) {
+      display: block;
+    }
+  }
+
+  @media (max-width: map.get(b.$grid-breakpoints, xl)) {
+    display: inline-block;
+  }
+}
