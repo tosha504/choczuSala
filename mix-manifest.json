@@ -1,4 +1,7 @@
 {
+    "/dist/app.js": "/dist/app.js",
     "/src/index.css": "/src/index.css",
-    "/css-blocks/prep.css": "/css-blocks/prep.css"
+    "/css-blocks/statystyki.css": "/css-blocks/statystyki.css",
+    "/css-blocks/hero.css": "/css-blocks/hero.css",
+    "/dist/app.min.js": "/dist/app.min.js"
 }

@@ -114,21 +114,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "acf\/hero-jw"
-            }
-        ],
-        [
-            {
-                "param": "block",
-                "operator": "==",
-                "value": "acf\/column-jw"
-            }
-        ],
-        [
-            {
-                "param": "block",
-                "operator": "==",
-                "value": "acf\/offers-block-jw"
+                "value": "aw-theme\/hero"
             }
         ]
     ],
@@ -141,5 +127,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1754056588
+    "modified": 1760210929
 }

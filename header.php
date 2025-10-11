@@ -25,8 +25,17 @@
 <body <?php body_class(); ?>>
 	<?php wp_body_open(); ?>
 	<div id="page" class="wrapper">
+		<a class="skip" href="#main"
+			style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">Pomiń do treści</a>
 
-		<header id="masthead" class="header bg-green-600">
+		<!-- Top bar -->
+		<div class="topbar">
+			<div class="container">
+				<div>Świeże dostawy • Odbiór osobisty w Gdańsku</div>
+				<div>Pn–Sb 10:00–20:00</div>
+			</div>
+		</div>
+		<header id="masthead" class="header">
 			<div class="container">
 				<?php
 				$logo = get_field('logo', 'options');
@@ -38,14 +47,6 @@
 							<?php
 							echo wp_get_attachment_image($logo, 'full');
 							?>
-						</a>
-					</div> <!-- header-logo -->
-				<?php } else { ?>
-					<div class="header__logo">
-						<a class="header__logo_link" href="<?php echo esc_url(home_url('/')) ?>" title="Go to homepage"
-							rel="noopener noreferrer"
-							target="_self">
-							<img src="https://arturiko-web.eu/wp-content/uploads/2024/02/Union.svg" alt="Arturiko-web.eu logo" loading="lazy">
 						</a>
 					</div> <!-- header-logo -->
 				<?php } ?>
@@ -61,8 +62,12 @@
 					);
 					?>
 				</nav><!-- #site-navigation -->
+				<div class="actions">
+					<div class="search" role="search"><input type="search" placeholder="Szukaj produktów…" aria-label="Szukaj">
+					</div>
 
-				<button class="burger"
-					aria-label="Open the menu"><span></span><span></span><span></span></button><!-- burger -->
+					<button class="burger"
+						aria-label="Open the menu"><span></span><span></span><span></span></button><!-- burger -->
+				</div>
 			</div>
 		</header><!-- #masthead -->

@@ -1,11 +1,11 @@
 {
-  "name": "aw-theme/{{kebab name}}",
-  "title": "{{pascal name}}",
+  "name": "aw-theme/statystyki",
+  "title": "Statystyki",
   "category": "aw-theme",
   "acf": { "mode": "preview", "renderTemplate": "render.php" },
   "supports": { "align": ["wide", "full"], "anchor": true },
-  "keywords": ["arturiko.web", "{{kebab name}}"],
+  "keywords": ["arturiko.web", "statystyki"],
     "style": [
-    "file:../../css-blocks/{{kebab name}}.css"
+    "file:../../css-blocks/statystyki.css"
   ]
 }

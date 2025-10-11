@@ -11,11 +11,9 @@
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: clamp(2rem, 5vw, 3rem);
 
-  @media (min-width: map.get(b.$grid-breakpoints, md)) {
-    font-size: 3rem;
-  }
+
 }
 
 h2 {

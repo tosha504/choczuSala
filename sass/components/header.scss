@@ -1,22 +1,43 @@
 @use "./__breakpoints" as b;
 @use "sass:map";
 @use "./burger.scss";
+
+.topbar {
+  background: var(--color-secondary);
+  color: var(--color-on-dark);
+
+  .container {
+    display: flex;
+    gap: clamp(0.5rem, 2vw, 1rem);
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}
+
 .header {
-  padding: 20px 0;
+  // padding: 20px 0;
   position: sticky;
   top: 0;
   z-index: 5;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: saturate(150%) blur(8px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 
   ul {
     list-style: none;
   }
+
   &__logo {
     &_link {
       display: flex;
       align-items: center;
     }
+
     img {
-      max-width: 150px;
+      max-width: clamp(100px, 20vw, 120px);
     }
   }
 
@@ -34,13 +55,12 @@
   &__nav {
     [aria-current] {
       @media (hover: hover) {
-        &:hover {
-        }
+        &:hover {}
       }
     }
 
     a {
-      color: white;
+      color: VAR(--color-black);
       text-transform: uppercase;
       line-height: 24px;
       letter-spacing: 0.1em;
@@ -48,8 +68,7 @@
       font-weight: 400;
 
       @media (hover: hover) {
-        &:hover {
-        }
+        &:hover {}
       }
     }
   }
@@ -61,29 +80,45 @@
       gap: 20px;
       align-items: center;
     }
+
     @media (max-width: map.get(b.$grid-breakpoints, xl)) {
-      padding: 50px;
-      position: fixed;
-      background: var(--primary);
-      left: -100%;
-      top: 0;
-      bottom: 0;
-      width: 80%;
-      z-index: 1000;
+      // padding: 50px;
+      // position: fixed;
+      // background: var(--primary);
+      // left: -100%;
+      // top: 0;
+      // bottom: 0;
+      // width: 80%;
+      // z-index: 1000;
 
-      overflow: auto;
-      transition: all 0.5s;
-      ul {
-        flex-direction: column;
-        margin-bottom: auto;
-        align-items: start;
-      }
+      // overflow: auto;
+      // transition: all 0.5s;
+
+      // ul {
+      //   flex-direction: column;
+      //   margin-bottom: auto;
+      //   align-items: start;
+      // }
+
       &.active {
-        left: 0;
-
-        a {
-        }
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
       }
+
+      //   a {}
+      // }
+      display: block;
+      position: fixed;
+      inset: 56px 0 auto 0;
+      background: #fff;
+      border-top: 1px solid #eee;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+      transform: translateY(-8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease,
+      transform 0.18s ease;
     }
   }
 }

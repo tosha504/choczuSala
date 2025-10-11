@@ -52,7 +52,7 @@ if (!function_exists('start_scripts')) {
 
 			// Jeśli istnieje plik JS o nazwie takiej jak folder (np. hero-aw/hero-aw.js)
 			if (is_dir($block_path) && file_exists($block_script)) {
-				$block_name = 'acf/' . $folder;
+				$block_name = 'aw-theme/' . $folder;
 				// Jeśli blok jest użyty na tej stronie
 				if (has_block($block_name, $post_id)) {
 					wp_enqueue_script(

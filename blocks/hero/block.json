@@ -1,0 +1,23 @@
+{
+  "name": "aw-theme/hero",
+  "title": "Hero",
+  "category": "aw-theme",
+  "acf": {
+    "mode": "preview",
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": [
+      "wide",
+      "full"
+    ],
+    "anchor": true
+  },
+  "keywords": [
+    "arturiko.web",
+    "hero"
+  ],
+  "style": [
+    "file:../../css-blocks/hero.css"
+  ]
+}

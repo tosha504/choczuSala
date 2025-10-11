@@ -1,0 +1,1 @@
+.grid4{display:grid;gap:16px;grid-template-columns:1fr}@media (min-width:560px){.grid4{grid-template-columns:repeat(2,1fr)}}@media (min-width:1024px){.grid4{grid-template-columns:repeat(4,1fr)}}.surface{background:var(--color-surface);border-radius:1rem;box-shadow:var(--shadow)}

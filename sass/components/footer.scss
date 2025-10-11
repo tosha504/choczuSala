@@ -1,2 +1,36 @@
 @use "./__breakpoints" as b;
 @use "sass:map";
+
+footer {
+    margin-top: 36px;
+    background: #111827;
+    color: #cbd5e1;
+}
+
+footer .cols {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 16px;
+    padding-block: clamp(1.75rem, 5vw, 3rem);
+}
+
+footer a {
+    color: #cbd5e1;
+}
+
+/* Responsywność */
+@media (max-width: 1024px) {
+
+
+    footer .cols {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+
+
+    footer .cols {
+        grid-template-columns: 1fr;
+    }
+}
