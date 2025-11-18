@@ -1,5 +1,6 @@
 @use "./__breakpoints" as b;
 @use "sass:map";
+
 input[type="text"],
 input[type="email"],
 input[type="url"],
@@ -14,7 +15,6 @@ input[type="time"],
 input[type="datetime"],
 input[type="datetime-local"],
 input[type="color"],
-input[type="submit"],
 textarea,
 select {
   padding: 0.75rem;

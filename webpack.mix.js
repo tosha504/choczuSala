@@ -54,9 +54,10 @@ mix
       "blocks//*.php",
       "inc//*.php",
       "src//*.js",
-      "src//*.css",
+      "dist/css/*.css",
       "css-blocks//*.css",
-      "assets//*.scss",
+      "sass/**/*.scss",
+      "gutenberg-styles/**/*.scss",
       "assets//*.css",
     ],
 

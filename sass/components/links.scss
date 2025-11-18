@@ -1,8 +1,38 @@
 @use "./__breakpoints" as b;
 @use "sass:map";
+@use "./extension.scss";
+
 a {
-  color: var(--black);
+  color: var(--color-text);
   transition: 0.3s;
+
+  &.btn,
+  &.button {
+    @extend %btn;
+
+    &.btn-secondary {
+      @extend %btn-secondary;
+    }
+
+
+    &.btn-primary {
+      @extend %btn-primary;
+    }
+  }
+
+  &.button {
+    background-color: var(--color-accent);
+    color: var(--color-surface);
+    font-family: inherit;
+
+    @media (hover: hover) {
+      &:hover {
+        border: 1px solid var(--color-accent);
+        color: var(--color-accent);
+        background: transparent;
+      }
+    }
+  }
 
   &,
   &:active,
@@ -10,6 +40,7 @@ a {
     outline: none;
     text-decoration: none;
   }
+
   &:not(.header__logo_link) {
     &:hover {
       background-color: var(--white);

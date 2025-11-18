@@ -3,7 +3,8 @@
 
 /* Hero */
 .aw-hero {
-  padding-block: clamp(2rem, 5vw, 4rem);
+  padding-block: clamp(2rem, 8vw, 4rem);
+  background: var(--color-bg);
 
   .container {
     display: flex;
@@ -22,11 +23,18 @@
     }
   }
 
+  &__left {
+    .title-block-ps {
+      >* {
+        color: var(--color-dark);
+      }
+    }
+  }
+
   .media {
 
     img {
       border-radius: 1rem;
-      box-shadow: var(--shadow);
       object-fit: cover;
       aspect-ratio: 4/3;
     }

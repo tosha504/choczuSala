@@ -18,7 +18,7 @@
 	<meta charset="<?php bloginfo('charset'); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
-
+	<!-- Elfsight Google Reviews | Untitled Google Reviews -->
 	<?php wp_head(); ?>
 </head>
 
@@ -31,6 +31,14 @@
 		<!-- Top bar -->
 		<div class="topbar">
 			<div class="container">
+				<?php
+				if (is_active_sidebar('lang')) : ?>
+					<aside class="footer-widget-area">
+						<?php dynamic_sidebar('lang'); ?>
+					</aside>
+				<?php endif; ?>
+
+
 				<div>Świeże dostawy • Odbiór osobisty w Gdańsku</div>
 				<div>Pn–Sb 10:00–20:00</div>
 			</div>
@@ -63,7 +71,31 @@
 					?>
 				</nav><!-- #site-navigation -->
 				<div class="actions">
-					<div class="search" role="search"><input type="search" placeholder="Szukaj produktów…" aria-label="Szukaj">
+					<div class="search" role="search"><a href="#"> <img src="<?php echo get_template_directory_uri() . '/assets/image/icons/woo/search.svg'; ?>" alt="search"></a>
+					</div>
+					<div class="actions__cart">
+						<?php
+						$account_page_id = get_option('woocommerce_cart_page_id');
+						$translated_id = function_exists('pll_get_post') ? pll_get_post($account_page_id) : $account_page_id;
+						$account_url = get_permalink($translated_id);
+						?>
+						<a class="header__logo_link"
+							href="<?php echo esc_url($account_url); ?>"
+							title="<?php esc_attr_e('Moje konto', 'start'); ?>"
+							rel="noopener noreferrer"
+							target="_self">
+							<img src="<?php echo get_template_directory_uri() . '/assets/image/icons/woo/cart.svg'; ?>" alt="Go to cart page">
+						</a>
+						<?php $account_page_id = get_option('woocommerce_myaccount_page_id');
+						$translated_id = function_exists('pll_get_post') ? pll_get_post($account_page_id) : $account_page_id;
+						$account_url = get_permalink($translated_id); ?>
+						<a class="header__logo_link"
+							href="<?php echo esc_url($account_url); ?>"
+							title="<?php esc_attr_e('Moje konto', 'start'); ?>"
+							rel="noopener noreferrer"
+							target="_self">
+							<img src="<?php echo get_template_directory_uri() . '/assets/image/icons/woo/account.svg'; ?>" alt="account">
+						</a>
 					</div>
 
 					<button class="burger"

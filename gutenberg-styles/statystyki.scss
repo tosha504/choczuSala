@@ -1,12 +1,15 @@
 @use "../sass/components/_breakpoints" as b;
 @use "sass:map";
 
-.aw-statystyki {}
+.aw-statystyki {
+  padding-block: clamp(2rem, 8vw, 4rem);
+}
 
 /* Nowości – siatka */
 .grid4 {
+  margin-top: clamp(1rem, 8vw, 3rem);
   display: grid;
-  gap: 16px;
+  gap: clamp(1rem, 4vw, 3rem);
   grid-template-columns: 1fr;
 
   @media (min-width: 560px) {
@@ -16,16 +19,19 @@
 
   @media (min-width: 1024px) {
     grid-template-columns: repeat(4, 1fr);
-
   }
-
-
-
-
 }
 
 .surface {
   background: var(--color-surface);
-  border-radius: 1rem;
+  border-radius: .75rem;
   box-shadow: var(--shadow);
+  padding: clamp(1.25rem, 6vw, 2.5rem) 1rem;
+
+  [ role="heading"] {
+    font-weight: 600;
+    color: var(--color-primary);
+    font-size: clamp(1.25rem, 2.3vw, 1.625rem);
+    line-height: 1.3;
+  }
 }

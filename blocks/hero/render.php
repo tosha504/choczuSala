@@ -32,8 +32,8 @@ $description = !empty(get_field('description')) ? "<div class='description'>" . 
       <?php echo show_title($tag, $text_title, $color_text) . $description; ?>
 
       <div style="display:flex;gap:10px;margin-top:16px">
-        <a class="btn" href="#kategorie">Przeglądaj kategorie</a>
-        <a class="btn secondary" href="#promocje">Zobacz promocje</a>
+        <a class="btn btn-primary" href="#kategorie">Zobacz ofertę</a>
+        <a class="btn btn-secondary" href="#promocje">Zobacz promocje</a>
       </div>
     </div>
     <div class="media" aria-hidden="true">

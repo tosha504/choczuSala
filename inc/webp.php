@@ -2,7 +2,7 @@
 if (!defined('ABSPATH')) exit;
 
 /** DEBUG SWITCH */
-define('AW_WEBP_DEBUG', false);
+define('AW_WEBP_DEBUG', true);
 define('AW_WEBP_QUALITY', 78);
 
 /** Logger */
@@ -265,76 +265,40 @@ add_filter('wp_calculate_image_srcset', function ($sources) {
     }
     return $sources;
 }, 10, 1);
-/** 3) Usuwanie WebP gdy WP usuwa oryginał(e) */
-
-// Mały helper do bezpiecznego unlink + log
-function aw_try_unlink($path)
+function aw_srcset_from_meta(int $attachment_id, bool $prefer_webp = true): string
 {
-    if (!$path || !file_exists($path)) return false;
-    $ok = @unlink($path);
-    aw_log('delete:unlink', ['path' => $path, 'ok' => $ok]);
-    return $ok;
+    $meta = wp_get_attachment_metadata($attachment_id);
+    if (!$meta || empty($meta['file'])) return '';
+
+    $uploads  = wp_get_upload_dir();
+    $baseurl  = trailingslashit($uploads['baseurl']) . trailingslashit(dirname($meta['file']));
+    $original = $uploads['baseurl'] . '/' . $meta['file'];
+
+    $parts = [];
+
+    // kandydaci z metadanych
+    if (!empty($meta['sizes']) && is_array($meta['sizes'])) {
+        foreach ($meta['sizes'] as $info) {
+            if (empty($info['file']) || empty($info['width'])) continue;
+            $url = $baseurl . $info['file'];
+            if ($prefer_webp) {
+                $maybe_webp = preg_replace('/\.(jpe?g|png|gif)$/i', '.webp', $url);
+                if ($maybe_webp && @fopen($maybe_webp, 'r')) $url = $maybe_webp;
+            }
+            $parts[$info['width']] = esc_url($url) . ' ' . (int)$info['width'] . 'w';
+        }
+    }
+
+    // dodaj oryginał jako największy
+    if (!empty($meta['width'])) {
+        $url = $original;
+        if ($prefer_webp) {
+            $maybe_webp = preg_replace('/\.(jpe?g|png|gif|webp)$/i', '.webp', $original);
+            if ($maybe_webp && @fopen($maybe_webp, 'r')) $url = $maybe_webp;
+        }
+        $parts[(int)$meta['width']] = esc_url($url) . ' ' . (int)$meta['width'] . 'w';
+    }
+
+    ksort($parts, SORT_NUMERIC);
+    return implode(', ', array_values($parts));
 }
-
-// 3A) Gdy WP usuwa dowolny pojedynczy plik (np. rozmiar), usuń jego odpowiednik .webp
-add_filter('wp_delete_file', function ($file_abs) {
-    // $file_abs = absolutna ścieżka do usuwanego przez WP pliku
-    if (!$file_abs) return $file_abs;
-
-    $ext = strtolower(pathinfo($file_abs, PATHINFO_EXTENSION));
-    // Interesują nas tylko źródła JPG/PNG (bo z nich robimy webp)
-    if (!in_array($ext, ['jpg', 'jpeg', 'png'], true)) {
-        return $file_abs; // nic nie ruszamy
-    }
-
-    $webp_abs = preg_replace('/\.(jpe?g|png)$/i', '.webp', $file_abs);
-    if ($webp_abs && file_exists($webp_abs)) {
-        aw_log('delete:wp_delete_file_hit', ['src' => $file_abs, 'webp' => $webp_abs]);
-        aw_try_unlink($webp_abs);
-    }
-    return $file_abs; // zawsze zwracamy oryginalną ścieżkę
-}, 10, 1);
-
-// 3B) Gdy kasowany jest cały attachment – usuń webp dla oryginału i wszystkich rozmiarów
-add_action('delete_attachment', function ($attachment_id) {
-    try {
-        $file = get_attached_file($attachment_id); // absolutna ścieżka do oryginału
-        $meta = wp_get_attachment_metadata($attachment_id);
-
-        aw_log('delete:attachment_start', ['id' => $attachment_id, 'file' => $file]);
-
-        // Oryginał
-        if ($file) {
-            $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-            if (in_array($ext, ['jpg', 'jpeg', 'png'], true)) {
-                $webp_orig = preg_replace('/\.(jpe?g|png)$/i', '.webp', $file);
-                if ($webp_orig && file_exists($webp_orig)) {
-                    aw_try_unlink($webp_orig);
-                }
-            }
-        }
-
-        // Rozmiary z metadanych (zwykle w tym samym katalogu co oryginał)
-        if (!empty($meta['sizes']) && is_array($meta['sizes']) && $file) {
-            $dir = dirname($file);
-            foreach ($meta['sizes'] as $size_key => $size) {
-                if (empty($size['file'])) continue;
-                $size_abs = $dir . '/' . $size['file'];
-                $ext = strtolower(pathinfo($size_abs, PATHINFO_EXTENSION));
-
-                // Jeżeli rozmiar był JPG/PNG – usuń parę .webp
-                if (in_array($ext, ['jpg', 'jpeg', 'png'], true)) {
-                    $webp_size = preg_replace('/\.(jpe?g|png)$/i', '.webp', $size_abs);
-                    if ($webp_size && file_exists($webp_size)) {
-                        aw_log('delete:size_webp', ['size' => $size_key, 'webp' => $webp_size]);
-                        aw_try_unlink($webp_size);
-                    }
-                }
-            }
-        }
-
-        aw_log('delete:attachment_done', ['id' => $attachment_id]);
-    } catch (\Throwable $e) {
-        aw_log('delete:attachment_exception', ['id' => $attachment_id, 'msg' => $e->getMessage()]);
-    }
-}, 10, 1);

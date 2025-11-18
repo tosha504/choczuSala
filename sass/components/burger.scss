@@ -1,5 +1,6 @@
 @use "./__breakpoints" as b;
 @use "sass:map";
+
 .burger {
   border: none;
   background-color: transparent;
@@ -7,11 +8,12 @@
   cursor: pointer;
   z-index: 6;
   margin-left: auto;
+
   span {
     display: none;
     width: 32px;
     height: 2px;
-    background-color: #fff;
+    background-color: var(--color-text);
     margin: 4px 0;
     transition: 0.35s;
 

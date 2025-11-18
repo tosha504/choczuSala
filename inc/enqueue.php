@@ -68,3 +68,14 @@ if (!function_exists('start_scripts')) {
 	}
 }
 add_action('wp_enqueue_scripts', 'start_scripts',);
+
+
+function mytheme_preload_google_fonts()
+{
+?>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+<?php
+}
+add_action('wp_head', 'mytheme_preload_google_fonts', 1);

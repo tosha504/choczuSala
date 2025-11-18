@@ -1,14 +1,25 @@
 :root {
-  --color-black: #111827;
-  --color-bg: #f8f0ec;
-  --color-surface: #ffffff;
-  --color-text: #4e351e;
-  --color-muted: #765b40;
-  --color-primary: #9d7a58;
-  --color-primary-600: #765b40;
-  --color-primary-700: #4e351e;
-  --color-secondary: #0e0700;
-  --color-secondary-600: #2a1a0f;
-  --color-on-dark: #ffffff;
-  --color-accent: #b97a3c;
+  --weather: "Merriweather", serif;
+  --inter: "Inter", sans-serif;
+  /* NEUTRALNE – TŁA */
+  --color-bg: #FAF7F3;
+  /* jasne, mleczne tło – czysto i nowocześnie */
+  --color-surface: #FFFFFF;
+  /* biały dla kart/produktów */
+
+  /* TEKSTY */
+  --color-text: #1A1A1A;
+  /* mocny, czysty kontrast */
+  --color-text-muted: #6A6A6A;
+
+  /* PRIMARY – ciepły karmel premium */
+  --color-primary: #B47B48;
+  --color-primary-hover: #9A6538;
+
+  /* DARK – akcenty, header, stopka */
+  --color-dark: #4A2F22;
+  --color-accent: #E3B27A;
+
+  /* BORDERY */
+  --color-border: #E7DED5;
 }

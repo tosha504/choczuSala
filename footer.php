@@ -11,7 +11,11 @@
  */
 
 ?>
-
+<!-- Elfsight Google Reviews | Untitled Google Reviews -->
+<div class="container">
+  <script src="https://elfsightcdn.com/platform.js" async></script>
+  <div class="elfsight-app-ab667762-539e-4d5b-b95f-d3c7e96dcd23" data-elfsight-app-lazy></div>
+</div>
 <footer id="colophon" class="footer">
   <div class="container cols">
     <div>

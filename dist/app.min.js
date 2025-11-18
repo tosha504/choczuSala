@@ -8,32 +8,32 @@
 /***/ (() => {
 
 (function () {
-  console.log('ready');
+  console.log("ready");
   var burger = jQuery(".burger"),
     burgerSpan = jQuery(".burger span"),
-    nav = jQuery('.header__nav'),
-    body = jQuery('body');
+    nav = jQuery("#site-navigation"),
+    body = jQuery("body");
   burger.on("click", function () {
     burgerSpan.toggleClass("active");
     nav.toggleClass("active");
     body.toggleClass("fixed-page");
   });
   setTimeout(function () {
-    if (getCookie('popupCookie') != 'submited') {
-      jQuery('.cookies').css("display", "block").hide().fadeIn(2000);
+    if (getCookie("popupCookie") != "submited") {
+      jQuery(".cookies").css("display", "block").hide().fadeIn(2000);
     }
-    jQuery('a.submit').click(function () {
-      jQuery('.cookies').fadeOut();
+    jQuery("a.submit").click(function () {
+      jQuery(".cookies").fadeOut();
       //sets the coookie to five minutes if the popup is submited (whole numbers = days)
-      setCookie('popupCookie', 'submited', 7);
+      setCookie("popupCookie", "submited", 7);
     });
   }, 5000);
   function getCookie(cname) {
     var name = cname + "=";
-    var ca = document.cookie.split(';');
+    var ca = document.cookie.split(";");
     for (var i = 0; i < ca.length; i++) {
       var c = ca[i];
-      while (c.charAt(0) == ' ') {
+      while (c.charAt(0) == " ") {
         c = c.substring(1);
       }
       if (c.indexOf(name) == 0) {

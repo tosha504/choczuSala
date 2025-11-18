@@ -3,8 +3,8 @@
 
 footer {
     margin-top: 36px;
-    background: #111827;
-    color: #cbd5e1;
+    background: var(--color-dark, #111827);
+    color: var(--color-bg);
 }
 
 footer .cols {
@@ -15,7 +15,13 @@ footer .cols {
 }
 
 footer a {
-    color: #cbd5e1;
+    color: var(--color-surface);
+
+    @media (hover: hover) {
+        &:hover {
+            color: var(--color-primary-hover);
+        }
+    }
 }
 
 /* Responsywność */

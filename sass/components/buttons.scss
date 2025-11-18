@@ -1,5 +1,12 @@
 @use "./__breakpoints" as b;
 @use "sass:map";
+
 button {
   border: none;
+
+  &.button {
+    background-color: var(--color-accent);
+    color: var(--color-surface);
+    font-family: inherit;
+  }
 }
