@@ -1,0 +1,35 @@
+// @use "../../components/_breakpoints" as b;
+// @use "../../components/extension.scss";
+// @use "../../components/extension.scss";
+
+// @use "sass:map";
+
+// // .woocommerce a.button,
+// // .woocommerce button.button,
+// // .woocommerce input.button {
+// //     @extend %btn;
+// //     max-width: fit-content;
+// //     width: 100%;
+
+// //     @media (min-width: map.get(b.$grid-breakpoints, md)) {
+// //         max-width: clamp(14rem, 30vw, 30rem);
+
+// //     }
+
+// //     @media (hover: hover) {
+// //         &:hover {
+// //             cursor: pointer
+// //         }
+// //     }
+// // }
+
+// // /* Alternatywna wersja (checkout) */
+// // // .woocommerce a.button.alt,
+// // // .woocommerce button.button.alt {
+// // //     background: green;
+// // // }
+
+// // /* Główny add-to-cart */
+// // .single_add_to_cart_button {
+// //     @extend %btn-primary;
+// // }

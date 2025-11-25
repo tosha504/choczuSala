@@ -15,9 +15,7 @@ if ($attachment_ids) $slides = array_merge($slides, $attachment_ids);
 // Fallback gdy brak zdjęć
 if (empty($slides)) {
     echo '<div class="product-media ">';
-    echo
-    // tnl_custom_sale_badge() . 
-    wc_placeholder_img('full');
+    echo wc_placeholder_img('full');
     echo '</div>';
     return;
 }
@@ -35,7 +33,7 @@ if (empty($slides)) {
                     // duży obraz z lazy + srcset
                     echo wp_get_attachment_image(
                         $id,
-                        'full',
+                        'large',
                         false,
                         [
                             'class'          => 'product-gallery__img swiper-lazy',

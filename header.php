@@ -71,8 +71,9 @@
 					?>
 				</nav><!-- #site-navigation -->
 				<div class="actions">
-					<div class="search" role="search"><a href="#"> <img src="<?php echo get_template_directory_uri() . '/assets/image/icons/woo/search.svg'; ?>" alt="search"></a>
-					</div>
+					<a href="#" class="search" role="search">
+						<?php echo aw_svg('search'); ?>
+					</a>
 					<div class="actions__cart">
 						<?php
 						$account_page_id = get_option('woocommerce_cart_page_id');
@@ -84,9 +85,10 @@
 							title="<?php esc_attr_e('Moje konto', 'start'); ?>"
 							rel="noopener noreferrer"
 							target="_self">
-							<img src="<?php echo get_template_directory_uri() . '/assets/image/icons/woo/cart.svg'; ?>" alt="Go to cart page">
+							<?php echo aw_svg('cart'); ?>
 						</a>
-						<?php $account_page_id = get_option('woocommerce_myaccount_page_id');
+						<?php
+						$account_page_id = get_option('woocommerce_myaccount_page_id');
 						$translated_id = function_exists('pll_get_post') ? pll_get_post($account_page_id) : $account_page_id;
 						$account_url = get_permalink($translated_id); ?>
 						<a class="header__logo_link"
@@ -94,7 +96,7 @@
 							title="<?php esc_attr_e('Moje konto', 'start'); ?>"
 							rel="noopener noreferrer"
 							target="_self">
-							<img src="<?php echo get_template_directory_uri() . '/assets/image/icons/woo/account.svg'; ?>" alt="account">
+							<?php echo aw_svg('account'); ?>
 						</a>
 					</div>
 
@@ -103,3 +105,65 @@
 				</div>
 			</div>
 		</header><!-- #masthead -->
+
+		<?php
+		/**
+		 * Product Categories All Block template — z fallbackiem obrazka.
+		 */
+
+		$anchor = '';
+		if (!empty($block['anchor'])) {
+			$anchor = 'id="' . esc_attr($block['anchor']) . '" ';
+		}
+
+		$class_name = 'aw-product-cats-all';
+		if (!empty($block['className'])) {
+			$class_name .= ' ' . esc_attr($block['className']);
+		}
+
+		// pobieramy kategorie
+		$args = [
+			'taxonomy'   => 'product_cat',
+			'hide_empty' => false,
+		];
+
+		if (function_exists('pll_current_language')) {
+			$args['lang'] = pll_current_language();
+		}
+
+		$terms = get_terms($args);
+
+		if (empty($terms) || is_wp_error($terms)) {
+			return;
+		}
+
+		// Fallback (ustaw swój)
+		$fallback_img = get_template_directory_uri() . '/assets/img/cat-placeholder.jpg';
+		?>
+
+		<section class="<?php echo esc_attr($class_name); ?>" <?php echo $anchor; ?>>
+			<div class="aw-product-cats-all__label">
+				<?php esc_html_e('Kategorie:', 'aw-theme'); ?>
+			</div>
+
+			<div class="aw-product-cats-all__list">
+				<?php foreach ($terms as $term): ?>
+					<?php
+					$thumb_id  = get_term_meta($term->term_id, 'thumbnail_id', true);
+					$thumb_url = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'thumbnail') : $fallback_img;
+					?>
+					<a class="aw-product-cats-all__item" href="<?php echo esc_url(get_term_link($term)); ?>">
+
+						<span class="aw-product-cats-all__img">
+							<img
+								src="<?php echo esc_url($thumb_url); ?>"
+								alt="<?php echo esc_attr($term->name); ?>">
+						</span>
+
+						<span class="aw-product-cats-all__label-text">
+							<?php echo esc_html($term->name); ?>
+						</span>
+					</a>
+				<?php endforeach; ?>
+			</div>
+		</section>

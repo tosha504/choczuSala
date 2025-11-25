@@ -1,0 +1,102 @@
+ @use "../../../components/_breakpoints" as b;
+ @use "../price-extension";
+ @use "sass:map";
+
+ %summary {
+     .summary {
+         h1 {
+             font-size: 1.25rem;
+
+             @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                 font-size: 1.875rem;
+             }
+         }
+
+         .woocommerce-product-details__short-description {
+             padding-bottom: 1rem;
+             border-bottom: 1px solid var(--gray3-color);
+         }
+
+         .price {
+
+             margin-top: 2rem;
+             margin-bottom: 1.5rem;
+             @extend %price;
+         }
+
+
+         .woocommerce-variation-add-to-cart,
+         form.cart {
+             display: flex;
+
+             .quantity {
+
+                 display: flex;
+                 flex: 1 1 100%;
+                 border: 1px solid var(--gray3-color);
+                 justify-content: space-between;
+                 margin-right: 20px;
+                 background-color: var(--white);
+                 overflow: hidden;
+                 max-width: 120px;
+                 border-radius: 50px;
+
+                 button,
+                 input {
+                     border: none;
+                     font-size: 16px;
+                     background-color: var(--white);
+                 }
+
+                 button {
+                     flex: 1 1 100%;
+                     max-width: 40px;
+                     display: flex;
+                     align-items: center;
+                     justify-content: center;
+                     transition: 0.25s;
+
+                     @media (hover: hover) {
+                         &:hover {
+                             cursor: pointer;
+                             background-color: var(--gray3-color);
+                         }
+                     }
+                 }
+
+                 input {
+                     max-width: 40px;
+                     flex: 1 1 100%;
+                     border-radius: 0;
+                     text-align: center;
+                     align-items: center;
+                     justify-content: center;
+                     border-left: 1px solid var(--gray3-color);
+                     border-right: 1px solid var(--gray3-color);
+
+                 }
+
+                 input::-webkit-outer-spin-button,
+                 input::-webkit-inner-spin-button {
+                     -webkit-appearance: none;
+                     margin: 0;
+                 }
+
+                 /* Firefox */
+                 input[type="number"] {
+                     -moz-appearance: textfield;
+                     pointer-events: none;
+                     padding: 0;
+                 }
+             }
+
+             button {
+                 &.button {
+                     flex: 1 1 100%;
+                     text-align: center;
+                     justify-content: center;
+                 }
+             }
+         }
+     }
+ }

@@ -21,11 +21,11 @@
             "selected": 0
         },
         {
-            "key": "field_687fdaf718a2d",
-            "label": "button",
-            "name": "button",
+            "key": "field_691f1c67d308d",
+            "label": "buttons",
+            "name": "buttons",
             "aria-label": "",
-            "type": "link",
+            "type": "repeater",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -34,7 +34,59 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "array"
+            "layout": "table",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Dodaj wiersz",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_687fdaf718a2d",
+                    "label": "button",
+                    "name": "button",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "parent_repeater": "field_691f1c67d308d"
+                },
+                {
+                    "key": "field_691f1e95a5da9",
+                    "label": "class btn",
+                    "name": "class_btn",
+                    "aria-label": "",
+                    "type": "radio",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "primary": "primary",
+                        "secondary": "secondary"
+                    },
+                    "default_value": "",
+                    "return_format": "value",
+                    "allow_null": 0,
+                    "other_choice": 0,
+                    "allow_in_bindings": 0,
+                    "layout": "vertical",
+                    "save_other_choice": 0,
+                    "parent_repeater": "field_691f1c67d308d"
+                }
+            ]
         }
     ],
     "location": [
@@ -42,7 +94,7 @@
             {
                 "param": "block",
                 "operator": "==",
-                "value": "all"
+                "value": "aw-theme\/hero"
             }
         ]
     ],
@@ -55,5 +107,6 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1754056614
+    "display_title": "",
+    "modified": 1763647649
 }

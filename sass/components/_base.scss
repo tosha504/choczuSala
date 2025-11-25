@@ -17,9 +17,8 @@ body {
   position: relative;
   font-weight: 400;
   margin: 0;
-  line-height: 1.6;
+  line-height: 1.55;
   scroll-behavior: smooth;
-  font-size: 16px;
 }
 
 body {
@@ -204,4 +203,184 @@ img {
 
 .aw-grv__error {
   color: #b91c1c;
+}
+
+ul.products li.product {
+  flex: 1 1 100%;
+  max-width: 100%;
+
+  @media (min-width: map.get(b.$grid-breakpoints, md)) {
+    max-width: calc(50% - 0.5rem); // 2 kolumny
+  }
+
+  @media (min-width: map.get(b.$grid-breakpoints, lg)) {
+    max-width: calc(33.333% - 0.67rem); // 3 kolumny
+  }
+
+  // jeśli chcesz 4 kolumny na XL, odkomentuj:
+  @media (min-width: map.get(b.$grid-breakpoints, xl)) {
+    max-width: calc(25% - 1.5rem);
+  }
+}
+
+.wc-card {
+  &__inner {
+    background: var(--white-color);
+    border: 1px solid rgba(0, 0, 0, .06);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .06);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  /* Obrazek */
+  &__thumb {
+    display: block;
+    position: relative;
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+  }
+
+  /* Body */
+  &__body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  @media (min-width: map.get(b.$grid-breakpoints, md)) {
+    &__body {
+      padding: 18px;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-weight: 700;
+    font-size: clamp(16px, 1.9vw, 18px);
+
+    a {
+      color: var(--black-color);
+      text-decoration: none;
+    }
+  }
+
+  &__excerpt {
+    color: var(--gray2-color);
+    font-size: clamp(13px, 1.6vw, 14px);
+    line-height: 1.55;
+    // skracanie do 2–3 linii (opcjonalnie)
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__price {
+    margin-top: 2px;
+
+    .price {
+      // @extend %price;
+
+      .woocommerce-price-suffix {
+        display: none;
+      }
+    }
+
+  }
+
+  &__cta {
+    margin-top: auto; // przykleja button do dołu karty
+    display: flex;
+  }
+
+  /* Dopieszczony button dodaj do koszyka */
+  .add_to_cart_button,
+  .product_type_simple,
+  .ajax_add_to_cart {
+    width: 100%; // pełna szerokość jak na podglądzie
+  }
+}
+
+/* Mikro dopieszczenie fokusa i hovera miniatury */
+.wc-card__thumb:focus-visible {
+  outline: 2px solid var(--main-color);
+  outline-offset: 2px;
+}
+
+.wc-card__img {
+  transition: 0.3s;
+}
+
+.wc-card__inner:hover .wc-card__img {
+  filter: saturate(1.02);
+
+}
+
+.wc-card__inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* kciuk + body w kolumnie */
+}
+
+/* 2) Stała wysokość miniatury + obraz dopasowany */
+.wc-card__thumb {
+  aspect-ratio: 4 / 3;
+  display: block;
+  background: #fafafa;
+  overflow: hidden;
+
+  @media (hover: hover) {
+    &:hover {
+      img {
+        transform: scale(1.065);
+      }
+    }
+  }
+}
+
+.wc-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 3) Treść rozciągnięta, CTA na dole */
+.wc-card__body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wc-card__cta {
+  margin-top: auto;
+}
+
+/* pcha przycisk do dołu */
+
+/* 4) (Opcjonalnie) Ujednolicenie wysokości nagłówka/opisu – brak „skakania” */
+.wc-card__title a {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.wc-card__excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

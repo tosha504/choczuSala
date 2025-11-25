@@ -1,0 +1,47 @@
+     @use "../../components/_breakpoints" as b;
+     @use "sass:map";
+
+     %price {
+         display: flex;
+         gap: 1rem;
+         align-items: center;
+         flex-wrap: wrap;
+
+         /* wspólny rozmiar */
+         del,
+         ins {
+             font-size: clamp(18px, 4.2vw, 22px);
+
+         }
+
+         >.woocommerce-Price-amount.amount {
+             font-size: clamp(16px, 2.2vw, 22px);
+         }
+
+         /* aktualna cena: z <ins> LUB bezpośrednio jako dziecko .price */
+         ins .woocommerce-Price-amount.amount bdi,
+         >.woocommerce-Price-amount.amount bdi {
+             font-weight: 600;
+             color: var(--main-color);
+         }
+
+         /* stara cena */
+         del {
+             color: var(--gray3-color);
+
+             .woocommerce-Price-amount.amount bdi {
+                 font-weight: 400;
+                 color: inherit;
+             }
+         }
+
+         ins {
+             text-decoration: none;
+         }
+
+         .woocommerce-price-suffix {
+             font-size: 1rem;
+             font-weight: 500;
+             color: var(--black-color);
+         }
+     }

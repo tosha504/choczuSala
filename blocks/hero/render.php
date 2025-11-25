@@ -22,7 +22,7 @@ $text_title = get_field('text_title');
 $color_text = get_field('color_text');
 $class = get_field('class');
 $image = get_field('image');
-
+$buttons = get_field('buttons');
 $description = !empty(get_field('description')) ? "<div class='description'>" . get_field('description') . "</div>" : "";
 ?>
 <!-- aw-hero -->
@@ -30,11 +30,12 @@ $description = !empty(get_field('description')) ? "<div class='description'>" . 
   <div class="container">
     <div class="aw-hero__left">
       <?php echo show_title($tag, $text_title, $color_text) . $description; ?>
+      <?php if (!empty($buttons) && count($buttons) > 0) { ?>
+        <div class="buttons">
+          <?php foreach ($buttons as $key => $button)  create_button_block($button['button'], $button['class_btn']); ?>
+        </div>
+      <?php } ?>
 
-      <div style="display:flex;gap:10px;margin-top:16px">
-        <a class="btn btn-primary" href="#kategorie">Zobacz ofertę</a>
-        <a class="btn btn-secondary" href="#promocje">Zobacz promocje</a>
-      </div>
     </div>
     <div class="media" aria-hidden="true">
       <?php if (!empty($image)) {

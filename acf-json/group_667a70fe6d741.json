@@ -86,7 +86,10 @@
             "default_value": "",
             "enable_opacity": 0,
             "return_format": "string",
-            "allow_in_bindings": 0
+            "allow_in_bindings": 0,
+            "custom_palette_source": "",
+            "palette_colors": "",
+            "show_color_wheel": true
         },
         {
             "key": "field_6880f502c088e",
@@ -116,6 +119,13 @@
                 "operator": "==",
                 "value": "aw-theme\/hero"
             }
+        ],
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "aw-theme\/statystyki"
+            }
         ]
     ],
     "menu_order": -1,
@@ -127,5 +137,6 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1760210929
+    "display_title": "",
+    "modified": 1763648206
 }

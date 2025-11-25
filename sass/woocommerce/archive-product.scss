@@ -1,0 +1,30 @@
+@use "../components/_breakpoints" as b;
+@use "sass:map";
+@use "./helpers/archive-elements/shop-hero.scss";
+@use "./helpers/archive-elements/woo-pagination.scss";
+@use "./helpers/archive-elements/aw-cat-carousel.scss";
+
+body {
+
+    &.archive,
+    &.tax-product_cat,
+    &.post-type-archive-product {
+        main {
+            color: var(--black-color);
+        }
+
+        @extend %cat-carusel;
+        @extend %shop-hero;
+
+
+
+        .wrap-products {
+            padding-block: clamp(2rem, 5vw, 4rem);
+            background:
+                linear-gradient(180deg, var(--gray-color, #ccc) 70%, var(--white-color, #fff) 30%);
+        }
+
+        @extend %woo-pagination;
+
+    }
+}

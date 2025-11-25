@@ -1,0 +1,69 @@
+   @use "../../../components/_breakpoints" as b;
+   @use "sass:map";
+
+   %sub-box {
+
+       /* Wrapper */
+       .aw-sub-box {
+           margin-block: clamp(1rem, 5vw, 2rem);
+           border-radius: 1.75rem;
+           /* duże, miękkie zaokrąglenie */
+           background: linear-gradient(90deg,
+                   var(--main-color) 0%,
+                   #7a1b26 35%,
+                   #2b1c1e 70%,
+                   #0f0f10 100%);
+           color: var(--white-color);
+           box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+           overflow: hidden;
+
+       }
+
+
+
+       /* Wewnętrzny kontener */
+       .aw-sub-box__inner {
+           padding: 1.25rem 1.5rem;
+           text-align: center;
+           margin: 0 auto;
+           padding: clamp(2rem, 5vw, 4rem);
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           /* mobile */
+       }
+
+       .aw-sub-box__inner>* {
+           max-width: 48rem;
+       }
+
+
+       /* Linia z cenami */
+       .aw-sub-box__line {
+           margin: 0 0 .25rem;
+           font-size: .975rem;
+           line-height: 1.6;
+       }
+
+       .aw-sub-box__line strong {
+           font-weight: 700;
+       }
+
+       /* Dodatkowa informacja (muted) */
+       .aw-sub-box__muted {
+           margin: 0;
+           opacity: .85;
+           font-size: .92rem;
+       }
+
+       /* Helper: łamanie w tytule tylko na mobile */
+       .only-mobile {
+           display: inline;
+       }
+
+       @media (min-width: 768px) {
+           .only-mobile {
+               display: none;
+           }
+       }
+   }

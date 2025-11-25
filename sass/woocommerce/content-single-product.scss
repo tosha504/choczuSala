@@ -1,0 +1,104 @@
+@use "../components/_breakpoints" as b;
+@use "sass:map";
+@use './helpers/single-product-elements/product-top-data';
+@use './helpers/single-product-elements/aw-product-meta';
+@use './helpers/single-product-elements/aw-product-shipping-info';
+@use './helpers/single-product-elements/aw-product-section';
+@use './helpers/single-product-elements/feature.scss';
+@use './helpers/single-product-elements/sub-box.scss';
+@use './helpers/single-product-elements/gallery.scss';
+@use './helpers/single-product-elements/benefits.scss';
+
+
+
+body {
+    &.product-template-default {
+        background: var(--gray-color);
+
+        main {
+            padding-block: clamp(2rem, 5vw, 4rem);
+            background-color: var(--white-color);
+
+            &:has(.benefits) {
+                padding-bottom: 0;
+
+                .benefits {
+                    position: relative;
+                    width: 100vw;
+                    left: 50%;
+                    right: 50%;
+                    margin-left: -50vw;
+                    margin-right: -50vw;
+
+                    &__header {
+                        max-width: 600px;
+                    }
+
+                    &__grid {
+                        @media (max-width: map.get(b.$grid-breakpoints, sm)) {
+                            grid-template-columns: 1fr;
+                        }
+
+                        @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                            grid-template-columns: 1fr 2fr;
+                        }
+
+                    }
+
+                    &__media {
+
+                        aspect-ratio: 4/3;
+
+                        @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                            aspect-ratio: 1/1;
+                        }
+                    }
+                }
+            }
+
+            [id^="product-"] {
+                @extend %product-top-data;
+                @extend %aw-product-meta;
+                @extend %aw-product-shipping-info;
+                @extend %aw-product-section;
+                @extend %feature;
+                @extend %sub-box;
+                @extend %gallery;
+                @extend %benefits;
+
+
+
+                .related {
+                    padding-block: clamp(2rem, 5vw, 4rem);
+
+                    ul.products {
+
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 1rem;
+                        list-style: none;
+                        padding: 0;
+
+                        li.product {
+                            flex: 1 1 100%;
+                            max-width: 100%;
+
+                            @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                                max-width: calc(50% - 0.5rem); // 2 kolumny
+                            }
+
+                            @media (min-width: map.get(b.$grid-breakpoints, lg)) {
+                                max-width: calc(33.333% - 0.67rem); // 3 kolumny
+                            }
+                        }
+
+                        // jeśli chcesz 4 kolumny na XL, odkomentuj:
+                        // @media (min-width: map.get(b.$grid-breakpoints, xl)) {
+                        //   max-width: calc(25% - 0.75rem);
+                        // }
+                    }
+                }
+            }
+        }
+    }
+}

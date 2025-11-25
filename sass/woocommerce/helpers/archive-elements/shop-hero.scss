@@ -1,0 +1,22 @@
+    @use "../../../components/_breakpoints" as b;
+    @use "sass:map";
+
+    %shop-hero {
+        .aw-shop-hero {
+            position: relative;
+            background: linear-gradient(180deg, #0f0f0f 0%, #121212 8%, #7b0f1c 55%, #7b0f1c 100%);
+            color: var(--white-color, #fff);
+            padding: clamp(2rem, 5vw, 4rem);
+            overflow: hidden;
+            background: linear-gradient(180deg, #0C0C0C 60%, #FA1B47 100%);
+
+            >* {
+
+
+                // text-transform: capitalize;
+
+            }
+        }
+
+
+    }

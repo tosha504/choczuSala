@@ -43,7 +43,7 @@
     </nav>
     <div>
       <h4>Kontakt</h4>
-      <p class="muted">ul. Przykładowa 1, 80-000 Gdańsk<br />tel. 500 000 000<br />email: sklep@chce-salo.pl</p>
+      <p class="muted">Tytusa Chałubińskiego 39, <br />80-807 Gdańsk<br /><a href="tel:+48792741241">+48 792 741 241</a><br />email: sklep@chce-salo.pl</p>
     </div>
   </div>
 
@@ -52,7 +52,7 @@
     <div class="container"
       style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;font-size:.9rem">
       <span>© <span id="y"></span> Хочу Сала</span>
-      <span>Demo by <a href="https://arturiko-web.eu/" target="_blank" rel="noopener noreferrer">arturiko-web</a></span>
+      <span><?php _e('Wykonanie: ', 'start'); ?> <a href="https://arturiko-web.eu/" target="_blank" rel="noopener noreferrer">arturiko-web</a></span>
     </div>
   </div>
 </footer><!-- #colophon -->

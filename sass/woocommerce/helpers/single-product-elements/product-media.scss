@@ -1,0 +1,51 @@
+ @use "../../../components/_breakpoints" as b;
+ @use "sass:map";
+
+
+ %product-media {
+     .product-media {
+         position: relative;
+
+         >.woocommerce-placeholder {
+             border-radius: 1rem;
+         }
+
+         .woocommerce-placeholder,
+         .product-gallery {
+             position: sticky;
+         }
+
+         .swiper-pagination {
+
+             .swiper-pagination-bullets-dynamic .swiper-pagination-bullet:not(.swiper-pagination-bullet-active-prev,
+                 .swiper-pagination-bullet-active-main,
+                 .swiper-pagination-bullet-active-next) {
+                 display: none;
+             }
+
+             /* Styl tych trzech (dowolnie) */
+             .swiper-pagination-bullet {
+                 opacity: 0;
+                 transition: transform .2s, opacity .2s;
+                 border: 1px solid var(--black-color);
+                 background: transparent;
+
+                 &.swiper-pagination-bullet-active-main {
+                     transition: transform .2s, opacity .2s;
+                     background-color: var(--black-color);
+                     border: 1px solid var(--black-color);
+                 }
+             }
+
+
+
+             .swiper-pagination-bullet-active-prev,
+             .swiper-pagination-bullet-active-main,
+             .swiper-pagination-bullet-active-next {
+                 opacity: 1;
+                 transform: scale(1);
+             }
+
+         }
+     }
+ }

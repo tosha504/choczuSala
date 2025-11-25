@@ -1,0 +1,138 @@
+  @use "../../../components/_breakpoints" as b;
+  @use "sass:map";
+
+  %gallery {
+      .aw-gallery {
+          padding: clamp(20px, 3vw, 36px) 0;
+      }
+
+      .title-block-ps {
+          text-align: center;
+          margin-bottom: clamp(1rem, 4vw, 2rem);
+      }
+
+      /* Karty */
+      .aw-gallery__item {
+          display: flex;
+
+          @media (max-width: map.get(b.$grid-breakpoints, xl)) {
+              margin-bottom: 2rem;
+          }
+
+          a {
+              display: flex;
+              border-radius: 1.5rem;
+              overflow: hidden;
+          }
+
+          img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              display: block;
+
+              @media (max-width: map.get(b.$grid-breakpoints, xl)) {
+                  aspect-ratio: 1/1;
+              }
+          }
+      }
+
+      /* Tryb siatki >=1200px */
+      .aw-gallery.is-grid .swiper-wrapper {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.125rem;
+      }
+
+      .aw-gallery.is-grid .aw-gallery__pagination,
+      .aw-gallery.is-grid .aw-gallery__nav {
+          display: none;
+      }
+
+      /* Tryb slidera <1200px */
+      .aw-gallery__swiper {
+          position: relative;
+      }
+
+      .aw-gallery__pagination {
+          position: absolute;
+          margin-top: 0.875rem;
+          bottom: 0;
+
+
+          .swiper-pagination-bullets-dynamic .swiper-pagination-bullet:not(.swiper-pagination-bullet-active-prev,
+              .swiper-pagination-bullet-active-main,
+              .swiper-pagination-bullet-active-next) {
+              display: none;
+          }
+
+          /* Styl tych trzech (dowolnie) */
+          .swiper-pagination-bullet {
+              opacity: 0;
+              transition: transform .2s, opacity .2s;
+              border: 1px solid var(--black-color);
+              background: transparent;
+
+              &.swiper-pagination-bullet-active-main {
+                  transition: transform .2s, opacity .2s;
+                  background-color: var(--black-color);
+                  border: 1px solid var(--black-color);
+              }
+          }
+
+
+
+          .swiper-pagination-bullet-active-prev,
+          .swiper-pagination-bullet-active-main,
+          .swiper-pagination-bullet-active-next {
+              opacity: 1;
+              transform: scale(1);
+          }
+      }
+
+      .aw-gallery__nav {
+          position: absolute;
+          top: 45%;
+          width: 2.25rem;
+          height: 2.25rem;
+          background: var(--white-color);
+          border-radius: 999px;
+          z-index: 2;
+      }
+
+      .aw-gallery__prev {
+          left: 6px;
+      }
+
+      .aw-gallery__next {
+          right: 6px;
+      }
+
+      /* strzałki: pseudo-ikonki */
+      .aw-gallery__nav::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          margin: auto;
+          width: 8px;
+          height: 8px;
+          border-top: 2px solid #333;
+          border-right: 2px solid #333;
+          transform: rotate(45deg);
+      }
+
+      .aw-gallery__prev::before {
+          transform: rotate(-135deg);
+          left: 2px;
+      }
+
+      .aw-gallery__next::before {
+          transform: rotate(45deg);
+          right: 2px;
+      }
+
+      /* Lepsze GPU hinty dla animacji */
+      .aw-gallery.is-grid .aw-gallery__item {
+          will-change: transform, opacity;
+      }
+  }

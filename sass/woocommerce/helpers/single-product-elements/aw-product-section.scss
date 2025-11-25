@@ -1,0 +1,98 @@
+ @use '../../../components/_breakpoints' as b;
+ @use "sass:map";
+
+ %aw-product-section {
+     .aw-product-section {
+         text-align: center;
+         padding-top: 2rem;
+         border-bottom: 1px solid var(--gray3-color);
+
+         .aw-content {
+             padding-bottom: clamp(0.825rem, 4vw, 2rem);
+
+             @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                 max-width: 40rem;
+                 margin: 0 auto;
+             }
+         }
+     }
+
+     /* --- Tabs --- */
+     .aw-tabs {
+         display: flex;
+         justify-content: center;
+         gap: 2.5rem;
+         border-top: 3px solid var(--gray4-color);
+         margin-bottom: 2rem;
+
+         @media (max-width: map.get(b.$grid-breakpoints, sm)) {
+             overflow-x: scroll;
+             justify-content: start;
+             width: 100%;
+         }
+     }
+
+     .aw-tab {
+         position: relative;
+         padding-block: 1rem;
+         font-weight: 600;
+         color: var(--black-color);
+         background: none;
+         border: none;
+         font-size: 1rem;
+         cursor: pointer;
+         transition: color 0.3s ease;
+         white-space: nowrap;
+
+         @media (hover: hover) {
+             &:hover {
+                 color: var(--main-color, #fa1b40);
+             }
+         }
+     }
+
+
+     /* --- Animated top line --- */
+     .aw-tab::before {
+         content: "";
+         position: absolute;
+         top: -2px;
+         left: 0;
+         width: 0%;
+         height: 2px;
+         background: var(--main-color, #fa1b40);
+         transition: width 0.3s ease;
+     }
+
+     .aw-tab:hover::before {
+         width: 100%;
+     }
+
+     /* --- Active tab --- */
+     .aw-tab.active {
+         color: var(--main-color, #fa1b40);
+     }
+
+     .aw-tab.active::before {
+         width: 100%;
+     }
+
+     /* --- Title & Description --- */
+     .aw-title {
+         font-size: 1.75rem;
+         font-weight: 700;
+         color: #0c0c0c;
+         margin-bottom: 0.75rem;
+     }
+
+     .aw-title span {
+         color: var(--main-color, #fa1b40);
+     }
+
+     .aw-description {
+         color: #555;
+         font-size: 1.1rem;
+         max-width: 700px;
+         margin: 0 auto;
+     }
+ }

@@ -1,0 +1,316 @@
+    @use "../components/_breakpoints" as b;
+    @use "sass:map";
+
+    body {
+        &.woocommerce-account {
+            main {
+                padding: 50px 0;
+                color: var(--black-color);
+
+                input {
+                    background-color: var(--white-color);
+                }
+
+                .container {
+                    background-color: var(--gray-color);
+                    border-radius: 30px;
+                    padding: 1.25rem 1rem;
+
+                    @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                        padding: 3.5rem;
+                    }
+
+                    #customer_login {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 1.25rem;
+
+                        .u-column1,
+                        .u-column2 {
+                            @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                                flex: 1 1 calc(48% - 1.25rem);
+                            }
+
+                            .woocommerce-form {
+                                max-width: 400px;
+                                padding: 1.25rem 0;
+
+                                .woocommerce-form-login__rememberme {
+                                    display: block;
+                                    margin-bottom: 10px;
+                                }
+                            }
+                        }
+                    }
+
+                    &.my-account-tnl {
+                        display: flex;
+                        gap: 20px;
+                        flex-wrap: wrap;
+
+                        .woocommerce-MyAccount-navigation-tnl,
+                        .woocommerce-MyAccount-content-tnl {
+                            flex: 1 1 100%;
+
+                            section {
+                                padding: 10px 0;
+                            }
+                        }
+
+                        .woocommerce-MyAccount-navigation {
+                            @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                                overflow-x: auto;
+                                border-bottom: 1px solid var(--black-color);
+                                padding-bottom: 10px;
+                            }
+
+                            @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                                flex: 0 1 calc(20% - 20px);
+                            }
+
+                            ul {
+                                list-style: none;
+                                display: flex;
+                                gap: 10px;
+                                flex-direction: column;
+
+                                li {
+                                    flex: 1 1 100%;
+
+                                    &.is-active {
+                                        font-weight: 700;
+
+                                        @media (hover: hover) {
+                                            cursor: pointer;
+                                        }
+                                    }
+
+                                    &.woocommerce-MyAccount-navigation-link--customer-logout {
+                                        a {
+                                            border-bottom: 1px solid var(--black-color);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .woocommerce-MyAccount-content-tnl {
+                            @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                                flex: 1 1 calc(80% - 20px);
+                            }
+
+                            p {
+                                &:nth-child(2) {
+                                    margin-bottom: 20px;
+                                }
+                            }
+
+                            form {
+                                p {
+                                    margin: 1rem 0;
+                                }
+                            }
+
+                            fieldset {
+                                border: none;
+                            }
+
+                            a {
+
+                                &:not(.button) {
+                                    color: var(--main-color);
+                                    // color: var(--white-color);
+                                }
+
+                                &.edit {
+                                    font-size: 12px;
+                                }
+                            }
+
+                            .woocommerce-Addresses {
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 20px;
+
+                                @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                                    gap: 100px;
+                                }
+
+                                .u-column1 {
+                                    flex: 1 1 100%;
+
+                                    @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                                        flex: 0 1 calc(34% - 100px);
+                                    }
+                                }
+
+                                .woocommerce-Address-title {
+                                    margin-bottom: 20px;
+
+                                    .edit {
+                                        font-weight: 500;
+                                        border-bottom: 1px solid var(--main-color);
+                                    }
+                                }
+                            }
+
+                            .shop_table.order_details {
+                                width: 100%;
+
+                                thead {
+                                    tr {
+                                        th {
+                                            border-bottom: 1px solid var(--black-color);
+                                            text-align: end;
+                                            padding: 10px 0;
+
+                                            &:first-child {
+                                                text-align: left;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                tbody,
+                                tfoot {
+                                    tr {
+
+                                        td,
+                                        th {
+                                            border-bottom: 1px solid var(--black-color);
+                                            padding: 10px 0px;
+                                            text-align: end;
+
+                                            &:first-child {
+                                                text-align: left;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            .woocommerce-MyAccount-orders {
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 20px;
+                                flex-direction: column;
+
+                                thead,
+                                tbody {
+                                    tr {
+                                        display: flex;
+                                        border-bottom: 1px solid var(--black-color);
+                                        padding-bottom: 10px;
+
+                                        @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                                            flex-direction: column;
+                                        }
+
+                                        th,
+                                        td {
+                                            flex: 0 1 25%;
+                                            text-align: center;
+                                            display: flex;
+                                            align-items: center;
+                                            padding: 0 10px;
+                                            text-align: start;
+
+                                            &.woocommerce-orders-table__cell-order-total {
+                                                flex-direction: column;
+                                                justify-content: center;
+
+                                                @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                                                    flex-direction: row;
+                                                }
+
+                                                .woocommerce-Price-amount {
+                                                    font-weight: 900;
+                                                }
+                                            }
+
+                                            @media (max-width: map.get(b.$grid-breakpoints, md)) {
+
+                                                &::before {
+                                                    content: attr(data-title);
+                                                    float: left;
+                                                    padding-top: 3px;
+                                                    color: var(--black-color);
+                                                    text-transform: uppercase;
+                                                    font-weight: 600;
+                                                    font-size: 12px;
+                                                    margin-right: auto;
+                                                }
+                                            }
+                                        }
+
+                                        td {
+                                            font-size: 14px;
+
+                                            @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                                                padding: 5px;
+                                            }
+
+                                            .woocommerce-Price-amount {
+                                                margin-right: 10px;
+                                            }
+
+                                            .button {
+                                                justify-content: end;
+
+                                                @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                                                    justify-content: start;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                thead {
+                                    flex: 1 1 calc(10% - 20px);
+
+                                    @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                                        display: none;
+                                    }
+                                }
+
+                                tbody {
+                                    flex: 1 1 calc(80% - 20px);
+                                }
+                            }
+                        }
+
+                        .woocommerce-order-details,
+                        .woocommerce-customer-details {
+                            h2 {
+                                margin-bottom: 2em;
+                            }
+                        }
+
+                        .woocommerce-customer-details {
+                            address {
+                                @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                                    margin-bottom: 2em;
+                                }
+                            }
+                        }
+                    }
+
+                    h2 {
+                        font-size: clamp(25px, 5vw, 37px);
+                    }
+
+                    form {
+                        border: none;
+
+                        p,
+                        .form-row {
+                            font-size: 14px;
+                            margin: 15px 0;
+                        }
+
+
+                    }
+                }
+            }
+        }
+    }

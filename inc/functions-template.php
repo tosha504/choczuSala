@@ -107,3 +107,60 @@ function show_title($tag, $text_title, $color_text = null, $class_title = null)
     TITLE;
   }
 }
+
+function create_button_block($link, $class_btn = null)
+{
+  if (!empty($link)) {
+    $class = $class_btn !== null ? "btn-" . $class_btn : "";
+    $link_url = $link['url'];
+    $link_title = $link['title'];
+    $link_target = $link['target'] ? $link['target'] : '_self'; ?>
+    <a class="btn <?php echo $class ?>" href="<?php echo esc_url($link_url); ?>"
+      target="<?php echo esc_attr($link_target); ?>">
+      <?php echo esc_html($link_title); ?>
+    </a>
+<?php
+  }
+}
+function aw_svg($source = null)
+{
+  static $cache = [];
+
+  // Jeśli podany argument to liczba → traktujemy jako ID załącznika
+  if (is_numeric($source)) {
+    $id = (int) $source;
+    $mime = get_post_mime_type($id);
+
+    if ($mime !== 'image/svg+xml') {
+      return ''; // nie jest SVG
+    }
+
+    $url = wp_get_attachment_url($id);
+    if (!$url) {
+      return '';
+    }
+
+    // Cache wg attachment ID
+    if (!isset($cache[$id])) {
+      $svg = file_get_contents($url);
+
+      // Security: usuń ewentualny <script> i eventy w svg
+      $svg = preg_replace('/<script.*?<\/script>/is', '', $svg);
+      $svg = preg_replace('/on\w+=".*?"/', '', $svg);
+
+      $cache[$id] = $svg;
+    }
+
+    return $cache[$id];
+  }
+
+  // Inaczej → wczytaj z folderu /assets/images/*.svg
+  $name = sanitize_file_name($source);
+  $path = get_template_directory() . "/assets/image/icons/{$name}.svg";
+
+  if (!isset($cache[$name]) && file_exists($path)) {
+    $cache[$name] = file_get_contents($path);
+  }
+
+  return $cache[$name] ?? '';
+}

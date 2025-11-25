@@ -1,0 +1,35 @@
+  @use "../../../components/_breakpoints" as b;
+  @use "sass:map";
+
+  %aw-product-shipping-info {
+      .aw-product-shipping-info {
+          background: #f9f9f9;
+          border-radius: 16px;
+          padding: clamp(0.75rem, 4vw, 1.5rem);
+          margin-block: 1.75rem;
+      }
+
+      .aw-shipping-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: grid;
+          gap: .75rem;
+
+
+          li {
+              display: flex;
+              align-items: flex-start;
+              gap: .75rem;
+              font-size: .95rem;
+              line-height: 1.4;
+
+              img {
+                  max-width: 22px;
+                  height: 22px;
+                  aspect-ratio: 1/1;
+              }
+          }
+
+      }
+  }
