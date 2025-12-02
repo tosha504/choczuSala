@@ -3,5 +3,6 @@
     "/src/index.css": "/src/index.css",
     "/css-blocks/statystyki.css": "/css-blocks/statystyki.css",
     "/css-blocks/hero.css": "/css-blocks/hero.css",
+    "/css-blocks/aw-cat-product.css": "/css-blocks/aw-cat-product.css",
     "/dist/app.min.js": "/dist/app.min.js"
 }

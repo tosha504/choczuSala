@@ -791,71 +791,71 @@
 	add_filter('option_woocommerce_terms_page_id', 'aw_pll_translate_wc_page_id');
 
 
-	add_action('woocommerce_before_shop_loop', function () {
-		if (!is_shop() && !is_product_taxonomy()) return;
+	// add_action('woocommerce_before_shop_loop', function () {
+	// 	if (!is_shop() && !is_product_taxonomy()) return;
 
-		// Pobierz kategorie najwyższego poziomu (zmień parent jeśli chcesz konkretne)
-		$terms = get_terms([
-			'taxonomy'   => 'product_cat',
-			'hide_empty' => true,
-			'parent'     => 0,
-			'orderby'    => 'menu_order',
-			'order'      => 'ASC',
-			'number'     => 24, // limit – zmień wg potrzeb
-		]);
+	// 	// Pobierz kategorie najwyższego poziomu (zmień parent jeśli chcesz konkretne)
+	// 	$terms = get_terms([
+	// 		'taxonomy'   => 'product_cat',
+	// 		'hide_empty' => true,
+	// 		'parent'     => 0,
+	// 		'orderby'    => 'menu_order',
+	// 		'order'      => 'ASC',
+	// 		'number'     => 24, // limit – zmień wg potrzeb
+	// 	]);
 
-		if (is_wp_error($terms) || empty($terms)) return;
+	// 	if (is_wp_error($terms) || empty($terms)) return;
 
-		echo '<section class="aw-cat-carousel" aria-label="Kategorie produktów">';
-		echo '  <div class="aw-cat-carousel__head">';
-		echo '    <h2 class="aw-cat-carousel__title">Kategorie</h2>';
-		echo '    <div class="aw-cat-carousel__nav">';
-		echo '      <button class="swiper-button-prev" aria-label="Poprzednie"></button>';
-		echo '      <button class="swiper-button-next" aria-label="Następne"></button>';
-		echo '    </div>';
-		echo '  </div>';
+	// 	echo '<section class="aw-cat-carousel" aria-label="Kategorie produktów">';
+	// 	echo '  <div class="aw-cat-carousel__head">';
+	// 	echo '    <h2 class="aw-cat-carousel__title">Kategorie</h2>';
+	// 	echo '    <div class="aw-cat-carousel__nav">';
+	// 	echo '      <button class="swiper-button-prev" aria-label="Poprzednie"></button>';
+	// 	echo '      <button class="swiper-button-next" aria-label="Następne"></button>';
+	// 	echo '    </div>';
+	// 	echo '  </div>';
 
-		echo '  <div class="swiper">';
-		echo '    <div class="swiper-wrapper">';
+	// 	echo '  <div class="swiper">';
+	// 	echo '    <div class="swiper-wrapper">';
 
-		foreach ($terms as $term) {
-			$thumb_id = get_term_meta($term->term_id, 'thumbnail_id', true);
-			$img_html = '';
+	// 	foreach ($terms as $term) {
+	// 		$thumb_id = get_term_meta($term->term_id, 'thumbnail_id', true);
+	// 		$img_html = '';
 
-			if ($thumb_id) {
-				// Lepsze obrazki: srcset/sizes + lazy
-				$img_html = wp_get_attachment_image(
-					$thumb_id,
-					'medium',
-					false,
-					[
-						'class'         => 'aw-cat__img',
-						'loading'       => 'lazy',
-						'decoding'      => 'async',
-						'fetchpriority' => 'low',
-						'alt'           => esc_attr($term->name),
-					]
-				);
-			} else {
-				// Placeholder Woo
-				$src = wc_placeholder_img_src('woocommerce_thumbnail');
-				$img_html = '<img class="aw-cat__img" src="' . esc_url($src) . '" alt="' . esc_attr($term->name) . '" loading="lazy" decoding="async">';
-			}
+	// 		if ($thumb_id) {
+	// 			// Lepsze obrazki: srcset/sizes + lazy
+	// 			$img_html = wp_get_attachment_image(
+	// 				$thumb_id,
+	// 				'medium',
+	// 				false,
+	// 				[
+	// 					'class'         => 'aw-cat__img',
+	// 					'loading'       => 'lazy',
+	// 					'decoding'      => 'async',
+	// 					'fetchpriority' => 'low',
+	// 					'alt'           => esc_attr($term->name),
+	// 				]
+	// 			);
+	// 		} else {
+	// 			// Placeholder Woo
+	// 			$src = wc_placeholder_img_src('woocommerce_thumbnail');
+	// 			$img_html = '<img class="aw-cat__img" src="' . esc_url($src) . '" alt="' . esc_attr($term->name) . '" loading="lazy" decoding="async">';
+	// 		}
 
-			$link = get_term_link($term);
-			if (is_wp_error($link)) continue;
+	// 		$link = get_term_link($term);
+	// 		if (is_wp_error($link)) continue;
 
-			echo '      <div class="swiper-slide">';
-			echo '        <a class="aw-cat" href="' . esc_url($link) . '">';
-			echo '          <span class="aw-cat__circle">' . $img_html . '</span>';
-			echo '          <span class="aw-cat__name">' . esc_html($term->name) . '</span>';
-			echo '          <span class="aw-cat__count">' . intval($term->count) . ' ' . _n('produkt', 'produkty', $term->count, 'thenewlook') . '</span>';
-			echo '        </a>';
-			echo '      </div>';
-		}
+	// 		echo '      <div class="swiper-slide">';
+	// 		echo '        <a class="aw-cat" href="' . esc_url($link) . '">';
+	// 		echo '          <span class="aw-cat__circle">' . $img_html . '</span>';
+	// 		echo '          <span class="aw-cat__name">' . esc_html($term->name) . '</span>';
+	// 		echo '          <span class="aw-cat__count">' . intval($term->count) . ' ' . _n('produkt', 'produkty', $term->count, 'thenewlook') . '</span>';
+	// 		echo '        </a>';
+	// 		echo '      </div>';
+	// 	}
 
-		echo '    </div>'; // .swiper-wrapper
-		echo '  </div>';   // .swiper
+	// 	echo '    </div>'; // .swiper-wrapper
+	// 	echo '  </div>';   // .swiper
 
-		echo '</section>';
-	}, 5);
+	// 	echo '</section>';
+	// }, 5);

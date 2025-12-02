@@ -1,0 +1,11 @@
+{
+  "name": "aw-theme/aw-cat-product",
+  "title": "AwCatProduct",
+  "category": "aw-theme",
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "supports": { "align": ["wide", "full"], "anchor": true },
+  "keywords": ["arturiko.web", "aw-cat-product"],
+    "style": [
+    "file:../../css-blocks/aw-cat-product.css"
+  ]
+}

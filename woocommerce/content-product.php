@@ -33,7 +33,7 @@ $permalink = apply_filters('woocommerce_loop_product_link', get_the_permalink(),
             if (has_post_thumbnail()) {
                 the_post_thumbnail('woocommerce_thumbnail', ['class' => 'wc-card__img', 'alt' => get_the_title()]);
             } else {
-                echo wc_placeholder_img('woocommerce_thumbnail', ['class' => 'wc-card__img']);
+                echo wc_placeholder_img('full', ['class' => 'wc-card__img']);
             }
             ?>
         </a>
