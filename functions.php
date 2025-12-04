@@ -52,6 +52,8 @@
 		register_nav_menus(
 			array(
 				'menu-header' => esc_html__('Header menu', 'start'),
+				'menu-foot-info' => esc_html__('Info footer menu', 'start'),
+				'menu-foot-cat' => esc_html__('Category footer menu', 'start'),
 			)
 		);
 
@@ -438,7 +440,6 @@
 
 		// --- Główne pola postu ---
 		$source_post = get_post($source_id);
-		var_dump($source_post, $source_post instanceof WC_Product);
 		if ($source_post && $source_post instanceof WC_Product) {
 			wp_update_post([
 				'ID'           => $target_id,
@@ -859,3 +860,87 @@
 
 	// 	echo '</section>';
 	// }, 5);
+	add_action('init', 'aw_register_multilang_options_pages');
+
+	function aw_register_multilang_options_pages()
+	{
+		if (!function_exists('acf_add_options_page')) return;
+
+		// Dynamicznie pobiera wszystkie aktywne języki
+		$langs = function_exists('pll_languages_list')
+			? pll_languages_list(['fields' => 'slug'])
+			: ['pl']; // fallback
+
+		foreach ($langs as $lang) {
+			acf_add_options_page([
+				'page_title' => "Ustawienia ({$lang})",
+				'menu_title' => "Ustawienia {$lang}",
+				'menu_slug'  => "theme-options-{$lang}",
+				'post_id'    => "theme_options_{$lang}", // KLUCZ
+				'redirect'   => false,
+				'capability' => 'manage_options'
+			]);
+		}
+	}
+	/**
+	 * Zwraca aktualny slug języka (Polylang) lub 'pl' jako domyślny.
+	 */
+	function aw_get_current_lang(): string
+	{
+
+		// 1. Jeśli Polylang nie istnieje → ustaw domyślny język
+		if (!function_exists('pll_current_language')) {
+			return 'pl';
+		}
+
+		/**
+		 * 2. Próba pobrania języka w normalnym kontekście (front)
+		 */
+		$lang = pll_current_language('slug');
+		if ($lang) {
+			return $lang;
+		}
+
+		/**
+		 * 3. Admin — jeśli edytujemy jakiegoś posta
+		 */
+		if (is_admin() && isset($_GET['post'])) {
+			$post_id = intval($_GET['post']);
+			$post_lang = pll_get_post_language($post_id, 'slug');
+			if ($post_lang) {
+				return $post_lang;
+			}
+		}
+
+		/**
+		 * 4. AJAX – Polylang często nie ustawia języka
+		 */
+		if (defined('DOING_AJAX') && DOING_AJAX) {
+			// Spróbuj pobrać z parametru ?lang=xx
+			if (!empty($_REQUEST['lang'])) {
+				return sanitize_text_field($_REQUEST['lang']);
+			}
+			// fallback do domyślnego języka PL
+			return pll_default_language('slug');
+		}
+
+		/**
+		 * 5. Ostateczny fallback — domyślny język Polylang
+		 */
+		$default = pll_default_language('slug');
+		return $default ?: 'pl';
+	}
+	function aw_get_options_post_id(?string $lang = null): string
+	{
+		$lang = $lang ?: aw_get_current_lang();
+		return "theme_options_{$lang}";
+	}
+
+	/**
+	 * Skrót do get_field() z odpowiednim post_id dla języka.
+	 */
+	function aw_get_option(string $field_name, ?string $lang = null)
+	{
+		$post_id = aw_get_options_post_id($lang);
+		return get_field($field_name, $post_id);
+	}

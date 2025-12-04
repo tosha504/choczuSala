@@ -107,6 +107,29 @@
                     "prepend": "",
                     "append": "",
                     "parent_repeater": "field_691f22e800b8f"
+                },
+                {
+                    "key": "field_69307b8e68d1d",
+                    "label": "icon",
+                    "name": "icon",
+                    "aria-label": "",
+                    "type": "clone",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "clone": [
+                        "field_687f6ecf9d43f"
+                    ],
+                    "display": "seamless",
+                    "layout": "block",
+                    "prefix_label": 0,
+                    "prefix_name": 0,
+                    "parent_repeater": "field_691f22e800b8f"
                 }
             ]
         }
@@ -130,5 +153,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1763648676
+    "modified": 1764785158
 }

@@ -1,0 +1,11 @@
+{
+  "name": "aw-theme/face-aw",
+  "title": "FaceAw",
+  "category": "aw-theme",
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "supports": { "align": ["wide", "full"], "anchor": true },
+  "keywords": ["arturiko.web", "face-aw"],
+    "style": [
+    "file:../../css-blocks/face-aw.css"
+  ]
+}

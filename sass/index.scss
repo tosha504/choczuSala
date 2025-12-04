@@ -17,7 +17,7 @@
 .woocommerce button.button,
 .woocommerce input.button {
     @extend %btn;
-    max-width: fit-content;
+    // max-width: fit-content;
 
     @media (hover: hover) {
         &:hover {
@@ -27,14 +27,7 @@
 }
 
 
-ul.products {
-    --gap: 24px;
-    display: flex;
-    gap: var(--gap);
-    list-style: none;
-    flex-wrap: wrap;
 
-}
 
 // .product-card {
 //     display: flex;

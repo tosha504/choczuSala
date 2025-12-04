@@ -1,0 +1,23 @@
+@use "../sass/components/_breakpoints" as b;
+@use "sass:map";
+
+.aw-product-aw {
+  background: var(--color-bg);
+  padding-block: clamp(2rem, 8vw, 4rem);
+
+  &__top {
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: clamp(2rem, 4vw, 3.5rem);
+    display: flex;
+    align-items: center;
+
+    .title-block-ps {
+      >* {
+        margin-bottom: 0;
+      }
+    }
+
+
+  }
+}

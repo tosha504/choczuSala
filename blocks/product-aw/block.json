@@ -1,0 +1,11 @@
+{
+  "name": "aw-theme/product-aw",
+  "title": "ProductAw",
+  "category": "aw-theme",
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "supports": { "align": ["wide", "full"], "anchor": true },
+  "keywords": ["arturiko.web", "product-aw"],
+    "style": [
+    "file:../../css-blocks/product-aw.css"
+  ]
+}

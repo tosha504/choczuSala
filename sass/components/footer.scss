@@ -2,20 +2,41 @@
 @use "sass:map";
 
 footer {
-    margin-top: 36px;
+    // margin-top: 2.25rem;
     background: var(--color-dark, #111827);
     color: var(--color-bg);
+
+    a,
+    p {
+        font-size: 0.75rem;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .footer {
+        &__logo {
+            img {
+                max-width: clamp(6rem, 20vw, 8rem);
+            }
+        }
+
+
+
+    }
 }
 
 footer .cols {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
     padding-block: clamp(1.75rem, 5vw, 3rem);
 }
 
 footer a {
     color: var(--color-surface);
+
 
     @media (hover: hover) {
         &:hover {

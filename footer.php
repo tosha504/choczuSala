@@ -10,40 +10,51 @@
  * @package start
  */
 
-?>
-<!-- Elfsight Google Reviews | Untitled Google Reviews -->
+$logo_logo = get_field('logo_logo', 'options');
+$title_menu = aw_get_option('title_menu');
+$under_logo = aw_get_option('under_logo');
+$categories_aw_title = aw_get_option('categories_aw_title');
+$kontakt_title = aw_get_option('kontakt_title'); ?>
+
 <div class="container">
   <script src="https://elfsightcdn.com/platform.js" async></script>
   <div class="elfsight-app-ab667762-539e-4d5b-b95f-d3c7e96dcd23" data-elfsight-app-lazy></div>
 </div>
 <footer id="colophon" class="footer">
   <div class="container cols">
-    <div>
-      <h3 style="margin-top:0">Хочу Сала</h3>
-      <p class="muted">Sklep z produktami wschodnimi w Gdańsku. Najlepsze słoniny, ryby, słodycze i napoje.</p>
+    <div class="footer__logo">
+      <?php echo !empty($logo_logo) ? my_custom_attachment_image($logo_logo) : "";
+      echo !empty($under_logo) ? '<p class="muted">' . $under_logo . '</p>' : ""; ?>
+
     </div>
     <nav aria-label="Dodatkowe">
-      <h4>Informacje</h4>
-      <ul style="list-style:none;padding:0;margin:0;display:grid;gap:6px">
-        <li><a href="#">O nas</a></li>
-        <li><a href="#">Dostawa</a></li>
-        <li><a href="#">Płatności</a></li>
-        <li><a href="#">Regulamin</a></li>
-        <li><a href="#">Polityka prywatności</a></li>
-      </ul>
+      <?php echo !empty($title_menu) ? '<h4>' . $title_menu . '</h4>' : "";
+      wp_nav_menu(
+        array(
+          'theme_location' => 'menu-foot-info',
+          'container' => false,
+          'menu_id' => 'footerInfo',
+          'menu_class' => '',
+        ),
+      ); ?>
+
     </nav>
     <nav aria-label="Kategorie">
-      <h4>Kategorie</h4>
-      <ul style="list-style:none;padding:0;margin:0;display:grid;gap:6px">
-        <li><a href="#kategorie">Słonina</a></li>
-        <li><a href="#kategorie">Wędliny</a></li>
-        <li><a href="#kategorie">Ryby</a></li>
-        <li><a href="#kategorie">Słodycze</a></li>
-      </ul>
+      <?php echo !empty($title_menu) ? '<h4>' . $title_menu . '</h4>' : "";
+      wp_nav_menu(
+        array(
+          'theme_location' => 'menu-foot-cat',
+          'container' => false,
+          'menu_id' => 'footerCatInfo',
+          'menu_class' => '',
+        ),
+      ); ?>
     </nav>
     <div>
-      <h4>Kontakt</h4>
-      <p class="muted">Tytusa Chałubińskiego 39, <br />80-807 Gdańsk<br /><a href="tel:+48792741241">+48 792 741 241</a><br />email: sklep@chce-salo.pl</p>
+      <?php echo !empty($kontakt_title) ? '<h4>' . $kontakt_title . '</h4>' : "";
+      ?>
+
+      <p class="muted"> NIP: 9571181815, <br />REGON: 540331049<br />Tytusa Chałubińskiego 39, <br />80-807 Gdańsk<br /><a href="tel:+48792741241">+48 792 741 241</a><br />email: sklep@chce-salo.pl</p>
     </div>
   </div>
 

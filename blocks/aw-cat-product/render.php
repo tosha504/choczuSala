@@ -76,16 +76,14 @@ $className = !empty($block['className']) ? $block['className'] : "";
           $thumb_url = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'full') : wc_placeholder_img_src('thumbnail');
           ?>
           <a class="aw-cat-product__item" href="<?php echo esc_url(get_term_link($term)); ?>">
-
             <span class="aw-cat-product__img">
               <img
                 src="<?php echo esc_url($thumb_url); ?>"
                 alt="<?php echo esc_attr($term->name); ?>">
-            </span>
 
-            <span class="aw-cat-product__label-text">
-              <?php echo esc_html($term->name); ?>
-            </span>
+              <span class="aw-cat-product__label-text">
+                <?php echo esc_html($term->name) . aw_svg('/arrow'); ?>
+              </span>
           </a>
         <?php endforeach; ?>
       <?php } ?>

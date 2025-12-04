@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_687fabb2a3ef9",
-            "label": "investors",
+            "label": "logo",
             "name": "",
             "aria-label": "",
             "type": "tab",
@@ -22,10 +22,10 @@
         },
         {
             "key": "field_687fabcea3efa",
-            "label": "title investor",
-            "name": "title_investor",
+            "label": "logo",
+            "name": "logo",
             "aria-label": "",
-            "type": "text",
+            "type": "clone",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -34,175 +34,13 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_687fac56a3efd",
-            "label": "investor content",
-            "name": "investor_content",
-            "aria-label": "",
-            "type": "wysiwyg",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 1,
-            "delay": 0
-        },
-        {
-            "key": "field_687fac48a3efc",
-            "label": "menu",
-            "name": "",
-            "aria-label": "",
-            "type": "tab",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "placement": "top",
-            "endpoint": 0,
-            "selected": 0
-        },
-        {
-            "key": "field_687fac25a3efb",
-            "label": "title menu",
-            "name": "title_menu",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_687fac6da3efe",
-            "label": "partners",
-            "name": "",
-            "aria-label": "",
-            "type": "tab",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "placement": "top",
-            "endpoint": 0,
-            "selected": 0
-        },
-        {
-            "key": "field_687fac87a3eff",
-            "label": "title partners",
-            "name": "title_partners",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_687fac8da3f00",
-            "label": "partners",
-            "name": "partners",
-            "aria-label": "",
-            "type": "repeater",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "layout": "table",
-            "pagination": 0,
-            "min": 0,
-            "max": 0,
-            "collapsed": "",
-            "button_label": "Dodaj wiersz",
-            "rows_per_page": 20,
-            "sub_fields": [
-                {
-                    "key": "field_687fac97a3f01",
-                    "label": "partner logo",
-                    "name": "partner_logo",
-                    "aria-label": "",
-                    "type": "image",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "id",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": "",
-                    "preview_size": "thumbnail",
-                    "parent_repeater": "field_687fac8da3f00"
-                }
-            ]
-        },
-        {
-            "key": "field_687fae55ea702",
-            "label": "bg",
-            "name": "",
-            "aria-label": "",
-            "type": "tab",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "placement": "top",
-            "endpoint": 0,
-            "selected": 0
+            "clone": [
+                "field_687f6ecf9d43f"
+            ],
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 1
         },
         {
             "key": "field_687fae62ea703",
@@ -230,8 +68,8 @@
             "preview_size": "thumbnail"
         },
         {
-            "key": "field_687fc8a631fa3",
-            "label": "bottom text",
+            "key": "field_687fae55ea702",
+            "label": "bg",
             "name": "",
             "aria-label": "",
             "type": "tab",
@@ -246,42 +84,6 @@
             "placement": "top",
             "endpoint": 0,
             "selected": 0
-        },
-        {
-            "key": "field_687fc8b131fa4",
-            "label": "bottom text",
-            "name": "bottom_text",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
-        },
-        {
-            "key": "field_687fc8c50186b",
-            "label": "bottom link",
-            "name": "bottom_link",
-            "aria-label": "",
-            "type": "link",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "return_format": "array"
         }
     ],
     "location": [
@@ -302,5 +104,6 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1754056588
+    "display_title": "",
+    "modified": 1764841156
 }

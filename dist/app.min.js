@@ -52,10 +52,36 @@
 
 /***/ }),
 
+/***/ "./sass/index.scss":
+/*!*************************!*\
+  !*** ./sass/index.scss ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./gutenberg-styles/aw-cat-product.scss":
 /*!**********************************************!*\
   !*** ./gutenberg-styles/aw-cat-product.scss ***!
   \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./gutenberg-styles/face-aw.scss":
+/*!***************************************!*\
+  !*** ./gutenberg-styles/face-aw.scss ***!
+  \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -78,9 +104,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./gutenberg-styles/statystyki.scss":
+/***/ "./gutenberg-styles/product-aw.scss":
 /*!******************************************!*\
-  !*** ./gutenberg-styles/statystyki.scss ***!
+  !*** ./gutenberg-styles/product-aw.scss ***!
   \******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -91,10 +117,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./sass/index.scss":
-/*!*************************!*\
-  !*** ./sass/index.scss ***!
-  \*************************/
+/***/ "./gutenberg-styles/statystyki.scss":
+/*!******************************************!*\
+  !*** ./gutenberg-styles/statystyki.scss ***!
+  \******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -191,10 +217,12 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/dist/app": 0,
-/******/ 			"src/index": 0,
 /******/ 			"css-blocks/statystyki": 0,
+/******/ 			"css-blocks/product-aw": 0,
 /******/ 			"css-blocks/hero": 0,
-/******/ 			"css-blocks/aw-cat-product": 0
+/******/ 			"css-blocks/face-aw": 0,
+/******/ 			"css-blocks/aw-cat-product": 0,
+/******/ 			"src/index": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -244,11 +272,13 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["src/index","css-blocks/statystyki","css-blocks/hero","css-blocks/aw-cat-product"], () => (__webpack_require__("./src/index.js")))
-/******/ 	__webpack_require__.O(undefined, ["src/index","css-blocks/statystyki","css-blocks/hero","css-blocks/aw-cat-product"], () => (__webpack_require__("./gutenberg-styles/aw-cat-product.scss")))
-/******/ 	__webpack_require__.O(undefined, ["src/index","css-blocks/statystyki","css-blocks/hero","css-blocks/aw-cat-product"], () => (__webpack_require__("./gutenberg-styles/hero.scss")))
-/******/ 	__webpack_require__.O(undefined, ["src/index","css-blocks/statystyki","css-blocks/hero","css-blocks/aw-cat-product"], () => (__webpack_require__("./gutenberg-styles/statystyki.scss")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["src/index","css-blocks/statystyki","css-blocks/hero","css-blocks/aw-cat-product"], () => (__webpack_require__("./sass/index.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css-blocks/statystyki","css-blocks/product-aw","css-blocks/hero","css-blocks/face-aw","css-blocks/aw-cat-product","src/index"], () => (__webpack_require__("./src/index.js")))
+/******/ 	__webpack_require__.O(undefined, ["css-blocks/statystyki","css-blocks/product-aw","css-blocks/hero","css-blocks/face-aw","css-blocks/aw-cat-product","src/index"], () => (__webpack_require__("./gutenberg-styles/aw-cat-product.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css-blocks/statystyki","css-blocks/product-aw","css-blocks/hero","css-blocks/face-aw","css-blocks/aw-cat-product","src/index"], () => (__webpack_require__("./gutenberg-styles/face-aw.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css-blocks/statystyki","css-blocks/product-aw","css-blocks/hero","css-blocks/face-aw","css-blocks/aw-cat-product","src/index"], () => (__webpack_require__("./gutenberg-styles/hero.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css-blocks/statystyki","css-blocks/product-aw","css-blocks/hero","css-blocks/face-aw","css-blocks/aw-cat-product","src/index"], () => (__webpack_require__("./gutenberg-styles/product-aw.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css-blocks/statystyki","css-blocks/product-aw","css-blocks/hero","css-blocks/face-aw","css-blocks/aw-cat-product","src/index"], () => (__webpack_require__("./gutenberg-styles/statystyki.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css-blocks/statystyki","css-blocks/product-aw","css-blocks/hero","css-blocks/face-aw","css-blocks/aw-cat-product","src/index"], () => (__webpack_require__("./sass/index.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

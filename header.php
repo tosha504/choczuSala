@@ -31,16 +31,10 @@
 		<!-- Top bar -->
 		<div class="topbar">
 			<div class="container">
-				<?php
-				if (is_active_sidebar('lang')) : ?>
-					<aside class="footer-widget-area">
-						<?php dynamic_sidebar('lang'); ?>
-					</aside>
-				<?php endif; ?>
-
-
-				<div>Świeże dostawy • Odbiór osobisty w Gdańsku</div>
-				<div>Pn–Sb 10:00–20:00</div>
+				<?php $pre_header_text = aw_get_option('pre_header_text',);
+				$work_time = aw_get_option('work_time'); ?>
+				<div><?php if (! empty($pre_header_text)) echo $pre_header_text; ?></div>
+				<div><?php if (! empty($work_time)) echo $work_time; ?></div>
 			</div>
 		</div>
 		<header id="masthead" class="header">
