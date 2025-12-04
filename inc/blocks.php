@@ -3,18 +3,16 @@
 defined('ABSPATH') || exit;
 
 if (class_exists('ACF')) {
-  function register_acf_blocks()
-  {
-    $dir = get_template_directory() . '/blocks/';
-    $blocks = scandir($dir);
-    $fiels = array_diff($blocks, array('.', '..'));
-    if (!empty($fiels)) {
-      foreach ($fiels as $key => $block) {
-        register_block_type(dirname(__DIR__) . "/blocks/{$block}/block.json");
-      }
+  add_action('init', function () {
+    $paths = glob(get_theme_file_path('blocks/*/block.json'));
+    if (!$paths) return;
+
+    foreach ($paths as $json) {
+      $dir = dirname($json);
+      register_block_type($dir); // ← WP sam czyta block.json z katalogu
     }
-  }
-  add_action('init', 'register_acf_blocks');
+  }, 9);
+  add_filter('block_categories_all', 'register_my_block_category', 10, 2);
   add_filter('block_categories_all', 'register_my_block_category', 10, 2);
 
   function register_my_block_category($categories, $post)
