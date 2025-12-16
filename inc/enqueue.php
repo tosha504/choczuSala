@@ -11,7 +11,10 @@ if (!function_exists('start_scripts')) {
 	function start_scripts()
 	{
 		$theme_uri = get_template_directory_uri();
+		$theme_dir = get_template_directory();
 		// Custom JS
+		wp_enqueue_style('swiper-css', $theme_uri . '/libery/swiper/swiper-bundle.min.css', [], filemtime($theme_dir .  '/libery/swiper/swiper-bundle.min.css'));
+		wp_enqueue_script('swiper-js', $theme_uri . '/libery/swiper/swiper-bundle.min.js', [], filemtime($theme_dir . '/libery/swiper/swiper-bundle.min.js'), true);
 		wp_enqueue_script('start_functions', $theme_uri . '/src/index.js', ['jquery'], time(), true);
 
 		wp_localize_script('start_functions', 'localizedObject', [

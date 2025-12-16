@@ -51,13 +51,6 @@ ul.products {
         position: relative;
     }
 
-    &__img {
-        display: block;
-        width: 100%;
-        height: auto;
-        aspect-ratio: 2/3;
-        object-fit: cover;
-    }
 
     /* Body */
     &__body {
@@ -145,10 +138,10 @@ ul.products {
 
 /* 2) Stała wysokość miniatury + obraz dopasowany */
 .wc-card__thumb {
-    aspect-ratio: 4 / 3;
-    display: block;
-    background: #fafafa;
-    overflow: hidden;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    position: relative;
 
     @media (hover: hover) {
         &:hover {
@@ -157,13 +150,16 @@ ul.products {
             }
         }
     }
-}
 
-.wc-card__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+    img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+    }
+
 }
 
 /* 3) Treść rozciągnięta, CTA na dole */

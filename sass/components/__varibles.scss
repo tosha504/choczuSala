@@ -1,27 +1,24 @@
 :root {
-  --weather: "Merriweather", serif;
   --inter: "Inter", sans-serif;
-  /* NEUTRALNE – TŁA */
-  --color-bg: #F8F3EFF2;
-  /* jasne, mleczne tło – czysto i nowocześnie */
-  --color-surface: #FFFFFF;
-  /* biały dla kart/produktów */
 
-  /* TEKSTY */
-  // --color-text: #1A1A1A;
-  --color-text: #1A1A1A;
-  /* mocny, czysty kontrast */
-  --color-text-muted: #6A6A6A;
-
-  /* PRIMARY – ciepły karmel premium */
-  --color-primary: #E42735;
-  --color-primary-hover: #ee404c;
-
-  /* DARK – akcenty, header, stopka */
-  --color-dark: #241F17;
   --color-accent: #E3B27A;
-
+  /* pergamin */
+  --color-dark: #1E1A16;
+  /* tusz / ornament */
   /* BORDERY */
   --color-border: #E7DED5;
   --color-secondary: #A5B93E;
+  --color-text: #1A1A1A;
+  --color-text-muted: #6B6258;
+
+  // --color-accent: #D6B46A;
+  /* złoto */
+  --color-accent-dark: #B9984E;
+  --color-primary: #7A0F15;
+  /* bordowy mięsa */
+  --color-primary-hover: #641014;
+
+  --color-bg: #F4ECDC;
+  /* pergamin */
+  --color-surface: #FFFFFF;
 }

@@ -16,10 +16,7 @@ $under_logo = aw_get_option('under_logo');
 $categories_aw_title = aw_get_option('categories_aw_title');
 $kontakt_title = aw_get_option('kontakt_title'); ?>
 
-<div class="container">
-  <script src="https://elfsightcdn.com/platform.js" async></script>
-  <div class="elfsight-app-ab667762-539e-4d5b-b95f-d3c7e96dcd23" data-elfsight-app-lazy></div>
-</div>
+
 <footer id="colophon" class="footer">
   <div class="container cols">
     <div class="footer__logo">
@@ -68,6 +65,8 @@ $kontakt_title = aw_get_option('kontakt_title'); ?>
   </div>
 </footer><!-- #colophon -->
 </div><!-- #page -->
+<!-- <?php //echo do_shortcode('[aw_google_reviews limit="9" mode="badge"]'); 
+      ?> -->
 
 <?php wp_footer(); ?>
 

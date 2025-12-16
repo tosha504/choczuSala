@@ -13,6 +13,9 @@
 @use "pages/woo-account";
 @use "pages/woocommerce-checkout";
 
+
+
+
 .woocommerce a.button,
 .woocommerce button.button,
 .woocommerce input.button {
@@ -26,8 +29,280 @@
     }
 }
 
+/* ============================
+   WooCommerce – Notices (SCSS)
+   ============================ */
+
+/* Design tokens (możesz podmienić pod swój system) */
+:root {
+    --wc-radius: .75rem;
+    --wc-gap: .75rem;
+    --wc-shadow: 0 6px 20px rgba(0, 0, 0, .08);
+
+    --wc-fg: #1f2937;
+    /* tekst domyślny */
+    --wc-bg: #ffffff;
+    /* tło kontenera */
+
+    --wc-success-bg: #ecfdf5;
+    --wc-success-bd: #34d399;
+    --wc-success-fg: #065f46;
+
+    --wc-info-bg: #eff6ff;
+    --wc-info-bd: #60a5fa;
+    --wc-info-fg: #1e3a8a;
+
+    --wc-error-bg: #fef2f2;
+    --wc-error-bd: #f87171;
+    --wc-error-fg: #7f1d1d;
+
+    --wc-link: #0ea5e9;
+    --wc-link-hover: #0284c7;
+
+    --wc-btn-bg: #111827;
+    --wc-btn-fg: #ffffff;
+    --wc-btn-bg-hover: #0b1220;
+}
+
+/* Tryb dark – opcjonalnie */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --wc-fg: #e5e7eb;
+        --wc-bg: #0b1220;
+
+        --wc-success-bg: #052e2b;
+        --wc-success-bd: #34d399;
+        --wc-success-fg: #a7f3d0;
+
+        --wc-info-bg: #0b1f3a;
+        --wc-info-bd: #60a5fa;
+        --wc-info-fg: #bfdbfe;
+
+        --wc-error-bg: #3b0a0a;
+        --wc-error-bd: #f87171;
+        --wc-error-fg: #fecaca;
+
+        --wc-link: #38bdf8;
+        --wc-link-hover: #7dd3fc;
+        --wc-btn-bg: #111827;
+        --wc-btn-fg: #ffffff;
+        --wc-btn-bg-hover: #0f172a;
+    }
+}
+
+/* Animacje (z poszanowaniem reduced motion) */
+@keyframes wcNoticeIn {
+    from {
+        transform: translateY(-6px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    @keyframes wcNoticeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+}
+
+/* Helper: wariant notyfikacji */
+@mixin wc-notice-variant($bg, $bd, $fg) {
+    background: $bg;
+    border-left: .25rem solid $bd;
+    color: $fg;
+
+    a {
+        color: var(--wc-link);
+    }
+
+    .button,
+    .wc-forward,
+    .woocommerce-button {
+        @extend %btn;
+        @extend %btn-primary;
+        cursor: pointer;
+    }
+}
 
 
+/* Wrapper (czasem Woo wypisuje UL/Li) */
+.woocommerce-notices-wrapper,
+.woocommerce .woocommerce-notices-wrapper,
+.woocommerce .woocommerce-error,
+.woocommerce .woocommerce-message,
+.woocommerce .woocommerce-info {
+    margin: 0 0 1rem;
+}
+
+/* Bazowa karta notyfikacji */
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    /* treść + akcje */
+    gap: var(--wc-gap);
+    padding: .9rem 1rem;
+    border-radius: var(--wc-radius);
+    box-shadow: var(--wc-shadow);
+    background: var(--wc-bg);
+    color: var(--wc-fg);
+    animation: wcNoticeIn .2s ease-out both;
+
+    /* Listy, które Woo dodaje (np. error) */
+    ul,
+    ol {
+        margin: 0;
+        padding-inline-start: 1.1rem;
+    }
+
+    li {
+        margin: .25rem 0;
+    }
+
+    /* Close/dismiss – jeśli dodasz własny przycisk */
+    .wc-notice__close {
+        appearance: none;
+        border: 0;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        padding: .25rem;
+        line-height: 1;
+        border-radius: .5rem;
+
+        &:hover,
+        &:focus-visible {
+            background: rgba(0, 0, 0, .06);
+            outline: none;
+        }
+    }
+}
+
+/* Warianty */
+.woocommerce-message {
+    @include wc-notice-variant(var(--wc-success-bg), var(--wc-success-bd), var(--wc-success-fg));
+}
+
+.woocommerce-info {
+    @include wc-notice-variant(var(--wc-info-bg), var(--wc-info-bd), var(--wc-info-fg));
+}
+
+.woocommerce-error {
+    @include wc-notice-variant(var(--wc-error-bg), var(--wc-error-bd), var(--wc-error-fg));
+    gap: 0;
+    grid-template-columns: 1fr;
+    /* Woo czasem renderuje <ul class="woocommerce-error"> z <li> */
+    list-style: none;
+    padding: 0;
+
+    >li,
+    >span {
+        padding: .45rem 1rem;
+        border-radius: var(--wc-radius);
+
+        &:first-child {
+            padding-top: 0.9rem;
+        }
+
+        &:last-child {
+            padding-bottom: 0.9rem;
+        }
+    }
+
+    >li {
+        margin: 0;
+    }
+}
+
+/* Tekst + CTA w jednej linii na desktopie */
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error>li {
+    .wc-notice__content {
+        align-self: center;
+    }
+
+    .wc-notice__actions {
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+    }
+}
+
+/* Lepka belka sklepu (store notice) */
+.woocommerce-store-notice,
+p.demo_store {
+    position: sticky;
+    /* albo fixed na własną odpowiedzialność */
+    bottom: 0;
+    inset-inline: 0;
+    z-index: 999;
+    margin: 0;
+    padding: .6rem 1rem;
+    background: var(--wc-info-bg);
+    color: var(--wc-info-fg);
+    border-top: 2px solid var(--wc-info-bd);
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: .95rem;
+
+    .woocommerce-store-notice__dismiss-link {
+        color: var(--wc-link);
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+
+        &:hover {
+            color: var(--wc-link-hover);
+        }
+    }
+}
+
+/* Responsywność – na węższych ekranach układaj w kolumnę */
+@media (max-width: 640px) {
+
+    .woocommerce-message,
+    .woocommerce-info,
+    .woocommerce-error {
+        grid-template-columns: 1fr;
+
+        .wc-notice__actions {
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+    }
+}
+
+/* RTL wsparcie */
+[dir="rtl"] {
+
+    .woocommerce-message,
+    .woocommerce-info,
+    .woocommerce-error {
+        border-left: none;
+        border-right: .25rem solid currentColor;
+    }
+}
+
+/* Opcjonalnie: gdy chcesz spiąć notyfikacje nad/po produkcie */
+.woocommerce-notices-wrapper--stack>*+* {
+    margin-top: .5rem;
+}
 
 // .product-card {
 //     display: flex;

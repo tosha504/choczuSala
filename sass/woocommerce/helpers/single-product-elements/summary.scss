@@ -28,11 +28,17 @@
          .woocommerce-variation-add-to-cart,
          form.cart {
              display: flex;
+             flex-wrap: wrap;
+
+             .aw-weight-picker,
+             .quantity {
+                 flex: 1 1 100%;
+
+             }
 
              .quantity {
 
                  display: flex;
-                 flex: 1 1 100%;
                  border: 1px solid var(--gray3-color);
                  justify-content: space-between;
                  margin-right: 20px;

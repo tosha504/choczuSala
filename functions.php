@@ -169,6 +169,7 @@ $realestate_includes = array(
 	'/template-functions.php',	//	Functions which enhance the theme by hooking into WordPress.
 	'/install-plugin-formthis-theme.php',
 	'/webp.php',
+	'/popuplang.php',
 
 );
 
@@ -514,520 +515,328 @@ function aw_get_option(string $field_name, ?string $lang = null)
 	$post_id = aw_get_options_post_id($lang);
 	return get_field($field_name, $post_id);
 }
+/**
+ * Plugin Name: AW Weight Products
+ * Description: Sprzedaż na wagę z ceną za kg i dowolną ilością gramów + live podgląd ceny.
+ * Author: ArtiWeb
+ */
 
-?><?php
-	/**
-	 * Plugin Name: AW Weight Products
-	 * Description: Sprzedaż na wagę z ceną za kg i dowolną ilością gramów + live podgląd ceny.
-	 * Author: ArtiWeb
-	 */
+function mb_ai1wm_exclude_node_modules($exclude_filters)
+{
+	$exclude_filters[] = 'hochusala/node_modules';
+	return $exclude_filters;
+}
 
-	if (!defined('ABSPATH')) {
+add_filter('ai1wm_exclude_themes_from_export', 'mb_ai1wm_exclude_node_modules');
+
+add_action('init', function () {
+	if (isset($_GET['aw_test_sku'])) {
+
+
+		$sku = sanitize_text_field($_GET['aw_test_sku']);
+
+		$id = wc_get_product_id_by_sku($sku);
+
+		echo "<h2>Test SKU</h2>";
+		echo "Szukane SKU: <strong>{$sku}</strong><br>";
+		echo "Znaleziony product_id: <strong>{$id}</strong><br>";
+
+		if ($id) {
+			$post = get_post($id);
+			echo "<pre>";
+			echo "post_type: {$post->post_type}\n";
+			echo "post_status: {$post->post_status}\n";
+			echo "post_title: {$post->post_title}\n";
+			echo "</pre>";
+		}
+
 		exit;
 	}
-
-	class AW_Weight_Products
-	{
-		const META_ENABLED      = '_aw_weight_enabled';
-		const META_PRICE_PER_KG = '_aw_price_per_kg';
-		const META_MIN_GRAMS    = '_aw_min_grams';
-		const META_MAX_GRAMS    = '_aw_max_grams';
-
-		public function __construct()
-		{
-			// Admin: metabox
-			add_action('add_meta_boxes', [$this, 'add_metabox']);
-			add_action('save_post_product', [$this, 'save_metabox'], 10, 2);
-
-			// Front: pole na gramy + cena za kg
-			add_action('woocommerce_before_add_to_cart_button', [$this, 'render_grams_field']);
-
-			// Koszyk / zamówienie: zapis i wyświetlanie gramów
-			add_filter('woocommerce_add_cart_item_data', [$this, 'add_cart_item_data'], 10, 3);
-			add_filter('woocommerce_get_item_data', [$this, 'display_item_data'], 10, 2);
-			add_action('woocommerce_checkout_create_order_line_item', [$this, 'add_order_item_meta'], 10, 4);
-
-			// Przeliczenie cen (kg -> g)
-			add_action('woocommerce_before_calculate_totals', [$this, 'recalculate_cart_prices'], 20, 1);
-
-			// Wyświetlanie "/ kg" przy cenie produktu na wagę
-			add_filter('woocommerce_get_price_html', [$this, 'price_html_per_kg'], 10, 2);
-
-			// JS do live podglądu
-			add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
-		}
-
-		/*
-     * =========================
-     *  ADMIN: METABOX
-     * =========================
-     */
-
-		public function add_metabox()
-		{
-			add_meta_box(
-				'aw_weight_product',
-				__('Sprzedaż na wagę', 'aw-theme'),
-				[$this, 'render_metabox'],
-				'product',
-				'side',
-				'default'
-			);
-		}
-
-		public function render_metabox($post)
-		{
-			wp_nonce_field('aw_weight_metabox_nonce', 'aw_weight_metabox_nonce_field');
-
-			$enabled      = get_post_meta($post->ID, self::META_ENABLED, true);
-			$price_per_kg = get_post_meta($post->ID, self::META_PRICE_PER_KG, true);
-			$min_grams    = get_post_meta($post->ID, self::META_MIN_GRAMS, true);
-			$max_grams    = get_post_meta($post->ID, self::META_MAX_GRAMS, true);
-
-	?>
-<p>
-	<label>
-		<input type="checkbox" name="aw_weight_enabled" value="1" <?php checked($enabled, '1'); ?> />
-		<?php esc_html_e('Sprzedawaj ten produkt na wagę (cena w zł/kg)', 'aw-theme'); ?>
-	</label>
-</p>
-
-<p>
-	<label for="aw_price_per_kg"><strong><?php esc_html_e('Cena za 1 kg', 'aw-theme'); ?></strong></label><br>
-	<input
-		type="text"
-		id="aw_price_per_kg"
-		name="aw_price_per_kg"
-		value="<?php echo esc_attr($price_per_kg); ?>"
-		placeholder="<?php esc_attr_e('np. 49.90', 'aw-theme'); ?>"
-		style="width:100%;" />
-	<small><?php esc_html_e('Jeśli puste, użyta będzie regularna cena produktu.', 'aw-theme'); ?></small>
-</p>
-
-<p>
-	<label for="aw_min_grams"><strong><?php esc_html_e('Minimalna ilość (g)', 'aw-theme'); ?></strong></label><br>
-	<input
-		type="number"
-		id="aw_min_grams"
-		name="aw_min_grams"
-		value="<?php echo esc_attr($min_grams); ?>"
-		min="0"
-		step="1"
-		style="width:100%;" />
-</p>
-
-<p>
-	<label for="aw_max_grams"><strong><?php esc_html_e('Maksymalna ilość (g)', 'aw-theme'); ?></strong></label><br>
-	<input
-		type="number"
-		id="aw_max_grams"
-		name="aw_max_grams"
-		value="<?php echo esc_attr($max_grams); ?>"
-		min="0"
-		step="1"
-		style="width:100%;" />
-	<small><?php esc_html_e('Zostaw puste, jeśli brak limitu.', 'aw-theme'); ?></small>
-</p>
-<?php
-		}
-
-		public function save_metabox($post_id, $post)
-		{
-			if (
-				!isset($_POST['aw_weight_metabox_nonce_field']) ||
-				!wp_verify_nonce($_POST['aw_weight_metabox_nonce_field'], 'aw_weight_metabox_nonce')
-			) {
-				return;
-			}
-
-			if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-				return;
-			}
-
-			if ($post->post_type !== 'product') {
-				return;
-			}
-
-			$enabled = isset($_POST['aw_weight_enabled']) ? '1' : '0';
-			update_post_meta($post_id, self::META_ENABLED, $enabled);
-
-			$price_per_kg = isset($_POST['aw_price_per_kg']) ? sanitize_text_field($_POST['aw_price_per_kg']) : '';
-			$price_per_kg = str_replace(',', '.', $price_per_kg);
-			if ($price_per_kg !== '' && !is_numeric($price_per_kg)) {
-				$price_per_kg = '';
-			}
-			if ($price_per_kg !== '') {
-				update_post_meta($post_id, self::META_PRICE_PER_KG, $price_per_kg);
-			} else {
-				delete_post_meta($post_id, self::META_PRICE_PER_KG);
-			}
-
-			$min_grams = isset($_POST['aw_min_grams']) ? intval($_POST['aw_min_grams']) : 0;
-			$max_grams = isset($_POST['aw_max_grams']) ? intval($_POST['aw_max_grams']) : 0;
-
-			if ($min_grams > 0) {
-				update_post_meta($post_id, self::META_MIN_GRAMS, $min_grams);
-			} else {
-				delete_post_meta($post_id, self::META_MIN_GRAMS);
-			}
-
-			if ($max_grams > 0) {
-				update_post_meta($post_id, self::META_MAX_GRAMS, $max_grams);
-			} else {
-				delete_post_meta($post_id, self::META_MAX_GRAMS);
-			}
-		}
-
-		/*
-     * =========================
-     *  HELPERY
-     * =========================
-     */
-
-		public static function is_weight_product($product_id)
-		{
-			return get_post_meta($product_id, self::META_ENABLED, true) === '1';
-		}
-
-		public static function get_price_per_kg($product)
-		{
-			if (!$product instanceof WC_Product) {
-				return 0;
-			}
-
-			$product_id   = $product->get_id();
-			$meta_price   = get_post_meta($product_id, self::META_PRICE_PER_KG, true);
-			$regular      = $product->get_regular_price();
-
-			if ($meta_price !== '' && is_numeric($meta_price)) {
-				return (float) $meta_price;
-			}
-
-			return (float) $regular;
-		}
-
-		public static function get_min_grams($product_id)
-		{
-			$min = (int) get_post_meta($product_id, self::META_MIN_GRAMS, true);
-			if ($min <= 0) {
-				$min = 1;
-			}
-			return $min;
-		}
-
-		public static function get_max_grams($product_id)
-		{
-			$max = (int) get_post_meta($product_id, self::META_MAX_GRAMS, true);
-			return $max > 0 ? $max : 0;
-		}
-
-		/*
-     * =========================
-     *  FRONTEND: POLE NA GRAMY
-     * =========================
-     */
-
-		public function render_grams_field()
-		{
-			global $product;
-
-			if (!$product instanceof WC_Product) {
-				return;
-			}
-
-			// Dla prostoty obsługujemy tylko produkty proste
-			if ($product->get_type() !== 'simple') {
-				return;
-			}
-
-			$product_id = $product->get_id();
-
-			if (!self::is_weight_product($product_id)) {
-				return;
-			}
-
-			$price_per_kg = self::get_price_per_kg($product);
-			if ($price_per_kg <= 0) {
-				return;
-			}
-
-			$min_grams = self::get_min_grams($product_id);
-			$max_grams = self::get_max_grams($product_id);
-
-			$default_grams = $min_grams > 0 ? $min_grams : 100;
-
-			$currency_symbol    = get_woocommerce_currency_symbol();
-			$decimals           = wc_get_price_decimals();
-			$decimal_separator  = wc_get_price_decimal_separator();
-			$thousand_separator = wc_get_price_thousand_separator();
-
-?>
-	<div
-		class="aw-weight-product"
-		data-price-per-kg="<?php echo esc_attr($price_per_kg); ?>"
-		data-currency-symbol="<?php echo esc_attr($currency_symbol); ?>"
-		data-decimals="<?php echo esc_attr($decimals); ?>"
-		data-decimal-separator="<?php echo esc_attr($decimal_separator); ?>"
-		data-thousand-separator="<?php echo esc_attr($thousand_separator); ?>">
-		<p class="aw-weight-product__price-per-kg">
-			<?php echo wc_price($price_per_kg); ?> / kg
-		</p>
-
-		<div class="aw-weight-product__grams-field">
-			<label for="aw_grams">
-				<?php esc_html_e('Ilość (w gramach):', 'aw-theme'); ?>
-			</label>
-			<input
-				type="number"
-				id="aw_grams"
-				name="aw_grams"
-				value="<?php echo esc_attr($default_grams); ?>"
-				min="<?php echo esc_attr($min_grams); ?>"
-				<?php if ($max_grams > 0) : ?>
-				max="<?php echo esc_attr($max_grams); ?>"
-				<?php endif; ?>
-				step="1"
-				inputmode="numeric" />
-		</div>
-
-		<p class="aw-weight-product__preview">
-			<strong><?php esc_html_e('Zapłacisz:', 'aw-theme'); ?></strong>
-			<span class="aw-weight-product__preview-value"></span>
-		</p>
-	</div>
-<?php
-		}
-
-		/*
-     * =========================
-     *  KOSZYK: ZAMIAN GRAMÓW
-     * =========================
-     */
-
-		public function add_cart_item_data($cart_item_data, $product_id, $variation_id)
-		{
-			if (!self::is_weight_product($product_id)) {
-				return $cart_item_data;
-			}
-
-			if (!isset($_POST['aw_grams'])) {
-				wc_add_notice(__('Podaj ilość w gramach.', 'aw-theme'), 'error');
-				return $cart_item_data;
-			}
-
-			$grams = (int) $_POST['aw_grams'];
-
-			$min_grams = self::get_min_grams($product_id);
-			$max_grams = self::get_max_grams($product_id);
-
-			if ($grams < $min_grams) {
-				wc_add_notice(
-					sprintf(__('Minimalna ilość to %d g.', 'aw-theme'), $min_grams),
-					'error'
-				);
-				return $cart_item_data;
-			}
-
-			if ($max_grams > 0 && $grams > $max_grams) {
-				wc_add_notice(
-					sprintf(__('Maksymalna ilość to %d g.', 'aw-theme'), $max_grams),
-					'error'
-				);
-				return $cart_item_data;
-			}
-
-			$cart_item_data['aw_grams']      = $grams;
-			$cart_item_data['aw_unique_key'] = md5(microtime() . rand());
-
-			return $cart_item_data;
-		}
-
-		public function display_item_data($item_data, $cart_item)
-		{
-			if (isset($cart_item['aw_grams'])) {
-				$item_data[] = [
-					'name'  => __('Ilość', 'aw-theme'),
-					'value' => intval($cart_item['aw_grams']) . ' g',
-				];
-			}
-
-			return $item_data;
-		}
-
-		public function add_order_item_meta($item, $cart_item_key, $values, $order)
-		{
-			if (isset($values['aw_grams'])) {
-				$item->add_meta_data(__('Ilość (g)', 'aw-theme'), intval($values['aw_grams']), true);
-			}
-		}
-
-		public function recalculate_cart_prices($cart)
-		{
-			if (is_admin() && !defined('DOING_AJAX')) {
-				return;
-			}
-
-			if (empty($cart) || !$cart instanceof WC_Cart) {
-				return;
-			}
-
-			foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
-				if (!isset($cart_item['aw_grams'])) {
-					continue;
-				}
-
-				$product = $cart_item['data'];
-				if (!$product instanceof WC_Product) {
-					continue;
-				}
-
-				$price_per_kg = self::get_price_per_kg($product);
-				if ($price_per_kg <= 0) {
-					continue;
-				}
-
-				$grams = (float) $cart_item['aw_grams'];
-				if ($grams <= 0) {
-					continue;
-				}
-
-				$kg_amount = $grams / 1000;
-
-				// Cena jednostkowa pozycji (za tę ilość gramów)
-				$line_unit_price = $price_per_kg * $kg_amount;
-				$line_unit_price = wc_format_decimal($line_unit_price);
-
-				$product->set_price($line_unit_price);
-			}
-		}
-
-		/*
-     * =========================
-     *  CENA / KG W LISTINGACH
-     * =========================
-     */
-
-		public function price_html_per_kg($price_html, $product)
-		{
-			if (!$product instanceof WC_Product) {
-				return $price_html;
-			}
-
-			$product_id = $product->get_id();
-
-			if (!self::is_weight_product($product_id)) {
-				return $price_html;
-			}
-
-			return $price_html . ' <span class="aw-unit-label">/ kg</span>';
-		}
-
-		/*
-     * =========================
-     *  JS: LIVE PODGLĄD CENY
-     * =========================
-     */
-
-		public function enqueue_scripts()
-		{
-			if (!is_product()) {
-				return;
-			}
-
-			wp_register_script(
-				'aw-weight-product',
-				'', // pusty src, użyjemy inline
-				[],
-				'1.0.0',
-				true
-			);
-			wp_enqueue_script('aw-weight-product');
-
-			$config = [
-				'decimals'           => wc_get_price_decimals(),
-				'decimal_separator'  => wc_get_price_decimal_separator(),
-				'thousand_separator' => wc_get_price_thousand_separator(),
-				'currency_symbol'    => get_woocommerce_currency_symbol(),
-			];
-
-			wp_localize_script('aw-weight-product', 'awWeightProductConfig', $config);
-
-			$inline_js = <<<JS
-(function() {
-    function formatPrice(amount) {
-        var cfg = window.awWeightProductConfig || {};
-        var decimals = typeof cfg.decimals !== 'undefined' ? parseInt(cfg.decimals, 10) : 2;
-        var decSep = cfg.decimal_separator || '.';
-        var thouSep = cfg.thousand_separator || '';
-        var symbol = cfg.currency_symbol || '';
-
-        if (isNaN(amount)) {
-            amount = 0;
-        }
-
-        var negative = amount < 0;
-        amount = Math.abs(amount);
-
-        var factor = Math.pow(10, decimals);
-        amount = Math.round(amount * factor) / factor;
-
-        var parts = amount.toFixed(decimals).split('.');
-        var integerPart = parts[0];
-        var decimalPart = parts.length > 1 ? parts[1] : '';
-
-        if (thouSep) {
-            integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, thouSep);
-        }
-
-        var result = integerPart;
-        if (decimals > 0) {
-            result += decSep + decimalPart;
-        }
-
-        if (negative) {
-            result = '-' + result;
-        }
-
-        return symbol + ' ' + result;
-    }
-
-    function initWeightPreview() {
-        var wrapper = document.querySelector('.aw-weight-product');
-        if (!wrapper) return;
-
-        var input = wrapper.querySelector('#aw_grams');
-        var preview = wrapper.querySelector('.aw-weight-product__preview-value');
-
-        if (!input || !preview) return;
-
-        var pricePerKg = parseFloat(wrapper.getAttribute('data-price-per-kg') || '0');
-
-        function updatePreview() {
-            var grams = parseFloat(input.value || '0');
-            if (isNaN(grams) || grams <= 0 || pricePerKg <= 0) {
-                preview.textContent = '';
-                return;
-            }
-
-            var kgAmount = grams / 1000;
-            var total = pricePerKg * kgAmount;
-
-            preview.textContent = formatPrice(total);
-        }
-
-        input.addEventListener('input', updatePreview);
-        input.addEventListener('change', updatePreview);
-
-        // pierwszy przelicz po załadowaniu
-        updatePreview();
-    }
-
-    document.addEventListener('DOMContentLoaded', initWeightPreview);
-})();
-JS;
-
-			wp_add_inline_script('aw-weight-product', $inline_js);
-		}
+});
+// add_action('init', function () {
+// 	global $_wp_additional_image_sizes;
+
+// 	echo '<pre>';
+// 	print_r($_wp_additional_image_sizes ?? 'BRAK');
+// 	echo '</pre>';
+// 	exit;
+// });
+
+
+
+
+add_action('after_setup_theme', function () {
+	// 720x720 dla retina (2x), przy docelowej szerokości ~360px
+	add_image_size('aw_card_1x1', 720, 720, true); // hard crop
+});
+
+/**
+ * 1) Transliteration funkcja bazowa (UA/RU/PL -> ASCII)
+ */
+function aw_slug_transliterate(string $str): string
+{
+	$str = trim($str);
+	if ($str === '') return 'item';
+
+	// PL diakrytyki (dla pewności)
+	$map = [
+		'ą' => 'a',
+		'ć' => 'c',
+		'ę' => 'e',
+		'ł' => 'l',
+		'ń' => 'n',
+		'ó' => 'o',
+		'ś' => 's',
+		'ż' => 'z',
+		'ź' => 'z',
+		'Ą' => 'a',
+		'Ć' => 'c',
+		'Ę' => 'e',
+		'Ł' => 'l',
+		'Ń' => 'n',
+		'Ó' => 'o',
+		'Ś' => 's',
+		'Ż' => 'z',
+		'Ź' => 'z',
+	];
+
+	// UA/RU cyrlica -> łacina (praktyczny mapping SEO)
+	$map += [
+		'А' => 'a',
+		'Б' => 'b',
+		'В' => 'v',
+		'Г' => 'h',
+		'Ґ' => 'g',
+		'Д' => 'd',
+		'Е' => 'e',
+		'Ё' => 'yo',
+		'Є' => 'ye',
+		'Ж' => 'zh',
+		'З' => 'z',
+		'И' => 'y',
+		'І' => 'i',
+		'Ї' => 'yi',
+		'Й' => 'y',
+		'К' => 'k',
+		'Л' => 'l',
+		'М' => 'm',
+		'Н' => 'n',
+		'О' => 'o',
+		'П' => 'p',
+		'Р' => 'r',
+		'С' => 's',
+		'Т' => 't',
+		'У' => 'u',
+		'Ф' => 'f',
+		'Х' => 'kh',
+		'Ц' => 'ts',
+		'Ч' => 'ch',
+		'Ш' => 'sh',
+		'Щ' => 'shch',
+		'Ъ' => '',
+		'Ы' => 'y',
+		'Ь' => '',
+		'Э' => 'e',
+		'Ю' => 'yu',
+		'Я' => 'ya',
+		'а' => 'a',
+		'б' => 'b',
+		'в' => 'v',
+		'г' => 'h',
+		'ґ' => 'g',
+		'д' => 'd',
+		'е' => 'e',
+		'ё' => 'yo',
+		'є' => 'ye',
+		'ж' => 'zh',
+		'з' => 'z',
+		'и' => 'y',
+		'і' => 'i',
+		'ї' => 'yi',
+		'й' => 'y',
+		'к' => 'k',
+		'л' => 'l',
+		'м' => 'm',
+		'н' => 'n',
+		'о' => 'o',
+		'п' => 'p',
+		'р' => 'r',
+		'с' => 's',
+		'т' => 't',
+		'у' => 'u',
+		'ф' => 'f',
+		'х' => 'kh',
+		'ц' => 'ts',
+		'ч' => 'ch',
+		'ш' => 'sh',
+		'щ' => 'shch',
+		'ъ' => '',
+		'ы' => 'y',
+		'ь' => '',
+		'э' => 'e',
+		'ю' => 'yu',
+		'я' => 'ya',
+	];
+
+	$str = strtr($str, $map);
+
+	// cleanup: wszystko poza a-z0-9 -> "-"
+	$str = preg_replace('~[^a-zA-Z0-9]+~u', '-', $str);
+	$str = strtolower($str);
+	$str = trim($str, '-');
+
+	return $str !== '' ? $str : 'item';
+}
+
+/**
+ * 2) Slugi postów/CPT (sanitize_title odpala się przy generowaniu sluga)
+ */
+add_filter('sanitize_title', function ($title, $raw_title = '', $context = 'display') {
+	if (!is_string($title) || $title === '') return $title;
+	return aw_slug_transliterate($title);
+}, 9, 3);
+
+/**
+ * 3) Termy (kategorie/tagi/atrybuty)
+ */
+add_filter('pre_term_slug', function ($slug) {
+	if (!is_string($slug) || $slug === '') return $slug;
+	return aw_slug_transliterate($slug);
+}, 9);
+
+/**
+ * 4) Dodatkowa pewność przed unikalnym slugiem
+ */
+add_filter('pre_wp_unique_post_slug', function ($override, $slug, $post_ID, $post_status, $post_type, $post_parent) {
+	if (!is_string($slug) || $slug === '') return $override;
+	return aw_slug_transliterate($slug);
+}, 9, 6);
+
+/**
+ * (Opcjonalnie) transliteruj nazwy plików uploadów (używaj świadomie!)
+ */
+// add_filter('sanitize_file_name', function ($filename) {
+//     return is_string($filename) && $filename !== '' ? aw_slug_transliterate($filename) : $filename;
+// }, 9);
+
+
+/**
+ * 5) BULK FIXER – narzędzie w Tools -> Fix slugs (arturiko-web)
+ */
+add_action('admin_menu', function () {
+	add_management_page(
+		'Fix slugs (arturiko-web)',
+		'Fix slugs (arturiko-web)',
+		'manage_options',
+		'aw-fix-slugs',
+		'aw_fix_slugs_admin_page'
+	);
+});
+
+function aw_fix_slugs_admin_page(): void
+{
+	if (!current_user_can('manage_options')) return;
+
+	$url   = admin_url('admin-post.php');
+	$nonce = wp_create_nonce('aw_fix_slugs');
+
+	echo '<div class="wrap"><h1>Fix slugs (arturiko-web)</h1>';
+	echo '<p>Naprawia slugi dla postów/CPT oraz termów (kategorie/tagi/atrybuty). Zrób backup przed uruchomieniem.</p>';
+
+	if (!empty($_GET['done'])) {
+		echo '<div class="notice notice-success"><p>Gotowe. Zrobiono aktualizację slugów + flush rewrite rules.</p></div>';
 	}
 
-	new AW_Weight_Products();
+	echo '<form method="post" action="' . esc_url($url) . '">';
+	echo '<input type="hidden" name="action" value="aw_fix_slugs">';
+	echo '<input type="hidden" name="_wpnonce" value="' . esc_attr($nonce) . '">';
+
+	echo '<p><label><input type="checkbox" name="fix_posts" value="1" checked> Fix post slugs (all public post types)</label></p>';
+	echo '<p><label><input type="checkbox" name="fix_terms" value="1" checked> Fix term slugs (all public taxonomies)</label></p>';
+
+	echo '<p><button class="button button-primary">Run bulk fix</button></p>';
+	echo '</form></div>';
+}
+
+add_action('admin_post_aw_fix_slugs', function () {
+	if (!current_user_can('manage_options')) wp_die('No permissions');
+	check_admin_referer('aw_fix_slugs');
+
+	$fix_posts = !empty($_POST['fix_posts']);
+	$fix_terms = !empty($_POST['fix_terms']);
+
+	if ($fix_posts) {
+		aw_bulk_fix_post_slugs();
+	}
+	if ($fix_terms) {
+		aw_bulk_fix_term_slugs();
+	}
+
+	// WAŻNE: po zmianach w slugach warto odświeżyć reguły
+	flush_rewrite_rules(false);
+
+	wp_safe_redirect(admin_url('tools.php?page=aw-fix-slugs&done=1'));
+	exit;
+});
+
+function aw_bulk_fix_post_slugs(): void
+{
+	$post_types = get_post_types(['public' => true], 'names');
+
+	$q = new WP_Query([
+		'post_type'      => array_values($post_types),
+		'post_status'    => 'any',
+		'posts_per_page' => -1,
+		'fields'         => 'ids',
+		'no_found_rows'  => true,
+		'orderby'        => 'ID',
+		'order'          => 'ASC',
+	]);
+
+	foreach ($q->posts as $post_id) {
+		$post_id = (int) $post_id;
+
+		$current = (string) get_post_field('post_name', $post_id);
+		$title   = (string) get_post_field('post_title', $post_id);
+
+		$base = $current !== '' ? $current : $title;
+		$new  = aw_slug_transliterate($base);
+
+		if ($new === $current || $new === '') continue;
+
+		// WP dopnie unikalność
+		wp_update_post([
+			'ID'        => $post_id,
+			'post_name' => $new,
+		]);
+	}
+
+	wp_reset_postdata();
+}
+
+function aw_bulk_fix_term_slugs(): void
+{
+	$taxes = get_taxonomies(['public' => true], 'names');
+
+	foreach ($taxes as $tax) {
+		$terms = get_terms([
+			'taxonomy'   => $tax,
+			'hide_empty' => false,
+			'number'     => 0,
+		]);
+
+		if (is_wp_error($terms)) continue;
+
+		foreach ($terms as $term) {
+			$current = (string) $term->slug;
+			$base    = $current !== '' ? $current : (string) $term->name;
+
+			$new = aw_slug_transliterate($base);
+			if ($new === $current || $new === '') continue;
+
+			wp_update_term((int) $term->term_id, $tax, [
+				'slug' => $new,
+			]);
+		}
+	}
+}

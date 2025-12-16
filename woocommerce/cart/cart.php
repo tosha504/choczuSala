@@ -140,14 +140,91 @@ do_action('woocommerce_before_cart'); ?>
                 <?php do_action('woocommerce_cart_contents'); ?>
 
                 <td colspan="6" class="actions">
+                    <?php if (wc_coupons_enabled()) : ?>
+                        <div class="aw-coupon" data-aw-coupon>
+                            <button
+                                type="button"
+                                class="button"
+                                data-aw-coupon-toggle
+                                aria-expanded="false"
+                                data-label-show="<?php echo esc_attr(__('Mam kupon', 'your-textdomain')); ?>"
+                                data-label-hide="<?php echo esc_attr(__('Ukryj kupon', 'your-textdomain')); ?>">
+                                <?php echo esc_html(__('Mam kupon', 'your-textdomain')); ?>
+                            </button>
 
-                    <?php if (wc_coupons_enabled()) { ?>
-                        <label for="coupon_code"><?php esc_html_e('Coupon:', 'woocommerce'); ?></label>
-                        <div class="coupon">
-                            <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e('Coupon code', 'woocommerce'); ?>" /> <button type="submit" class="btn__primary button" name="apply_coupon" value="<?php esc_attr_e('Apply coupon', 'woocommerce'); ?>"><?php esc_attr_e('Apply coupon', 'woocommerce'); ?></button>
-                            <?php do_action('woocommerce_cart_coupon'); ?>
+                            <div class="aw-coupon__panel" data-aw-coupon-panel hidden>
+                                <label for="coupon_code"><?php esc_html_e('Coupon:', 'woocommerce'); ?></label>
+                                <div class="coupon">
+                                    <input type="text" name="coupon_code" class="input-text" id="coupon_code" value=""
+                                        placeholder="<?php esc_attr_e('Coupon code', 'woocommerce'); ?>" />
+                                    <button type="submit" class="btn__primary button" name="apply_coupon"
+                                        value="<?php esc_attr_e('Apply coupon', 'woocommerce'); ?>">
+                                        <?php esc_attr_e('Apply coupon', 'woocommerce'); ?>
+                                    </button>
+
+                                    <?php do_action('woocommerce_cart_coupon'); ?>
+                                </div>
+                            </div>
                         </div>
-                    <?php } ?>
+                    <?php endif; ?>
+
+                    <script>
+                        (() => {
+                            const SELECTOR_ROOT = '[data-aw-coupon]';
+                            const SELECTOR_TOGGLE = '[data-aw-coupon-toggle]';
+                            const SELECTOR_PANEL = '[data-aw-coupon-panel]';
+
+                            const isCouponApplied = () =>
+                                document.querySelector('.cart-discount, .woocommerce-remove-coupon') !== null;
+
+                            const setOpenState = (root, open) => {
+                                const toggle = root.querySelector(SELECTOR_TOGGLE);
+                                const panel = root.querySelector(SELECTOR_PANEL);
+                                const input = root.querySelector('#coupon_code');
+                                if (!toggle || !panel) return;
+
+                                panel.hidden = !open;
+                                toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+                                const label = open ? toggle.getAttribute('data-label-hide') : toggle.getAttribute('data-label-show');
+                                if (label) toggle.textContent = label;
+
+                                if (open && input) input.focus();
+                            };
+
+                            const initCouponUI = () => {
+                                const root = document.querySelector(SELECTOR_ROOT);
+                                if (!root) return;
+
+                                // Stan po odświeżeniu fragmentów: jeśli kupon aktywny albo coś wpisane -> ma zostać otwarte
+                                const input = root.querySelector('#coupon_code');
+                                const hasTyped = input && input.value && input.value.trim().length > 0;
+
+                                setOpenState(root, isCouponApplied() || hasTyped);
+                            };
+
+                            // Delegacja kliknięć (działa nawet po podmianie fragmentu)
+                            document.addEventListener('click', (e) => {
+                                const toggle = e.target.closest(SELECTOR_TOGGLE);
+                                if (!toggle) return;
+
+                                const root = toggle.closest(SELECTOR_ROOT);
+                                if (!root) return;
+
+                                const panel = root.querySelector(SELECTOR_PANEL);
+                                if (!panel) return;
+
+                                setOpenState(root, panel.hidden); // toggle
+                            });
+
+                            // WooCommerce po apply_coupon robi AJAX i podmienia HTML koszyka -> trzeba przywrócić stan UI
+                            document.body.addEventListener('updated_wc_div', initCouponUI);
+                            document.body.addEventListener('wc_fragments_refreshed', initCouponUI);
+
+                            // Start
+                            initCouponUI();
+                        })();
+                    </script>
 
                     <button type="submit" class="button" name="update_cart" value="<?php esc_attr_e('Update cart', 'woocommerce'); ?>"><?php esc_html_e('Update cart', 'woocommerce'); ?></button>
 

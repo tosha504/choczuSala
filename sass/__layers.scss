@@ -1,0 +1,52 @@
+/* 1) deklarujesz kolejność warstw */
+@layer aw-components, highlight;
+
+/* 2) podstawowe style karty */
+@layer aw-components {
+    .wc-card__inner {
+        background: #fff;
+        border: 1px solid #E7DED5;
+        border-radius: 16px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .wc-card__thumb img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+    }
+
+    .wc-card__title a {
+        color: #1A1A1A;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .wc-card__price {
+        font-weight: 700;
+        margin-top: 8px;
+    }
+}
+
+/* 3) warstwa testowa - ma zawsze "wygrać" */
+@layer highlight {
+    .wc-card__inner.is-highlighted {
+        border-color: #E42735;
+        background: color-mix(in oklab, #E42735, white 92%);
+        box-shadow: 0 12px 32px color-mix(in oklab, #E42735, transparent 70%);
+    }
+
+    .wc-card__inner.is-highlighted .wc-card__title a {
+        color: #E42735;
+    }
+
+    .wc-card__inner.is-highlighted .button {
+        background: #E42735;
+        color: #fff;
+        border-radius: 999px;
+    }
+}

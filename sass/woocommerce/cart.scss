@@ -3,27 +3,44 @@
 
 body {
     &.woocommerce-cart {
-        font-size: 14px !important;
-        background-color: var(--light-green-opacity) !important;
+        font-size: 0.75rem;
+
+        .woocommerce-notices-wrapper {
+            div[role="alert"] {
+                background-color: var(--primary-theme);
+                max-width: 1400px;
+                width: 100%;
+                margin: 0 auto 20px;
+                padding: 15px;
+
+                @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                    max-width: 90vw;
+                }
+
+                @media (min-width: map.get(b.$grid-breakpoints, xl)) {
+                    max-width: 1200px;
+                }
+            }
+        }
 
         .site-main {
             padding: 0;
-
-            @media (min-width: map.get(b.$grid-breakpoints, md)) {
-                padding: 50px 0 20px;
-            }
+            padding-block: clamp(0.5rem, 5vw, 3.5rem);
 
             h2 {
-                font-size: clamp(20px, 4vw, 25px);
-                line-height: 1.2;
-                margin-bottom: 20px;
+                font-size: clamp(1.25rem, 4vw, 1.5rem);
+                margin-bottom: 1.25rem;
             }
 
             .container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1.25rem;
 
                 .woocommerce-notices-wrapper,
                 .wc-empty-cart-message {
-                    padding: 20px 0;
+                    padding-block: clamp(1rem, 4vw, 2rem);
+                    width: 100%;
                     font-size: clamp(18px, 4vw, 25px);
                     font-weight: 500;
 
@@ -32,16 +49,14 @@ body {
                     }
                 }
 
-                display: flex;
-                flex-wrap: wrap;
-                gap: 20px;
+
 
                 .woocommerce-cart-form,
                 .cart_totals,
                 .cart-collaterals {
-                    padding: 20px;
-                    border: 1px solid var(--grey);
-                    border-radius: 20px;
+                    padding: 1rem;
+                    border: 1px solid var(--color-text-muted);
+                    border-radius: 1rem;
                 }
 
                 //shipping tr
@@ -67,29 +82,31 @@ body {
 
                 .cart-collaterals {
                     @media (min-width: map.get(b.$grid-breakpoints, md)) {
-                        max-width: calc(70% - 20px);
+                        max-width: calc(70% - 1.25rem);
                     }
                 }
 
                 .woocommerce-cart-form {
+                    height: fit-content;
+
                     @media (min-width: map.get(b.$grid-breakpoints, md)) {
-                        flex: 0 1 calc(70% - 20px);
+                        flex: 1 1 calc(70% - 1.25rem);
                     }
                 }
 
                 .cart_totals {
                     @media (min-width: map.get(b.$grid-breakpoints, md)) {
-                        flex: 1 1 calc(30% - 20px);
+                        flex: 1 1 calc(30% - 1rem);
                     }
 
                     table {
                         tr {
                             align-items: center;
-                            border-bottom: 1px solid var(--grey);
+                            border-bottom: 1px solid var(--color-text-muted);
                         }
 
                         th {
-                            font-weight: 900;
+                            font-weight: 700;
                             font-size: 18px;
                             text-align-last: left;
                         }
@@ -104,7 +121,7 @@ body {
                 .order-total {
                     td {
                         small {
-                            font-size: 12px;
+                            font-size: .75rem;
                             display: block;
                         }
                     }
@@ -113,42 +130,33 @@ body {
         }
 
         .return-to-shop {
-            display: block;
-            padding: 20px 0;
+            margin-top: 1rem;
 
-            .button {
-                border-radius: 50px;
-                background-color: var(--black);
-                color: var(--white);
-            }
         }
 
         .wc-proceed-to-checkout {
-            margin: 20px 10px;
+            margin-block: 1.25rem;
 
             .button {
-                // background-color: var(--black) ;
                 max-width: 100%;
+                text-align: center;
             }
         }
 
         .checkout-button,
         .btn__primary {
-            padding: 10px 15px;
-            border-radius: 20px;
-            font-size: 13px;
-            border: 1px solid transparent;
-            text-transform: uppercase;
-            background-color: var(--black) !important;
-            color: var(--white) !important;
-            border: 1px solid transparent !important;
-            transition: 0.35s;
+            justify-content: center;
+        }
 
-            &:hover {
-                color: var(--black) !important;
-                background-color: var(--white) !important;
-                border: 1px solid var(--black) !important;
-                cursor: pointer;
+        .btn__primary {
+            background-color: transparent;
+            border: 1px solid var(--color-border);
+            color: var(--btn-primary-text);
+
+            @media (hover: hover) {
+                &:hover {
+                    border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
+                }
             }
         }
 
@@ -163,6 +171,7 @@ body {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            // flex: 1 1 100% !important;
 
             label {
                 flex: 1 1 100%;
@@ -170,31 +179,56 @@ body {
                 display: block;
             }
 
-            .coupon {
-                display: flex;
-                gap: 20px;
+            .aw-coupon {
+                display: grid;
+                gap: 12px;
                 width: 100%;
 
-                @media (max-width: map.get(b.$grid-breakpoints, md)) {
-                    flex-wrap: wrap;
+                >button {
+                    max-width: fit-content;
+
+                    background-color: transparent;
+                    border: 1px solid var(--color-border);
+                    color: var(--btn-primary-text);
+
+                    @media (hover: hover) {
+                        &:hover {
+                            border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border));
+                        }
+                    }
+                }
+            }
+
+            .aw-coupon__panel[hidden] {
+                display: none !important;
+            }
+
+            .coupon {
+                display: flex;
+                gap: 1.25rem;
+                width: 100%;
+                flex-wrap: wrap;
+
+                >* {
+                    flex: 1 1 100%;
+
                 }
 
                 .input-text {
-                    padding: 10px 15px;
-                    color: var(--black);
-                    width: 70%;
-                    border-radius: 20px;
-                    border: 2px solid var(--grey);
+                    border-radius: 1rem;
 
-                    @media (min-width: map.get(b.$grid-breakpoints, md)) {
-                        width: 100% !important;
+                    @media (min-width: map.get(b.$grid-breakpoints, sm)) {
+                        max-width: calc(50% - 1rem);
+
                     }
                 }
 
                 button {
-                    max-width: 100%;
-                    flex: 1 1 100%;
-                    font-family: var(--objective);
+                    max-width: fit-content;
+                }
+
+                .coupon-error-notice {
+                    color: red;
                 }
             }
         }
@@ -209,6 +243,11 @@ body {
             a {
                 color: var(--black);
             }
+        }
+
+        .coupon_code {
+            font-weight: 600;
+            font-size: 1.25rem;
         }
 
         .cart-collaterals {
@@ -233,11 +272,11 @@ body {
         td {
             @media (max-width: map.get(b.$grid-breakpoints, md)) {
                 display: block;
-                padding: 8px;
+                padding-block: 8px;
                 font-size: 14px;
                 text-align: right;
                 // padding-left: 30px;
-                border-bottom: 1px solid #ddd;
+                border-bottom: 1px solid var(--color-text-muted);
 
                 &::before {
                     content: attr(data-title) "";
@@ -276,16 +315,16 @@ body {
         // }
 
         tbody .cart_item {
-            border-bottom: 1px solid #f8efe6;
+            border-bottom: 1px solid var(--color-text-muted);
 
             @media (max-width: map.get(b.$grid-breakpoints, md)) {
-                border-bottom: 2px solid #959595;
+                border-bottom: 2px solid var(--color-text-muted);
             }
         }
 
         table th,
         table td {
-            padding: 10px;
+            padding-block: 10px;
         }
 
         .strong-cart td {
@@ -359,7 +398,7 @@ body {
             background-clip: padding-box;
             border: none;
             border-radius: 0;
-            border-bottom: 1px solid #1b1b1b;
+            border-bottom: 1px solid var(--color-text-muted);
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
 

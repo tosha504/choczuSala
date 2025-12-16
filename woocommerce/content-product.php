@@ -21,19 +21,55 @@ defined('ABSPATH') || exit;
 global $product;
 if (empty($product) || !$product->is_visible()) return;
 
-$permalink = apply_filters('woocommerce_loop_product_link', get_the_permalink(), $product);
-?>
+$classes = ['wc-card__inner'];
+
+if ($product instanceof WC_Product) {
+    if ($product->is_featured() || $product->is_on_sale()) {
+        $classes[] = 'is-highlighted';
+    }
+}
+$permalink = apply_filters('woocommerce_loop_product_link', get_the_permalink(), $product); ?>
 
 <li <?php wc_product_class('wc-card', $product); ?>>
-    <article class="wc-card__inner">
+    <article class="<?php echo esc_attr(implode(' ', $classes)); ?> ">
 
         <a href="<?php echo esc_url($permalink); ?>" class="wc-card__thumb" aria-label="<?php the_title_attribute(); ?>">
             <?php
+            $image_id   = aw_get_product_image_fallback_id($product->get_ID());
             // Miniatura z zachowaniem proporcji (obj-cover)
             if (has_post_thumbnail()) {
-                the_post_thumbnail('large', ['class' => 'wc-card__img', 'alt' => get_the_title()]);
+                // the_post_thumbnail('woocommerce_single', ['class' => 'wc-card__img', 'alt' => get_the_title()]);
+                echo wp_get_attachment_image(
+                    $image_id,
+                    'aw_card_1x1',
+                    false,
+                    [
+                        'class' => 'wc-card__img',
+                        'sizes' => '(max-width: 600px) 50vw, (max-width: 1200px) 25vw, 360px',
+                    ]
+                );
             } else {
-                echo wc_placeholder_img('full', ['class' => 'wc-card__img']);
+
+
+                // echo wp_get_attachment_image(
+                //     $image_id,
+                //     'woocommerce_single',
+                //     false,
+                //     [
+                //         'class' => 'wc-card__img',
+                //         'loading' => 'lazy',
+                //         'decoding' => 'async',
+                //     ]
+                // );
+                echo wp_get_attachment_image(
+                    $image_id,
+                    'aw_card_1x1',
+                    false,
+                    [
+                        'class' => 'wc-card__img',
+                        'sizes' => '(max-width: 600px) 50vw, (max-width: 1200px) 25vw, 360px',
+                    ]
+                );
             }
             ?>
         </a>

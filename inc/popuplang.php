@@ -73,7 +73,6 @@ function aw_lang_selector_popup()
         (function() {
             document.addEventListener('DOMContentLoaded', function() {
                 var COOKIE_NAME = 'aw_lang_choice';
-
                 var langs = <?php echo $json_langs ?: '{}'; ?>;
                 var overlay = document.getElementById('aw-lang-overlay');
 

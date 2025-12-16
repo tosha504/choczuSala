@@ -33,42 +33,6 @@ if (post_password_required()) {
 }
 ?>
 <div id="product-<?php the_ID(); ?>" <?php wc_product_class('', $product); ?>>
-    <!-- DEMO: Twój kontener -->
-    <!-- <div class="container" style="max-width: 1100px; margin: 24px auto; padding: 0 16px;"> -->
-    <!-- SUCCESS -->
-    <!-- <div class="woocommerce-message" role="alert">
-            <span class="wc-notice__content">Produkt dodany do koszyka.</span>
-            <span class="wc-notice__actions">
-                <a class="button wc-forward" href="#">Zobacz koszyk</a>
-                <a class="button" href="#">Kontynuuj zakupy</a>
-            </span>
-        </div> -->
-
-    <!-- INFO -->
-    <!-- <div class="woocommerce-info" role="status">
-            <span class="wc-notice__content">Zaloguj się, aby skorzystać z kuponu.</span>
-            <span class="wc-notice__actions">
-                <a class="button btn-black-outline" href="#">Zaloguj się</a>
-            </span>
-        </div> -->
-
-    <!-- ERROR (wariant DIV) -->
-    <!-- <div class="woocommerce-error" role="alert">
-            <span class="wc-notice__content">Błąd: kupon wygasł lub jest nieprawidłowy.</span>
-        </div> -->
-
-    <!-- ERROR (wariant UL>LI – Woo często tak renderuje) -->
-    <!-- <ul class="woocommerce-error" role="alert">
-            <li>Wymagane jest wybranie wariantu.</li>
-            <li>Minimalna ilość to 2 szt.</li>
-        </ul>
-    </div> -->
-
-    <!-- STORE NOTICE (dolna belka) -->
-    <!-- <p class="woocommerce-store-notice demo_store" style="position:static; margin:16px 0;">
-        To jest sklep demonstracyjny — zamówienia nie będą realizowane.
-        <a class="woocommerce-store-notice__dismiss-link" href="#">Ukryj</a>
-    </p> -->
 
     <div class="container">
         <div class="product-top-data">

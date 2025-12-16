@@ -15,7 +15,17 @@ if ($attachment_ids) $slides = array_merge($slides, $attachment_ids);
 // Fallback gdy brak zdjęć
 if (empty($slides)) {
     echo '<div class="product-media ">';
-    echo wc_placeholder_img('full');
+    $image_id   = aw_get_product_image_fallback_id($product->get_ID());
+
+    echo wp_get_attachment_image(
+        $image_id,
+        'woocommerce_single',
+        false,
+        [
+            'loading' => 'lazy',
+            'decoding' => 'async',
+        ]
+    );
     echo '</div>';
     return;
 }

@@ -13,6 +13,11 @@
     burgerSpan = jQuery(".burger span"),
     nav = jQuery("#site-navigation"),
     body = jQuery("body");
+  document.addEventListener("change", function (e) {
+    var select = e.target.closest(".aw-lang__select");
+    if (!select) return;
+    window.location.href = select.value;
+  });
   burger.on("click", function () {
     burgerSpan.toggleClass("active");
     nav.toggleClass("active");
@@ -49,6 +54,73 @@
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 })(jQuery);
+document.addEventListener("DOMContentLoaded", function () {
+  var roots = document.querySelectorAll("[data-aw-gr]");
+  if (!roots.length) return;
+  var starSvg = "\n    <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\">\n      <path d=\"M12 17.27l5.18 3.04-1.39-5.9L20.5 10l-6.03-.52L12 4 9.53 9.48 3.5 10l4.71 4.41-1.39 5.9L12 17.27z\"></path>\n    </svg>\n  ";
+  function renderStars(container, rating) {
+    var theme = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "dark";
+    if (!container) return;
+    var r = Math.max(0, Math.min(5, Number(rating || 0)));
+    container.innerHTML = "";
+    for (var i = 1; i <= 5; i++) {
+      var span = document.createElement("span");
+      span.className = "aw-gr-star " + (i <= Math.round(r) ? "aw-gr-star--on" : "aw-gr-star--off");
+      // w badge off gwiazdy są półprzezroczyste na białym, w modalach też OK
+      span.innerHTML = starSvg;
+      container.appendChild(span);
+    }
+  }
+  roots.forEach(function (root) {
+    // badge stars (rating firmy)
+    var rating = root.getAttribute("data-rating") || "0";
+    renderStars(root.querySelector("[data-aw-gr-stars]"), rating);
+    var openBtn = root.querySelector("[data-aw-gr-open]");
+    var tpl = root.querySelector("[data-aw-gr-template]");
+    if (!openBtn || !tpl) return;
+    var modalEl = null;
+    var lastActive = null;
+    var open = function open() {
+      if (modalEl) return;
+      lastActive = document.activeElement;
+      modalEl = tpl.content.firstElementChild.cloneNode(true);
+      document.body.appendChild(modalEl);
+
+      // modal stars
+      renderStars(modalEl.querySelector(".aw-gr-modal__stars"), rating);
+
+      // card stars per review
+      modalEl.querySelectorAll(".aw-gr-card__stars[data-rating]").forEach(function (el) {
+        renderStars(el, el.getAttribute("data-rating"));
+      });
+
+      // zamykanie
+      modalEl.querySelectorAll("[data-aw-gr-close]").forEach(function (btn) {
+        btn.addEventListener("click", close);
+      });
+      document.addEventListener("keydown", onKeydown);
+      document.body.style.overflow = "hidden";
+      openBtn.setAttribute("aria-expanded", "true");
+
+      // focus
+      var closeBtn = modalEl.querySelector(".aw-gr-modal__close");
+      closeBtn && closeBtn.focus();
+    };
+    var close = function close() {
+      if (!modalEl) return;
+      modalEl.remove();
+      modalEl = null;
+      document.removeEventListener("keydown", onKeydown);
+      document.body.style.overflow = "";
+      openBtn.setAttribute("aria-expanded", "false");
+      lastActive && lastActive.focus();
+    };
+    var onKeydown = function onKeydown(e) {
+      if (e.key === "Escape") close();
+    };
+    openBtn.addEventListener("click", open);
+  });
+});
 
 /***/ }),
 

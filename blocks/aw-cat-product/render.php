@@ -69,24 +69,38 @@ $className = !empty($block['className']) ? $block['className'] : "";
     <?php echo show_title($tag, $text_title, $color_text) . $description; ?>
 
     <div class="aw-cat-product__list">
-      <?php if (!empty($terms) && count($terms) > 0) {
-        foreach ($terms as $term): ?>
-          <?php
-          $thumb_id  = get_term_meta($term->term_id, 'thumbnail_id', true);
-          $thumb_url = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'full') : wc_placeholder_img_src('thumbnail');
-          ?>
-          <a class="aw-cat-product__item" href="<?php echo esc_url(get_term_link($term)); ?>">
-            <span class="aw-cat-product__img">
-              <img
-                src="<?php echo esc_url($thumb_url); ?>"
-                alt="<?php echo esc_attr($term->name); ?>">
+      <?php if (!empty($terms) && count($terms) > 0) { ?>
 
-              <span class="aw-cat-product__label-text">
-                <?php echo esc_html($term->name) . aw_svg('/arrow'); ?>
-              </span>
-          </a>
-        <?php endforeach; ?>
+        <div class="aw-cat-product aw-cat-product--slider swiper">
+          <div class="aw-cat-product__list swiper-wrapper">
+            <?php foreach ($terms as $term) : ?>
+              <?php
+              $thumb_id  = get_term_meta($term->term_id, 'thumbnail_id', true);
+              $thumb_url = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'full') : wc_placeholder_img_src('full');
+              ?>
+              <a class="aw-cat-product__item swiper-slide" href="<?php echo esc_url(get_term_link($term)); ?>">
+                <span class="aw-cat-product__img">
+                  <img
+                    src="<?php echo esc_url($thumb_url); ?>"
+                    alt="<?php echo esc_attr($term->name); ?>" loading="lazy">
+                </span>
+                <span class="aw-cat-product__label-text">
+                  <?php echo esc_html($term->name) . aw_svg('/arrow'); ?>
+                </span>
+              </a>
+            <?php endforeach; ?>
+          </div>
+
+          <div class="aw-cat-product__pagination swiper-pagination"></div>
+
+          <div class="aw-cat-product__nav">
+            <button class="aw-cat-product__prev" type="button" aria-label="Poprzedni"></button>
+            <button class="aw-cat-product__next" type="button" aria-label="Następny"></button>
+          </div>
+        </div>
+
       <?php } ?>
+
     </div>
   </div>
 </section>

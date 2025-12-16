@@ -3,25 +3,6 @@
 
     body {
         &.woocommerce-checkout {
-            background-color: red;
-
-            .woocommerce-notices-wrapper {
-                div[role="alert"] {
-                    background-color: var(--primary-theme);
-                    max-width: 1400px;
-                    width: 100%;
-                    margin: 0 auto 20px;
-                    padding: 15px;
-
-                    @media (min-width: map.get(b.$grid-breakpoints, md)) {
-                        max-width: 90vw;
-                    }
-
-                    @media (min-width: map.get(b.$grid-breakpoints, xl)) {
-                        max-width: 1200px;
-                    }
-                }
-            }
 
             .site-main {
                 padding-block: clamp(2rem, 4vw, 4rem);
@@ -288,7 +269,7 @@
                                 }
 
                                 table {
-                                    border: 1px solid var(--gray3-color);
+                                    border: 1px solid var(--color-text-muted);
                                     border-radius: 20px;
                                     padding: 20px;
                                     width: 100%;
@@ -356,7 +337,7 @@
 
                                                         // @media (min-width: map.get(b.$grid-breakpoints, md)) {
                                                         max-width: 5rem;
-                                                        border: 1px solid var(--gray3-color);
+                                                        border: 1px solid var(--color-text-muted);
                                                         padding: 0;
                                                         overflow: hidden;
                                                         border-radius: 50px;
@@ -380,8 +361,8 @@
                                                                 align-items: center;
                                                                 justify-content: center;
                                                                 border: none;
-                                                                border-left: 1px solid var(--gray3-color);
-                                                                border-right: 1px solid var(--gray3-color);
+                                                                border-left: 1px solid var(--color-text-muted);
+                                                                border-right: 1px solid var(--color-text-muted);
 
                                                             }
 
@@ -550,7 +531,7 @@
 
     /* Style for the Select2 container */
     .select2-container--default .select2-selection--single {
-        // background-color: var(--gray3-color);
+        // background-color: var(--color-text-muted);
         /* Background color */
         border: 1px solid var(--black);
         /* Border style */
