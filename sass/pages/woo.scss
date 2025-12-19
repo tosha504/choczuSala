@@ -2,3 +2,48 @@
 @use '../woocommerce/archive-product.scss';
 @use '../woocommerce/helpers/button.scss';
 @use '../woocommerce/cart.scss';
+
+/* Upewniamy się, że mamy kontekst pod absolute */
+.woocommerce ul.products li.product,
+.woocommerce div.product {
+    position: relative;
+}
+
+/* Nasze badge w prawym górnym rogu */
+.aw-badges {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 3;
+    display: flex;
+    // flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    pointer-events: none;
+
+    .aw-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: .5rem .675rem;
+        border-radius: 0.5rem;
+        font-weight: 700;
+        font-size: .875rem;
+        line-height: 1;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .10);
+
+        &--nowosc {
+            background: var(--color-secondary);
+            color: var(--color-text);
+        }
+
+        &--sale {
+            background: #FFDF3B;
+        }
+
+        &--na-wage {
+            background: var(--color-primary);
+            color: var(--color-surface);
+        }
+    }
+}

@@ -110,9 +110,9 @@
 				</nav><!-- #site-navigation -->
 				<div class="actions">
 					<div class="actions__woo">
-						<a href="#" class="search" role="search">
+						<!-- <a href="#" class="search" role="search">
 							<?php echo aw_svg('search'); ?>
-						</a>
+						</a> -->
 						<?php
 						$account_page_id = get_option('woocommerce_cart_page_id');
 						$translated_id = function_exists('pll_get_post') ? pll_get_post($account_page_id) : $account_page_id;

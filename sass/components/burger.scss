@@ -31,12 +31,12 @@
       }
     }
 
-    @media (max-width: map.get(b.$grid-breakpoints, xl)) {
+    @media (max-width: map.get(b.$grid-breakpoints, max-xl)) {
       display: block;
     }
   }
 
-  @media (max-width: map.get(b.$grid-breakpoints, xl)) {
+  @media (max-width: map.get(b.$grid-breakpoints, max-xl)) {
     display: inline-block;
   }
 }

@@ -63,7 +63,7 @@
       //   }
 
       //   /* Mobile – jedna kolumna */
-      //   @media (max-width: map.get(b.$grid-breakpoints, md)) {
+      //   @media (max-width: map.get(b.$grid-breakpoints, max-md)) {
       //       .aw-feature-list {
       //           grid-template-columns: 1fr;
       //           gap: 1.25rem;

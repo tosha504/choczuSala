@@ -5,6 +5,6 @@
     "/css-blocks/hero.css": "/css-blocks/hero.css",
     "/css-blocks/face-aw.css": "/css-blocks/face-aw.css",
     "/css-blocks/aw-cat-product.css": "/css-blocks/aw-cat-product.css",
-    "/dist/app.min.js": "/dist/app.min.js",
-    "/src/index.css": "/src/index.css"
+    "/src/index.css": "/src/index.css",
+    "/dist/app.min.js": "/dist/app.min.js"
 }

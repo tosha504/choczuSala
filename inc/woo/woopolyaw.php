@@ -256,7 +256,7 @@ add_filter('woocommerce_get_product_terms', function ($terms, $product_id, $taxo
 	if ($taxonomy !== 'product_cat') {
 		return $terms;
 	}
-	var_dump($taxonomy);
+	// var_dump($taxonomy);
 
 	// Język aktualnej wersji produktu
 	$lang = function_exists('pll_get_post_language')

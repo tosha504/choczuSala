@@ -58,7 +58,7 @@
                         }
 
                         .woocommerce-MyAccount-navigation {
-                            @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                            @media (max-width: map.get(b.$grid-breakpoints, max-md)) {
                                 overflow-x: auto;
                                 border-bottom: 1px solid var(--black-color);
                                 padding-bottom: 10px;
@@ -202,7 +202,7 @@
                                         border-bottom: 1px solid var(--black-color);
                                         padding-bottom: 10px;
 
-                                        @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                                        @media (max-width: map.get(b.$grid-breakpoints, max-md)) {
                                             flex-direction: column;
                                         }
 
@@ -219,7 +219,7 @@
                                                 flex-direction: column;
                                                 justify-content: center;
 
-                                                @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                                                @media (max-width: map.get(b.$grid-breakpoints, max-md)) {
                                                     flex-direction: row;
                                                 }
 
@@ -228,7 +228,7 @@
                                                 }
                                             }
 
-                                            @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                                            @media (max-width: map.get(b.$grid-breakpoints, max-md)) {
 
                                                 &::before {
                                                     content: attr(data-title);
@@ -246,7 +246,7 @@
                                         td {
                                             font-size: 14px;
 
-                                            @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                                            @media (max-width: map.get(b.$grid-breakpoints, max-md)) {
                                                 padding: 5px;
                                             }
 
@@ -268,7 +268,7 @@
                                 thead {
                                     flex: 1 1 calc(10% - 20px);
 
-                                    @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                                    @media (max-width: map.get(b.$grid-breakpoints, max-md)) {
                                         display: none;
                                     }
                                 }
@@ -288,7 +288,7 @@
 
                         .woocommerce-customer-details {
                             address {
-                                @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                                @media (max-width: map.get(b.$grid-breakpoints, max-md)) {
                                     margin-bottom: 2em;
                                 }
                             }

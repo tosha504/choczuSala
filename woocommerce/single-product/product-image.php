@@ -43,14 +43,14 @@ if (empty($slides)) {
                     // duży obraz z lazy + srcset
                     echo wp_get_attachment_image(
                         $id,
-                        'large',
+                        'full',
                         false,
                         [
                             'class'          => 'product-gallery__img swiper-lazy',
                             'loading'        => $i === 0 ? 'eager' : 'lazy',
                             'decoding'       => 'async',
-                            'data-src'       => wp_get_attachment_image_url($id, 'large'),
-                            'data-srcset'    => wp_get_attachment_image_srcset($id, 'large'),
+                            'data-src'       => wp_get_attachment_image_url($id, 'full'),
+                            'data-srcset'    => wp_get_attachment_image_srcset($id, 'full'),
                             'sizes'          => '(min-width: 768px) 600px, 100vw',
                             'fetchpriority'  => $i === 0 ? 'high' : null,
                             'alt'            => trim(get_post_meta($id, '_wp_attachment_image_alt', true)) ?: get_the_title($id),
@@ -202,7 +202,7 @@ if (empty($slides)) {
         display: block;
         width: 90vmax;
         height: auto;
-        aspect-ratio: 4/3;
+        aspect-ratio: 1/1;
         object-fit: cover;
     }
 

@@ -1,8 +1,13 @@
  $grid-breakpoints: (
    xs: 0,
    sm: 576px,
+   max-sm: calc(576px - 0.0125rem),
    md: 768px,
+   max-md: calc(768px - 0.0125rem),
    lg: 992px,
+   max-xlg: calc(992px - 0.0125rem),
+   max-xl: calc(1200px - 0.0125rem),
    xl: 1200px,
-   xxl: 1440px
+   xxl: calc(1440px - 0.0125rem),
+   max-xxl: 1440px
  );

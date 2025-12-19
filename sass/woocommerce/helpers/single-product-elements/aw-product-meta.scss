@@ -65,7 +65,7 @@
       }
 
       /* podmień na własne ikonki (SVG/Font) */
-      @media (max-width: map.get(b.$grid-breakpoints, sm)) {
+      @media (max-width: map.get(b.$grid-breakpoints, max-sm)) {
           .aw-meta-row {
               grid-template-columns: 120px 1fr;
           }

@@ -34,6 +34,7 @@ $permalink = apply_filters('woocommerce_loop_product_link', get_the_permalink(),
     <article class="<?php echo esc_attr(implode(' ', $classes)); ?> ">
 
         <a href="<?php echo esc_url($permalink); ?>" class="wc-card__thumb" aria-label="<?php the_title_attribute(); ?>">
+            <?php aw_wc_render_custom_badges_overlay($product->get_id()); ?>
             <?php
             $image_id   = aw_get_product_image_fallback_id($product->get_ID());
             // Miniatura z zachowaniem proporcji (obj-cover)
@@ -82,8 +83,9 @@ $permalink = apply_filters('woocommerce_loop_product_link', get_the_permalink(),
             <?php
             // krótki opis (excerpt) – bez shortcode’ów
             $short = apply_filters('woocommerce_short_description', $post->post_excerpt);
+            $short_5_words = wp_trim_words($short, 4, '…');
             if (!empty($short)) : ?>
-                <div class="wc-card__excerpt"><?php echo wp_kses_post(wpautop($short)); ?></div>
+                <div class="wc-card__excerpt"><?php echo wp_kses_post(wpautop($short_5_words)); ?></div>
             <?php endif; ?>
 
             <div class="wc-card__price">

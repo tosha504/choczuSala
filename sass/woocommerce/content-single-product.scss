@@ -35,7 +35,7 @@ body {
                     }
 
                     &__grid {
-                        @media (max-width: map.get(b.$grid-breakpoints, sm)) {
+                        @media (max-width: map.get(b.$grid-breakpoints, max-sm)) {
                             grid-template-columns: 1fr;
                         }
 

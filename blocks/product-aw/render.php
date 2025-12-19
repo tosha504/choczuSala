@@ -25,9 +25,9 @@ $className = !empty($block['className']) ? $block['className'] : "";
 $link = get_field('link_face');
 $products = get_field('product_aw');
 ?>
-<section class="aw-product-aw <?php echo esc_attr($className); ?>" <?php echo $anchor; ?>>
+<section class="aw-products <?php echo esc_attr($className); ?>" <?php echo $anchor; ?>>
   <div class="container">
-    <div class="aw-product-aw__top">
+    <div class="aw-products__top">
       <?php echo show_title($tag, $text_title, $color_text);
       if ($link) :
         $link_url = $link['url'];
@@ -37,39 +37,43 @@ $products = get_field('product_aw');
         <a class="link-arrow" href="<?php echo esc_url($link_url); ?>" target="<?php echo esc_attr($link_target); ?>"><?php echo esc_html($link_title) . aw_svg('/arrow');; ?></a>
       <?php endif; ?>
     </div>
-    <?php if (!empty($products) && count($products) > 0) { ?>
-      <ul class="aw-product-aw__products products">
-        <?php foreach ($products as $key => $item) {
-          $product_id = is_object($item) ? $item->ID : (int) $item;
-          if (!$product_id) {
-            continue;
+
+
+    <?php if (!empty($products) && count($products) > 0) : ?>
+      <div class="aw-products-block" data-aw-products data-aw-threshold="3">
+
+        <div class="aw-products-block__nav" aria-hidden="true">
+          <button class="aw-products-block__btn aw-products-block__btn--prev" type="button" aria-label="Poprzednie produkty">‹</button>
+          <button class="aw-products-block__btn aw-products-block__btn--next" type="button" aria-label="Następne produkty">›</button>
+        </div>
+
+        <ul class="aw-product-aw__products products">
+          <?php
+          foreach ($products as $item) {
+            $product_id = is_object($item) ? (int) $item->ID : (int) $item;
+            if (!$product_id) continue;
+
+            $post_object = get_post($product_id);
+            if (!$post_object) continue;
+
+            global $post, $product;
+            $post    = $post_object;
+            $product = wc_get_product($product_id);
+            if (!$product) continue;
+
+            setup_postdata($post);
+
+            // NIE dodajemy swiper-slide w PHP
+            wc_get_template_part('content', 'product');
           }
+          wp_reset_postdata();
+          ?>
+        </ul>
 
-          // 2. Pobierz post i produkt
-          $post_object = get_post($product_id);
-          if (!$post_object) {
-            continue;
-          }
+        <div class="swiper-pagination"></div>
 
-          global $post, $product;
+      </div>
+    <?php endif; ?>
 
-          $post    = $post_object;                  // ustaw globalny $post
-          $product = wc_get_product($product_id);   // ustaw globalny $product
-
-          if (!$product) {
-            continue;
-          }
-          setup_postdata($post);
-
-          // 3. Render standardowego template'u produktu Woo
-          wc_get_template_part('content', 'product');
-        }
-
-        // 4. Przywróć globalne $post
-        wp_reset_postdata(); ?>
-        <?php //} 
-        ?>
-      </ul>
-    <?php } ?>
   </div>
 </section>

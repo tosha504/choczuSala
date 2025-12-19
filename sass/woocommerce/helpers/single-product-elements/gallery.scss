@@ -15,7 +15,7 @@
       .aw-gallery__item {
           display: flex;
 
-          @media (max-width: map.get(b.$grid-breakpoints, xl)) {
+          @media (max-width: map.get(b.$grid-breakpoints, max-xl)) {
               margin-bottom: 2rem;
           }
 
@@ -31,7 +31,7 @@
               object-fit: cover;
               display: block;
 
-              @media (max-width: map.get(b.$grid-breakpoints, xl)) {
+              @media (max-width: map.get(b.$grid-breakpoints, max-xl)) {
                   aspect-ratio: 1/1;
               }
           }

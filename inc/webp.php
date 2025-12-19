@@ -11,7 +11,6 @@ function aw_log($msg, $ctx = [])
     if (!AW_WEBP_DEBUG) return;
     $prefix = '[aw-webp] ';
     if (!empty($ctx)) $msg .= ' ' . json_encode($ctx, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    error_log($prefix . $msg);
 }
 
 /** Helpers */

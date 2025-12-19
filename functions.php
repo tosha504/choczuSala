@@ -175,7 +175,7 @@ $realestate_includes = array(
 
 // Load WooCommerce functions if WooCommerce is activated.
 if (class_exists('WooCommerce')) {
-	$realestate_includes[] = '/woocommerce.php';
+	$realestate_includes[] = '/as-woocommerce.php';
 }
 if (class_exists('ACF')) {
 	$realestate_includes = array_merge($realestate_includes, [
@@ -431,25 +431,28 @@ add_filter('option_woocommerce_terms_page_id', 'aw_pll_translate_wc_page_id');
 
 // 	echo '</section>';
 // }, 5);
-add_action('init', 'aw_register_multilang_options_pages');
+add_action('acf/init', 'aw_register_multilang_options_pages');
 
-function aw_register_multilang_options_pages()
+function aw_register_multilang_options_pages(): void
 {
+	static $done = false;
+	if ($done) return;
+	$done = true;
+
 	if (!function_exists('acf_add_options_page')) return;
 
-	// Dynamicznie pobiera wszystkie aktywne języki
 	$langs = function_exists('pll_languages_list')
 		? pll_languages_list(['fields' => 'slug'])
-		: ['pl']; // fallback
+		: ['pl'];
 
 	foreach ($langs as $lang) {
 		acf_add_options_page([
 			'page_title' => "Ustawienia ({$lang})",
 			'menu_title' => "Ustawienia {$lang}",
 			'menu_slug'  => "theme-options-{$lang}",
-			'post_id'    => "theme_options_{$lang}", // KLUCZ
+			'post_id'    => "theme_options_{$lang}",
 			'redirect'   => false,
-			'capability' => 'manage_options'
+			'capability' => 'manage_options',
 		]);
 	}
 }
@@ -553,23 +556,44 @@ add_action('init', function () {
 		exit;
 	}
 });
-// add_action('init', function () {
-// 	global $_wp_additional_image_sizes;
-
-// 	echo '<pre>';
-// 	print_r($_wp_additional_image_sizes ?? 'BRAK');
-// 	echo '</pre>';
-// 	exit;
-// });
-
-
 
 
 add_action('after_setup_theme', function () {
 	// 720x720 dla retina (2x), przy docelowej szerokości ~360px
 	add_image_size('aw_card_1x1', 720, 720, true); // hard crop
 });
+/**
+ * Nie transliteruj wewnętrznych kluczy ACF (group_ / field_) i nie ruszaj ACF w adminie.
+ */
 
+function aw_is_acf_internal_slug(string $s): bool
+{
+	return (bool) preg_match('/^(group|field)_[a-z0-9]+$/i', $s);
+}
+
+function aw_should_skip_slug_transliteration(string $title, string $raw_title = '', string $context = 'display'): bool
+{
+	// 1) Nie ruszaj kluczy ACF
+	if (aw_is_acf_internal_slug($title) || ($raw_title && aw_is_acf_internal_slug($raw_title))) {
+		return true;
+	}
+
+	// 2) W adminie: jeśli zapis dotyczy ACF Field Group / Field – nie ruszaj
+	if (is_admin()) {
+		$post_type = $_POST['post_type'] ?? '';
+		if (in_array($post_type, ['acf-field-group', 'acf-field'], true)) {
+			return true;
+		}
+
+		// ACF często wysyła swoje payloady bez klasycznego post_type,
+		// ale ma charakterystyczne pola w POST.
+		if (isset($_POST['acf_field_group']) || isset($_POST['acf_fields'])) {
+			return true;
+		}
+	}
+
+	return false;
+}
 /**
  * 1) Transliteration funkcja bazowa (UA/RU/PL -> ASCII)
  */
@@ -688,14 +712,26 @@ function aw_slug_transliterate(string $str): string
 	return $str !== '' ? $str : 'item';
 }
 
-/**
- * 2) Slugi postów/CPT (sanitize_title odpala się przy generowaniu sluga)
- */
 add_filter('sanitize_title', function ($title, $raw_title = '', $context = 'display') {
 	if (!is_string($title) || $title === '') return $title;
+
+	if (aw_should_skip_slug_transliteration($title, (string)$raw_title, (string)$context)) {
+		return $title;
+	}
+
 	return aw_slug_transliterate($title);
 }, 9, 3);
 
+add_filter('pre_wp_unique_post_slug', function ($override, $slug, $post_ID, $post_status, $post_type, $post_parent) {
+	if (!is_string($slug) || $slug === '') return $override;
+
+	// Nie ruszaj ACF
+	if (in_array($post_type, ['acf-field-group', 'acf-field'], true) || aw_is_acf_internal_slug($slug)) {
+		return $override;
+	}
+
+	return aw_slug_transliterate($slug);
+}, 9, 6);
 /**
  * 3) Termy (kategorie/tagi/atrybuty)
  */
@@ -704,13 +740,7 @@ add_filter('pre_term_slug', function ($slug) {
 	return aw_slug_transliterate($slug);
 }, 9);
 
-/**
- * 4) Dodatkowa pewność przed unikalnym slugiem
- */
-add_filter('pre_wp_unique_post_slug', function ($override, $slug, $post_ID, $post_status, $post_type, $post_parent) {
-	if (!is_string($slug) || $slug === '') return $override;
-	return aw_slug_transliterate($slug);
-}, 9, 6);
+
 
 /**
  * (Opcjonalnie) transliteruj nazwy plików uploadów (używaj świadomie!)

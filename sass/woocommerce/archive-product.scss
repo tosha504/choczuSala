@@ -10,18 +10,17 @@ body {
     &.tax-product_cat,
     &.post-type-archive-product {
         main {
-            color: var(--black-color);
+            background-color: var(--color-bg);
         }
 
-        @extend %cat-carusel;
-        @extend %shop-hero;
+        // @extend %cat-carusel;
+        // @extend %shop-hero;
 
 
 
         .wrap-products {
             padding-block: clamp(2rem, 5vw, 4rem);
-            background:
-                linear-gradient(180deg, var(--gray-color, #ccc) 70%, var(--white-color, #fff) 30%);
+
         }
 
         @extend %woo-pagination;

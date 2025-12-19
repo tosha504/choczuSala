@@ -5,23 +5,23 @@ body {
     &.woocommerce-cart {
         font-size: 0.75rem;
 
-        .woocommerce-notices-wrapper {
-            div[role="alert"] {
-                background-color: var(--primary-theme);
-                max-width: 1400px;
-                width: 100%;
-                margin: 0 auto 20px;
-                padding: 15px;
+        // .woocommerce-notices-wrapper {
+        //     div[role="alert"] {
+        //         background-color: var(--color-primary);
+        //         max-width: 1400px;
+        //         width: 100%;
+        //         margin: 0 auto 20px;
+        //         padding: 15px;
 
-                @media (min-width: map.get(b.$grid-breakpoints, md)) {
-                    max-width: 90vw;
-                }
+        //         @media (min-width: map.get(b.$grid-breakpoints, md)) {
+        //             max-width: 90vw;
+        //         }
 
-                @media (min-width: map.get(b.$grid-breakpoints, xl)) {
-                    max-width: 1200px;
-                }
-            }
-        }
+        //         @media (min-width: map.get(b.$grid-breakpoints, xl)) {
+        //             max-width: 1200px;
+        //         }
+        //     }
+        // }
 
         .site-main {
             padding: 0;
@@ -45,7 +45,7 @@ body {
                     font-weight: 500;
 
                     a {
-                        color: var(--primary-theme);
+                        color: var(--color-primary);
                     }
                 }
 
@@ -264,13 +264,13 @@ body {
         thead,
         .title-subtotal-cartform,
         .d-none-small {
-            @media (max-width: map.get(b.$grid-breakpoints, md)) {
+            @media (max-width: map.get(b.$grid-breakpoints, max-md)) {
                 display: none !important;
             }
         }
 
         td {
-            @media (max-width: map.get(b.$grid-breakpoints, md)) {
+            @media (max-width: map.get(b.$grid-breakpoints, max-md)) {
                 display: block;
                 padding-block: 8px;
                 font-size: 14px;
@@ -317,7 +317,7 @@ body {
         tbody .cart_item {
             border-bottom: 1px solid var(--color-text-muted);
 
-            @media (max-width: map.get(b.$grid-breakpoints, md)) {
+            @media (max-width: map.get(b.$grid-breakpoints, max-md)) {
                 border-bottom: 2px solid var(--color-text-muted);
             }
         }
@@ -338,7 +338,7 @@ body {
             max-width: 80px;
             display: flex;
 
-            @media (max-width: map.get(b.$grid-breakpoints, md)) {
+            @media (max-width: map.get(b.$grid-breakpoints, max-md)) {
                 display: none !important;
             }
         }
@@ -438,7 +438,7 @@ body {
         .woocommerce-cart-form__contents {
             tbody {
                 tr {
-                    @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                    @media (max-width: map.get(b.$grid-breakpoints, max-md)) {
                         flex-direction: column;
                     }
                 }
@@ -549,7 +549,7 @@ body {
                         }
 
                         &.slick-active {
-                            background-color: var(--primary-theme);
+                            background-color: var(--color-primary);
                         }
 
                         &:hover {

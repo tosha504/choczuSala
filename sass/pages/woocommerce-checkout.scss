@@ -51,7 +51,7 @@
 
                     .woocommerce-customer-details {
                         address {
-                            @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                            @media (max-width: map.get(b.$grid-breakpoints, max-md)) {
                                 margin-bottom: 2em;
                             }
                         }

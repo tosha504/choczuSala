@@ -15,40 +15,34 @@
     nav.toggleClass("active");
     body.toggleClass("fixed-page");
   });
+  jQuery(document).on("click", ".cart-qty.plus, .cart-qty.minus", function (e) {
+    e.preventDefault();
 
-  setTimeout(function () {
-    if (getCookie("popupCookie") != "submited") {
-      jQuery(".cookies").css("display", "block").hide().fadeIn(2000);
-    }
-
-    jQuery("a.submit").click(function () {
-      jQuery(".cookies").fadeOut();
-      //sets the coookie to five minutes if the popup is submited (whole numbers = days)
-      setCookie("popupCookie", "submited", 7);
-    });
-  }, 5000);
-
-  function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(";");
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == " ") {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
+    const input = jQuery(this).parent().find(".input-text.qty.text");
+    const input_val = parseInt(input.val());
+    if (jQuery(this).hasClass("plus")) {
+      input.val(input_val + 1);
+      input.attr("value", input_val + 1);
+    } else {
+      const new_val = input_val - 1;
+      if (new_val > 0) {
+        input.val(input_val - 1);
+        input.attr("value", input_val - 1);
       }
     }
-    return "";
-  }
 
-  function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-    var expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  }
+    input.trigger("change");
+  });
+
+  let timeout;
+  jQuery(".woocommerce").on("change", "input.qty", function () {
+    if (timeout !== undefined) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(function () {
+      jQuery("[name='update_cart']").trigger("click"); // trigger cart update
+    }, 100); // 1 second delay, half a second (500) seems comfortable too
+  });
 })(jQuery);
 document.addEventListener("DOMContentLoaded", () => {
   const roots = document.querySelectorAll("[data-aw-gr]");

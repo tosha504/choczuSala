@@ -19,7 +19,6 @@
 defined('ABSPATH') || exit;
 
 get_header('shop');
-
 /**
  * Hook: woocommerce_before_main_content.
  *
@@ -58,7 +57,6 @@ do_action('woocommerce_before_main_content');
         echo '<h2>Produkty</h2>';
         echo '</div">';
         woocommerce_product_loop_start();
-        echo '<div class="container">';
 
         if (wc_get_loop_prop('total')) {
             while (have_posts()) {
@@ -73,7 +71,6 @@ do_action('woocommerce_before_main_content');
             }
         }
 
-        echo '</div>';
         woocommerce_product_loop_end();
 
         /**
@@ -98,7 +95,6 @@ do_action('woocommerce_before_main_content');
      */
 
 ?>
-</div>
 </div>
 <?php
 do_action('woocommerce_after_main_content');
