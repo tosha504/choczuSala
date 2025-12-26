@@ -4,6 +4,10 @@
     burgerSpan = jQuery(".burger span"),
     nav = jQuery("#site-navigation"),
     body = jQuery("body");
+  document.documentElement.style.setProperty(
+    "--aw-header-h",
+    document.querySelector("#masthead").offsetHeight + "px"
+  );
   document.addEventListener("change", (e) => {
     const select = e.target.closest(".aw-lang__select");
     if (!select) return;

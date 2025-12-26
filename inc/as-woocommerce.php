@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 require_once get_theme_file_path('inc/woo/woopolyaw.php');
 require_once get_theme_file_path('inc/woo/badges.php');
 require_once get_theme_file_path('inc/woo/archive.php');
+require_once get_theme_file_path('inc/woo/cart.php');
 
 add_action('after_setup_theme', function () {
     add_theme_support('woocommerce');
@@ -14,11 +15,14 @@ add_action('after_setup_theme', function () {
     remove_theme_support('wc-product-gallery-slider');
 }, 20);
 add_filter('woocommerce_enqueue_styles', '__return_empty_array');
-remove_action('woocommerce_cart_collaterals', 'woocommerce_cart_totals', 10);
-add_action('woocommerce_before_cart_collaterals', 'woocommerce_cart_totals');
+
 
 remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
+remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 10);
+remove_action('woocommerce_output_content_wrapper_end', 'woocommerce_breadcrumb', 10);
 
+
+// remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
 // functions.php (child theme) lub własna wtyczka MU
 add_action('init', function () {
     $hooks = [
@@ -43,8 +47,6 @@ function aw_output_notices_in_container()
     woocommerce_output_all_notices();        // oryginalne wypisanie notice’ów
     echo '</div>';
 }
-
-
 
 remove_action('woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20);
 remove_action('woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10);
@@ -121,34 +123,84 @@ add_action('woocommerce_before_quantity_input_field', function () {
 
 add_action('woocommerce_after_quantity_input_field', function () {
     if (! is_product()) return;
-    if (!is_product()) return;
 
     global $product;
     if (!$product || $product->is_sold_individually()) return; // nic nie dodawaj
     echo '<button class="cart-qty plus">+</button>';
 });
+add_filter('woocommerce_cart_item_quantity', function ($product_quantity, $cart_item_key, $cart_item) {
+
+    // Pokazuj na koszyku i checkout
+    if (! (is_cart() || is_checkout())) {
+        return $product_quantity;
+    }
+
+    $product = $cart_item['data'];
+
+    if (!$product || $product->is_sold_individually()) {
+        return $product_quantity;
+    }
+    if ($product->get_meta('_aw_weight_enabled', true) === '1') {
+        return $product_quantity;
+    }
+    $product_quantity =
+        '<button class="cart-qty minus">-</button>'
+        . $product_quantity .
+        '<button class="cart-qty plus">+</button>';
+
+    return $product_quantity;
+}, 10, 3);
+
+add_filter('woocommerce_get_stock_html', function ($html, $product) {
+    if (is_product()) {
+        return '';
+    }
+    return $html;
+}, 10, 2);
 remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10);
-add_action('wp_footer', 'cart_update_qty_script');
-function cart_update_qty_script()
+add_action('woocommerce_single_product_summary', function () {
+    global $product;
+
+    if (!$product instanceof WC_Product) {
+        return;
+    }
+
+    $description = $product->get_description();
+
+    if (empty($description)) {
+        return;
+    }
+
+    echo '<section class="aw-product-description">';
+    echo apply_filters('the_content', $description);
+    echo '</section>';
+}, 40);
+add_filter('woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment');
+
+function woocommerce_header_add_to_cart_fragment($fragments)
 {
-    if (is_checkout()) :
-?>
-        <script>
-            let timeout;
-            jQuery('.checkout.woocommerce-checkout').on('change', 'input.qty', function() {
-                alert('sdfsdf')
-                if (timeout !== undefined) {
-                    clearTimeout(timeout);
-                }
-                timeout = setTimeout(function() {
-                    jQuery('.cart-qty.plus, .minus').attr('disabled', true) // trigger cart update
-                }, 100); // 1 second delay, half a second (500) seems comfortable too
-                // jQuery(document.body).trigger('wc_fragment_refresh');
-                setTimeout(function() {
-                    jQuery(document.body).trigger('wc_fragment_refresh'); // Refresh the cart fragments
-                }, 1000);
-            });
-        </script>
+    global $woocommerce;
+
+    ob_start();
+    $account_page_id = get_option('woocommerce_cart_page_id');
+    $translated_id = function_exists('pll_get_post') ? pll_get_post($account_page_id) : $account_page_id;
+    $account_url = get_permalink($translated_id); ?>
+
+    <a href="<?php echo esc_url($account_url); ?>" class="cart-header"
+        title="<?php esc_attr_e('Koszyk', 'start'); ?>"
+        rel="noopener noreferrer"
+        target="_self">
+        <?php echo aw_svg('cart'); ?>
+        <span class="count">
+            <?php echo sprintf($woocommerce->cart->cart_contents_count); ?>
+        </span>
+    </a>
+
 <?php
-    endif;
+    $fragments['a.cart-header'] = ob_get_clean();
+    ob_start();
+
+
+
+    return $fragments;
 }

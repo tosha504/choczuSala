@@ -15,6 +15,8 @@ if ($attachment_ids) $slides = array_merge($slides, $attachment_ids);
 // Fallback gdy brak zdjęć
 if (empty($slides)) {
     echo '<div class="product-media ">';
+
+    aw_wc_render_custom_badges_overlay($product->get_id());
     $image_id   = aw_get_product_image_fallback_id($product->get_ID());
 
     echo wp_get_attachment_image(
@@ -33,7 +35,8 @@ if (empty($slides)) {
 ?>
 <div class="product-media">
     <!-- MAIN -->
-    <?php //tnl_custom_sale_badge(); 
+    <?php
+    aw_wc_render_custom_badges_overlay($product->get_id());
     ?>
     <div class="swiper product-gallery js-product-gallery" aria-label="<?php esc_attr_e('Galeria produktu', 'your-textdomain'); ?>">
         <div class="swiper-wrapper">

@@ -19,7 +19,7 @@
                 flex: 1 1 100%;
                 max-width: 100%;
 
-                @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                @media (min-width: map.get(b.$grid-breakpoints, sm)) {
                     max-width: calc(50% - 0.5rem); // 2 kolumny
                 }
 

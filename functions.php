@@ -148,6 +148,13 @@ function start_widgets_init()
 			'after_title' => '',
 		)
 	);
+	register_sidebar([
+		'name' => 'The left sidebar of the shop',
+		'id' => 'left-sidebar',
+		'description' => 'These widgets will be shown in the right column of the site',
+		'before_title' => '<h2>',
+		'after_title' => '</h2>'
+	]);
 }
 add_action('widgets_init', 'start_widgets_init');
 
@@ -870,3 +877,10 @@ function aw_bulk_fix_term_slugs(): void
 		}
 	}
 }
+add_filter('use_widgets_block_editor', '__return_false', 100);
+add_filter('gutenberg_use_widgets_block_editor', '__return_false', 100);
+
+/**
+ * (Opcjonalnie) Wyłącz też edytor blokowy dla Customizera (czasem pomaga).
+ */
+add_filter('use_block_editor_for_widgets', '__return_false', 100);

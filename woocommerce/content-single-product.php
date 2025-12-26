@@ -37,6 +37,7 @@ if (post_password_required()) {
     <div class="container">
         <div class="product-top-data">
             <?php
+
             /**
              * Hook: woocommerce_before_single_product_summary.
              *
@@ -226,71 +227,11 @@ if (post_password_required()) {
 
             // RENDER
     ?>
-            <section class="aw-tech" id="dane-techniczne">
-                <h2 class="aw-tech__title"><?php echo esc_html__('Dane techniczne', 'aw'); ?></h2>
-                <ul class="aw-tech__list" aria-label="<?php echo esc_attr__('Dane techniczne produktu', 'aw'); ?>">
-                    <?php foreach ($rows as $row): ?>
-                        <li class="aw-tech__row">
-                            <span><?php echo esc_html($row['label']); ?></span>
-                            <span><?php echo wp_kses_post($row['value']); ?></span>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </section>
-            <style>
-                .aw-tech {
-                    margin-bottom: 2.5rem;
-                }
 
-                .aw-tech__title {
-                    text-align: center;
-                    font-size: 1.75rem;
-                    font-weight: 700;
-                    margin-bottom: 2rem;
-                }
-
-                .aw-tech__list {
-                    /* podgląd */
-                    max-width: 50rem;
-                    padding: 1.5rem;
-                    list-style: none;
-                    margin: 0 auto;
-                }
-
-                .aw-tech__row {
-                    display: flex;
-                    justify-content: space-between;
-                    padding: 0.75rem 0;
-                    font-size: 1rem;
-                    border-bottom: 1px solid #e8e8e8;
-                }
-
-                .aw-tech__row:last-child {
-                    border-bottom: none;
-                }
-
-                @media (max-width: 600px) {
-                    .aw-tech__row {
-                        flex-direction: column;
-                        gap: 0.25rem;
-                    }
-
-                    .aw-tech__row span:last-child {
-                        font-weight: 600;
-                    }
-                }
-            </style>
     <?php
         }
     }
 
-    /** Shortcode: [aw_tech_specs] */
-    add_shortcode('aw_tech_specs', function () {
-        ob_start();
-        aw_render_tech_specs();
-        return ob_get_clean();
-    });
-    aw_render_tech_specs(wc_get_product());
     /** Hook: pokaż po podsumowaniu produktu */
     add_action('woocommerce_after_single_product_summary', function () {
         // Możesz zmienić priorytet lub warunek (np. tylko dla określonych kategorii)

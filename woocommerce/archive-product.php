@@ -52,10 +52,90 @@ do_action('woocommerce_before_main_content');
         do_action('woocommerce_before_shop_loop');
 
     ?></div>
-<div class="wrap-products">
-<?php echo '<div class="container">';
-        echo '<h2>Produkty</h2>';
-        echo '</div">';
+<div class="container">
+    <div class="wrap-products">
+        <aside class="custom-sidebar-shop" data-shop-filter>
+            <button class="button" type="button" data-shop-filter-open>
+                <?= esc_html__('Filter', 'start'); ?>
+            </button>
+
+            <div class="custom-sidebar-shop__panel" data-shop-filter-panel>
+                <button type="button" class="custom-sidebar-shop__close" data-shop-filter-close>
+                    <?php esc_html_e('Close', 'start'); ?>
+                </button>
+
+                <?php dynamic_sidebar('left-sidebar'); ?>
+            </div>
+
+            <div class="custom-sidebar-shop__backdrop" data-shop-filter-backdrop hidden></div>
+        </aside>
+        <script>
+            (() => {
+                const root = document.querySelector('[data-shop-filter]');
+                if (!root) return;
+
+                const openBtn = root.querySelector('[data-shop-filter-open]');
+                const closeBtn = root.querySelector('[data-shop-filter-close]');
+                const panel = root.querySelector('[data-shop-filter-panel]');
+                const backdrop = root.querySelector('[data-shop-filter-backdrop]');
+
+                const MQ = window.matchMedia('(max-width: 767px)');
+
+                const setBackdropHidden = (hidden) => {
+                    if (!backdrop) return;
+                    backdrop.hidden = hidden;
+                };
+
+                const open = () => {
+                    if (!MQ.matches) return; // tylko mobile
+                    root.classList.add('is-open');
+                    document.body.classList.add('fixed-page');
+                    setBackdropHidden(false);
+
+                    // focus na panel (UX)
+                    const focusable = panel?.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                    focusable?.focus?.();
+                };
+
+                const close = () => {
+                    root.classList.remove('is-open');
+                    document.body.classList.remove('fixed-page');
+                    setBackdropHidden(true);
+                    openBtn?.focus?.();
+                };
+
+                openBtn?.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    open();
+                });
+
+                closeBtn?.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    close();
+                });
+
+                backdrop?.addEventListener('click', close);
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') close();
+                });
+
+                // Gdy przechodzisz na >=768px – resetuj stan, żeby nie zostało overflow hidden
+                const syncWithViewport = () => {
+                    if (!MQ.matches) close();
+                    else setBackdropHidden(!root.classList.contains('is-open'));
+                };
+
+                // inicjalizacja
+                syncWithViewport();
+
+                // matchMedia change (nowoczesne)
+                MQ.addEventListener?.('change', syncWithViewport);
+                // fallback
+                window.addEventListener('resize', syncWithViewport);
+            })();
+        </script>
+    <?php
         woocommerce_product_loop_start();
 
         if (wc_get_loop_prop('total')) {
@@ -72,6 +152,7 @@ do_action('woocommerce_before_main_content');
         }
 
         woocommerce_product_loop_end();
+        echo '</div>';
 
         /**
          * Hook: woocommerce_after_shop_loop.
@@ -94,16 +175,16 @@ do_action('woocommerce_before_main_content');
      * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
      */
 
-?>
-</div>
-<?php
-do_action('woocommerce_after_main_content');
+    ?>
+    </div>
+    <?php
+    do_action('woocommerce_after_main_content');
 
-/**
- * Hook: woocommerce_sidebar.
- *
- * @hooked woocommerce_get_sidebar - 10
- */
-do_action('woocommerce_sidebar');
+    /**
+     * Hook: woocommerce_sidebar.
+     *
+     * @hooked woocommerce_get_sidebar - 10
+     */
+    do_action('woocommerce_sidebar');
 
-get_footer('shop');
+    get_footer('shop');

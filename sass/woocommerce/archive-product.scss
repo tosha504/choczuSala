@@ -11,6 +11,38 @@ body {
     &.post-type-archive-product {
         main {
             background-color: var(--color-bg);
+
+            .banner-shop {
+                position: relative;
+                width: 100%;
+                aspect-ratio: 16 / 9;
+                /* 🔥 zamiast padding-bottom */
+                overflow: hidden;
+                border-radius: 0.5rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: clamp(260px, 45vh, 500px);
+
+                img {
+                    position: absolute;
+                    inset: 0;
+                    /* top:0 right:0 bottom:0 left:0 */
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    object-position: center;
+                    z-index: 0;
+                    filter: brightness(0.7);
+                }
+
+                h1 {
+                    position: relative;
+                    z-index: 2;
+                    color: var(--color-surface);
+                }
+
+            }
         }
 
         // @extend %cat-carusel;
@@ -19,8 +51,108 @@ body {
 
 
         .wrap-products {
-            padding-block: clamp(2rem, 5vw, 4rem);
+            padding-block: clamp(1.5rem, 5vw, 2.75rem);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
 
+            .custom-sidebar-shop {
+                @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                    max-width: calc((100%/4) - 0.5rem);
+                }
+
+                // przycisk domyślnie ukryty na desktopie
+                [data-shop-filter-open] {
+                    display: none;
+                }
+
+                &__panel {
+                    position: sticky;
+                    top: calc(var(--aw-header-h) + 1rem);
+                }
+
+                &__close {
+                    margin-bottom: 1rem;
+                    margin-left: auto;
+                    display: flex;
+                    padding: 1rem;
+                    border-radius: 0.5rem;
+                    background: var(--color-primary);
+                    color: var(--color-surface);
+                    font-family: inherit;
+                    font-weight: 500;
+
+                    @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                        display: none;
+                    }
+                }
+
+                @media (max-width: map.get(b.$grid-breakpoints, md)) {
+                    [data-shop-filter-open] {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: .5rem;
+                    }
+
+                    .custom-sidebar-shop__panel {
+
+                        position: fixed;
+                        top: 0;
+                        left: -100%;
+                        width: min(92vw, 420px);
+                        height: 100dvh;
+                        background: #fff;
+                        z-index: 1001;
+                        padding: 1rem;
+                        overflow: auto;
+                        transition: left .25s ease;
+                        will-change: left;
+                    }
+
+                    .custom-sidebar-shop__backdrop {
+                        position: fixed;
+                        inset: 0;
+                        background: rgba(0, 0, 0, .45);
+                        z-index: 1000;
+                    }
+
+
+                    &.is-open {
+                        .custom-sidebar-shop__panel {
+                            left: 0;
+                        }
+
+                        .custom-sidebar-shop__backdrop {
+                            display: block;
+                        }
+                    }
+                }
+
+                @media (min-width: 768px) {
+                    .custom-sidebar-shop__backdrop {
+                        display: none !important;
+                    }
+                }
+            }
+
+            .custom-sidebar-shop,
+            ul {
+                flex: 1 1 100%;
+            }
+
+
+            .products {
+                @media (min-width: map.get(b.$grid-breakpoints, md)) {
+                    max-width: calc(100% - (100%/4) - 0.5rem);
+                }
+
+                .wc-card {
+
+                    @media (min-width: map.get(b.$grid-breakpoints, xl)) {
+                        max-width: calc((100%/3) - 1.5rem);
+                    }
+                }
+            }
         }
 
         @extend %woo-pagination;

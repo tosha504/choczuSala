@@ -14,15 +14,15 @@
              img {
                  aspect-ratio: 4/5;
                  object-fit: cover;
-                 position: sticky;
+                 //  position: sticky;
                  top: 3rem;
                  max-height: 600px;
              }
          }
 
          &:has(.woocommerce-placeholder, .product-gallery) {
-             position: sticky;
-             top: 0;
+             //  position: sticky;
+             //  top: 0;
 
              img {
                  aspect-ratio: 1/1;
