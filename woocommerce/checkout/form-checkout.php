@@ -24,10 +24,10 @@ do_action('woocommerce_before_checkout_form', $checkout);
 
 // If checkout registration is disabled and not logged in, the user cannot checkout.
 if (!$checkout->is_registration_enabled() && $checkout->is_registration_required() && !is_user_logged_in()) {
-    echo esc_html(apply_filters('woocommerce_checkout_must_be_logged_in_message', __('You must be logged in to checkout.', 'woocommerce')));
+    echo esc_html(apply_filters('woocommerce_checkout_must_be_logged_in_message', __('You must be logged in to checkout.', 'start')));
     return;
 }
-$order_button_text = __('I buy and pay', 'woocommerce');
+$order_button_text = __('I buy and pay', 'start');
 ?>
 <form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data">
     <?php if ($checkout->get_checkout_fields()) : ?>
@@ -36,7 +36,7 @@ $order_button_text = __('I buy and pay', 'woocommerce');
             <?php do_action('woocommerce_checkout_billing'); ?>
             <?php do_action('woocommerce_checkout_shipping'); ?>
 
-            <h3 class="stepCheckout-title"><?php echo __('2. Shipping', 'woocommerce'); ?></h3>
+            <h3 class="stepCheckout-title"><?php echo __('2. Shipping', 'start'); ?></h3>
             <?php
             if (WC()->cart->needs_shipping() && WC()->cart->show_shipping()) {    ?>
                 <div class="ajax-shipp-method">
@@ -47,7 +47,7 @@ $order_button_text = __('I buy and pay', 'woocommerce');
             <?php } else {
                 echo '<p class="shipping-virtual">Produkt cyfrowy zostanie wysłany na podany adres e-mail po zrealizowaniu zamówienia.</p>';
             } ?>
-            <h3 class="stepCheckout-title"><?php echo __('3. Payments', 'woocommerce'); ?></h3>
+            <h3 class="stepCheckout-title"><?php echo __('3. Payments', 'start'); ?></h3>
             <?php do_action('custom_payment_position'); ?>
         </div>
         <?php do_action('woocommerce_checkout_after_customer_details'); ?>
@@ -57,16 +57,16 @@ $order_button_text = __('I buy and pay', 'woocommerce');
         <?php do_action('woocommerce_checkout_before_order_review_heading'); ?>
         <?php do_action('woocommerce_checkout_before_order_review'); ?>
         <div>
-            <h3 id="order_review_heading"><?php esc_html_e('4.Your order', 'woocommerce'); ?></h3>
+            <h3 id="order_review_heading"><?php esc_html_e('4.Your order', 'start'); ?></h3>
             <br>
             <?php do_action('woocommerce_checkout_order_review'); ?>
             <div class="form-row place-order">
                 <noscript>
                     <?php
                     /* translators: $1 and $2 opening and closing emphasis tags respectively */
-                    printf(esc_html__('Since your browser does not support JavaScript, or it is disabled, please ensure you click the %1$sUpdate Totals%2$s button before placing your order. You may be charged more than the amount stated above if you fail to do so.', 'woocommerce'), '<em>', '</em>');
+                    printf(esc_html__('Since your browser does not support JavaScript, or it is disabled, please ensure you click the %1$sUpdate Totals%2$s button before placing your order. You may be charged more than the amount stated above if you fail to do so.', 'start'), '<em>', '</em>');
                     ?>
-                    <br /><button type="submit" class="button alt" name="woocommerce_checkout_update_totals" value="<?php esc_attr_e('Update totals', 'woocommerce'); ?>"><?php esc_html_e('Update totals', 'woocommerce'); ?></button>
+                    <br /><button type="submit" class="button alt" name="woocommerce_checkout_update_totals" value="<?php esc_attr_e('Update totals', 'start'); ?>"><?php esc_html_e('Update totals', 'start'); ?></button>
                 </noscript>
                 <?php
                 if (wc_coupons_enabled()) { ?>
@@ -75,10 +75,10 @@ $order_button_text = __('I buy and pay', 'woocommerce');
                             <p class="resoult-coupon w-100"></p>
                             <div class="checkout_coupon d-flex align-items-center" method="post">
                                 <div class="couponField">
-                                    <input type="text" name="coupon_code" class="input-text" placeholder="<?php esc_attr_e('Coupon code', 'woocommerce'); ?>" id="checkout_coupon_code" value="" />
+                                    <input type="text" name="coupon_code" class="input-text" placeholder="<?php esc_attr_e('Coupon code', 'start'); ?>" id="checkout_coupon_code" value="" />
                                 </div>
                                 <div class="couponBtn">
-                                    <a href="#apply" id="checkout_apply_coupon" class="button btn-round text-uppercase"><?php esc_attr_e('Apply', 'woocommerce'); ?> </a>
+                                    <a href="#apply" id="checkout_apply_coupon" class="button btn-round text-uppercase"><?php esc_attr_e('Apply', 'start'); ?> </a>
                                 </div>
                             </div>
                         </div>

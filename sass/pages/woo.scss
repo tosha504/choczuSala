@@ -45,5 +45,10 @@
             background: var(--color-primary);
             color: var(--color-surface);
         }
+
+        &--bestseller {
+            background: var(--color-secondary);
+            color: var(--color-surface);
+        }
     }
 }

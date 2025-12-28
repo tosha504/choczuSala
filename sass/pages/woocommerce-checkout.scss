@@ -59,8 +59,8 @@
 
                     .woocommerce-billing-fields__field-wrapper {
                         display: flex;
-                        border: 1px solid var(--gray3-color);
-                        border-radius: 20px;
+                        border: 1px solid var(--color-text-muted);
+                        border-radius: 0.5rem;
                         // flex-direction: column;
                         gap: 0.625rem;
                         padding: clamp(1rem, 4vw, 1.5rem);
@@ -75,9 +75,11 @@
 
                             // &:first-child,
                             // &:nth-child(2) {
-                            @media (min-width: map.get(b.$grid-breakpoints, md)) {}
+                            @media (min-width: map.get(b.$grid-breakpoints, md)) {
 
-                            max-width: calc(50% - 0.625rem);
+                                max-width: calc(50% - 0.625rem);
+                            }
+
                             // }
                         }
 
@@ -271,24 +273,25 @@
                                 table {
                                     border: 1px solid var(--color-text-muted);
                                     border-radius: 20px;
-                                    padding: 20px;
+                                    // padding: 20px;
                                     width: 100%;
 
                                     tbody,
                                     tfoot {
                                         display: flex;
+                                        margin: 1.375rem;
+
                                     }
 
                                     tbody {
                                         flex-direction: column;
                                         gap: 10px;
-                                        margin-bottom: 20px;
 
                                         tr {
                                             &.cart_item {
                                                 display: flex;
                                                 gap: 20px;
-                                                border-bottom: 1px solid var(--black);
+                                                border-bottom: 1px solid var(--color-dark);
                                                 // padding: 10px 20px;
                                                 padding-bottom: 1.375rem;
 
@@ -524,6 +527,10 @@
         width: 100%;
     }
 
+    .select2-container {
+        z-index: 4 !important;
+    }
+
     .select2-container--default .select2-selection--single .select2-selection__arrow {
         top: 50%;
         transform: translateY(-50%);
@@ -534,7 +541,7 @@
     .select2-container--default .select2-selection--single {
         // background-color: var(--color-text-muted);
         /* Background color */
-        border: 1px solid var(--black);
+        border: 1px solid var(--color-dark);
         /* Border style */
         border-radius: 50px;
         /* Rounded corners */
@@ -578,7 +585,6 @@
 
     /* Additional customization */
     .select2-container--default .select2-selection--single {
-        font-family: "Arial", sans-serif;
         /* Font style */
         margin: 5px 0;
         /* Margin around the select box */

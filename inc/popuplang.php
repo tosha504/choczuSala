@@ -76,7 +76,7 @@ function aw_lang_selector_popup()
                 var langs = <?php echo $json_langs ?: '{}'; ?>;
                 var overlay = document.getElementById('aw-lang-overlay');
 
-                console.log('aw-lang-overlay element:', overlay, langs);
+                // console.log('aw-lang-overlay element:', overlay, langs);
 
                 if (!overlay) return;
 
@@ -99,7 +99,7 @@ function aw_lang_selector_popup()
 
                 // Jeśli język już wybrany → nie pokazujemy popupu
                 var chosen = getCookie(COOKIE_NAME);
-                console.log('aw_lang_choice cookie:', chosen);
+                // console.log('aw_lang_choice cookie:', chosen);
 
                 if (chosen) {
                     overlay.setAttribute('aria-hidden', 'true');

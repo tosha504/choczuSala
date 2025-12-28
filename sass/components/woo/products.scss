@@ -27,10 +27,10 @@
                     max-width: calc(33.333% - 1rem); // 3 kolumny
                 }
 
-                // jeśli chcesz 4 kolumny na XL, odkomentuj:
-                @media (min-width: map.get(b.$grid-breakpoints, xl)) {
-                    max-width: calc(25% - 1.5rem);
-                }
+                // // jeśli chcesz 4 kolumny na XL, odkomentuj:
+                // @media (min-width: map.get(b.$grid-breakpoints, xl)) {
+                //     max-width: calc(25% - 1.5rem);
+                // }
             }
         }
     }

@@ -52,7 +52,7 @@ remove_action('woocommerce_checkout_order_review', 'woocommerce_checkout_payment
 remove_action('woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10);
 add_action('custom_payment_position', 'woocommerce_checkout_payment', 20);
 add_action('woocommerce_before_checkout_form', function () {
-    echo '<div class="container">1243';
+    echo '<div class="container">';
 }, 1);
 
 add_action('woocommerce_after_checkout_form', function () {

@@ -884,3 +884,248 @@ add_filter('gutenberg_use_widgets_block_editor', '__return_false', 100);
  * (Opcjonalnie) Wyłącz też edytor blokowy dla Customizera (czasem pomaga).
  */
 add_filter('use_block_editor_for_widgets', '__return_false', 100);
+
+
+add_action('wp_enqueue_scripts', function () {
+	if (is_admin()) return;
+
+	// Wykryj język Polylang (slug)
+	$lang = 'pl';
+	if (function_exists('pll_current_language')) {
+		$detected = pll_current_language('slug'); // pl/uk/ru/en
+		if (is_string($detected) && $detected !== '') {
+			$lang = strtolower($detected);
+		}
+	}
+
+	$dict = [
+		'pl' => [
+			'cartTitle'        => 'Koszyk',
+			'empty'            => 'Koszyk jest pusty',
+			'returnToShop'     => 'Wróć do sklepu',
+			'continueShopping' => 'Kontynuuj zakupy',
+			'viewCart'         => 'Zobacz koszyk',
+			'checkout'         => 'Do kasy',
+			'subtotal'         => 'Suma częściowa',
+			'footerNote'       => 'Koszt wysyłki, podatki i rabaty zostaną obliczone w kasie.',
+			'removeLabel'      => 'Usuń',
+			'closeLabel'       => 'Zamknij',
+		],
+		'uk' => [
+			'cartTitle'        => 'Кошик',
+			'empty'            => 'Кошик порожній',
+			'returnToShop'     => 'Повернутися до магазину',
+			'continueShopping' => 'Продовжити покупки',
+			'viewCart'         => 'Переглянути кошик',
+			'checkout'         => 'Оформити',
+			'subtotal'         => 'Проміжна сума',
+			'footerNote'       => 'Доставка, податки та знижки будуть розраховані під час оформлення.',
+			'removeLabel'      => 'Видалити',
+			'closeLabel'       => 'Закрити',
+		],
+		'ru' => [
+			'cartTitle'        => 'Корзина',
+			'empty'            => 'Корзина пуста',
+			'returnToShop'     => 'Вернуться в магазин',
+			'continueShopping' => 'Продолжить покупки',
+			'viewCart'         => 'Перейти в корзину',
+			'checkout'         => 'Оформить',
+			'subtotal'         => 'Промежуточный итог',
+			'footerNote'       => 'Доставка, налоги и скидки будут рассчитаны при оформлении заказа.',
+			'removeLabel'      => 'Удалить',
+			'closeLabel'       => 'Закрыть',
+		],
+		'en' => [
+			'cartTitle'        => 'Cart',
+			'empty'            => 'Your cart is empty',
+			'returnToShop'     => 'Return to Shop',
+			'continueShopping' => 'Continue Shopping',
+			'viewCart'         => 'View Cart',
+			'checkout'         => 'Checkout',
+			'subtotal'         => 'Subtotal',
+			'footerNote'       => 'Shipping, taxes, and discounts calculated at checkout.',
+			'removeLabel'      => 'Remove',
+			'closeLabel'       => 'Close',
+		],
+	];
+
+	// ✅ POPRAWNY payload: lang + t + urls
+	$payload = [
+		'lang' => $lang,
+		't'    => $dict[$lang] ?? $dict['pl'],
+		'urls' => [
+			'cart'     => wc_get_cart_url(),
+			'checkout' => wc_get_checkout_url(),
+			// opcjonalnie:
+			// 'shop' => get_permalink((int) wc_get_page_id('shop')),
+		],
+	];
+
+	wp_register_script('aw-xoo-wsc-i18n', '', [], null, true);
+	wp_enqueue_script('aw-xoo-wsc-i18n');
+
+	wp_add_inline_script(
+		'aw-xoo-wsc-i18n',
+		'window.AW_XOO_WSC_I18N = ' . wp_json_encode($payload) . ';',
+		'before'
+	);
+
+	wp_add_inline_script('aw-xoo-wsc-i18n', aw_get_xoo_wsc_i18n_js(), 'after');
+}, 50);
+
+
+/**
+ * Zwraca JS jako string (żebyś mógł wkleić 1:1 bez plików).
+ * Jeśli wolisz bundler, przenieś JS do assets i usuń tę funkcję.
+ */
+function aw_get_xoo_wsc_i18n_js(): string
+{
+	return <<<'JS'
+(() => {
+  const cfg = window.AW_XOO_WSC_I18N || {};
+  const t = cfg.t || {};
+  const urls = cfg.urls || {};
+
+  // jeśli nie ma tłumaczeń — nie rób nic
+  if (!t || Object.keys(t).length === 0) return;
+
+  const setText = (el, value) => {
+    if (!el || value == null) return;
+    const cur = (el.textContent || '').trim();
+    if (cur === value) return;
+    el.textContent = value;
+  };
+
+  const setAriaLabel = (el, value) => {
+    if (!el || value == null) return;
+    if (el.getAttribute('aria-label') === value) return;
+    el.setAttribute('aria-label', value);
+  };
+
+  // Checkout ma kwotę w <span class="amount">, więc zmieniamy tylko pierwszy text node
+  const setButtonLeadingText = (a, value) => {
+    if (!a || value == null) return;
+
+    const node = Array.from(a.childNodes).find(n => n.nodeType === Node.TEXT_NODE);
+    if (node) {
+      const cur = (node.nodeValue || '').trim();
+      if (cur !== value) node.nodeValue = `${value} `;
+      return;
+    }
+
+    // fallback: zachowaj amount jeśli istnieje
+    const amount = a.querySelector('.amount');
+    if (amount) {
+      const amountClone = amount.cloneNode(true);
+      a.textContent = value;
+      a.appendChild(amountClone);
+    } else {
+      a.textContent = value;
+    }
+  };
+
+  const apply = () => {
+    const container = document.querySelector('.xoo-wsc-container');
+    if (!container) return;
+
+    // ===== Header =====
+    setText(container.querySelector('.xoo-wsch-text'), t.cartTitle);
+    setAriaLabel(container.querySelector('.xoo-wsch-close'), t.closeLabel);
+
+    // ===== Empty cart =====
+    const emptyBox = container.querySelector('.xoo-wsc-empty-cart');
+    if (emptyBox) {
+      setText(emptyBox.querySelector('span'), t.empty);
+      setText(emptyBox.querySelector('a.xoo-wsc-btn'), t.returnToShop);
+      // opcjonalnie:
+      // if (urls.shop) { const a = emptyBox.querySelector('a.xoo-wsc-btn'); if (a) a.href = urls.shop; }
+    }
+
+    // ===== Totals / footer =====
+    setText(container.querySelector('.xoo-wsc-ft-amt-subtotal .xoo-wsc-ft-amt-label'), t.subtotal);
+    setText(container.querySelector('.xoo-wsc-footer-txt'), t.footerNote);
+
+    // ===== Buttons =====
+    const cartBtn = container.querySelector('a.xoo-wsc-ft-btn-cart');
+    const continueBtn = container.querySelector('a.xoo-wsc-ft-btn-continue');
+    const checkoutBtn = container.querySelector('a.xoo-wsc-ft-btn-checkout');
+
+    setText(cartBtn, t.viewCart);
+    setText(continueBtn, t.continueShopping);
+    setButtonLeadingText(checkoutBtn, t.checkout);
+
+    // ===== URLs (POPRAWIONE IF) =====
+    if (urls && typeof urls === 'object') {
+      if (cartBtn && urls.cart) cartBtn.href = urls.cart;
+      if (checkoutBtn && urls.checkout) checkoutBtn.href = urls.checkout;
+    }
+
+    // ===== Icons aria-label =====
+    if (t.removeLabel) {
+      container.querySelectorAll('.xoo-wsc-smr-del').forEach(btn => setAriaLabel(btn, t.removeLabel));
+    }
+  };
+
+  const boot = () => {
+    apply();
+
+    const mo = new MutationObserver(() => {
+      window.requestAnimationFrame(apply);
+    });
+
+    mo.observe(document.documentElement, { subtree: true, childList: true, characterData: true });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
+  } else {
+    boot();
+  }
+})();
+JS;
+}
+
+if (!function_exists('aw_pll_permalink_for_page')) {
+	/**
+	 * Zwraca permalink strony Woo (cart/checkout/myaccount) dla aktualnego języka Polylang.
+	 */
+	function aw_pll_permalink_for_page(int $page_id): string
+	{
+		if ($page_id <= 0) return home_url('/');
+
+		// Polylang: pobierz ID tłumaczenia strony dla bieżącego języka
+		if (function_exists('pll_get_post')) {
+			$translated_id = pll_get_post($page_id);
+			if (!empty($translated_id)) {
+				$page_id = (int) $translated_id;
+			}
+		}
+
+		return get_permalink($page_id);
+	}
+}
+
+add_filter('woocommerce_get_cart_url', function ($url) {
+	$id = (int) wc_get_page_id('cart');
+	return $id > 0 ? aw_pll_permalink_for_page($id) : $url;
+}, 20);
+
+add_filter('woocommerce_get_checkout_url', function ($url) {
+	$id = (int) wc_get_page_id('checkout');
+	return $id > 0 ? aw_pll_permalink_for_page($id) : $url;
+}, 20);
+
+add_filter('woocommerce_get_myaccount_page_permalink', function ($url) {
+	$id = (int) wc_get_page_id('myaccount');
+	return $id > 0 ? aw_pll_permalink_for_page($id) : $url;
+}, 20);
+
+/**
+ * Dodatkowo: endpointy Woo (np. /checkout/order-received/) czasem budują się na bazie strony checkout.
+ * Ten filtr pomaga w części przypadków, gdy wtyczki sklejają URL "ręcznie".
+ */
+add_filter('woocommerce_get_endpoint_url', function ($url, $endpoint, $value, $permalink) {
+	// jeśli URL jest zbudowany na bazie koszyka lub checkoutu, to i tak zaczynamy od poprawnego base URL
+	// (zwykle to już wystarczy bez dodatkowej logiki).
+	return $url;
+}, 20, 4);

@@ -69,7 +69,6 @@
     padding: clamp(1rem, 5vw, 1.625rem);
     border: 1px solid var(--color-border);
     border-radius: 1rem;
-    background: var(--color-bg);
     font-size: .85rem;
 
     @media (min-width: map.get(b.$grid-breakpoints, sm)) {
@@ -87,7 +86,8 @@
     @media (hover: hover) {
       &:hover {
         border-color: var(--color-primary);
-        background: var(--color-accent);
+        background: var(--color-bg);
+
         color: var(--color-dark);
 
         .aw-cat-product__label-text {

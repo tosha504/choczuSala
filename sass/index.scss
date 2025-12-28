@@ -463,7 +463,7 @@ p.demo_store {
 .aw-lang-overlay {
     position: fixed;
     inset: 0;
-    z-index: 9999;
+    z-index: 999999;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -472,19 +472,26 @@ p.demo_store {
     backdrop-filter: blur(4px);
     font-family: inherit;
 
+    &__buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
     &[aria-hidden="true"] {
         display: none;
     }
 }
 
 .aw-lang-modal {
-    max-width: 420px;
+    max-width: 30rem;
     width: 100%;
     background: #ffffff;
     border-radius: 1.25rem;
     padding: 2rem 1.75rem;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
     text-align: center;
+
 }
 
 .aw-lang-title {
