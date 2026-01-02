@@ -4,7 +4,7 @@
     %woo-pagination {
         .woocommerce-pagination {
             display: flex;
-            margin-top: 2rem;
+            padding-block: clamp(2rem, 4vw, 3.5rem);
 
             .page-numbers {
                 list-style: none;
@@ -15,22 +15,22 @@
                 justify-content: center;
                 min-width: 35px;
                 height: 35px;
-                color: var(--color-black, #000);
+                color: var(--color-dark, #000);
                 font-weight: 600;
                 font-size: 14px;
                 transition: all 0.2s ease;
 
 
                 li {
-                    border-radius: 50px;
-                    border: 1px solid var(--gray-color);
+                    border-radius: 0.5rem;
+                    border: none;
                     overflow: hidden;
 
                     span {
                         &.current {
-                            border-radius: 50px;
+                            border-radius: 0.5rem;
                             color: var(--white-color, #fff);
-                            background-color: var(--main-color);
+                            background-color: var(--color-primary);
                         }
                     }
 
@@ -38,7 +38,6 @@
 
                         &.prev,
                         &.next {
-                            background-color: var(--gray-color);
                             font-size: 2rem;
                             line-height: 1;
                             font-weight: 300;
@@ -50,13 +49,8 @@
                                 position: absolute;
                                 width: 0.5rem;
                                 height: 0.675rem;
-                                // background-color: red;
                             }
 
-
-
-
-                            // /* białydn
                             @media (hover: hover) {
                                 &:hover {
                                     color: rgba(255, 255, 255, 0);
@@ -66,7 +60,7 @@
 
                         &.prev {
                             &::before {
-                                background: url(../../assets/images/arrows/prev.svg) no-repeat center/cover;
+                                background: url(../assets/image/prev.svg) no-repeat center/cover;
 
                             }
 
@@ -75,7 +69,7 @@
 
                         &.next {
                             &::before {
-                                background: url(../../assets/images/arrows/next.svg) no-repeat center/cover;
+                                background: url(../assets/image/next.svg) no-repeat center/cover;
 
                             }
 
@@ -83,8 +77,7 @@
 
                         @media (hover: hover) {
                             &:hover {
-                                color: var(--white-color);
-                                background-color: var(--main-color);
+                                background-color: var(--color-primary);
                             }
                         }
                     }

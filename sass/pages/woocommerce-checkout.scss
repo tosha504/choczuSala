@@ -57,7 +57,8 @@
                         }
                     }
 
-                    .woocommerce-billing-fields__field-wrapper {
+                    .woocommerce-billing-fields__field-wrapper,
+                    .woocommerce-shipping-fields__field-wrapper {
                         display: flex;
                         border: 1px solid var(--color-text-muted);
                         border-radius: 0.5rem;

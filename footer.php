@@ -14,7 +14,8 @@ $logo_logo = get_field('logo_logo', 'options');
 $title_menu = aw_get_option('title_menu');
 $under_logo = aw_get_option('under_logo');
 $categories_aw_title = aw_get_option('categories_aw_title');
-$kontakt_title = aw_get_option('kontakt_title'); ?>
+$kontakt_title = aw_get_option('kontakt_title');
+$payment = get_field('payment', 'options');  ?>
 
 
 <footer id="colophon" class="footer">
@@ -56,11 +57,12 @@ $kontakt_title = aw_get_option('kontakt_title'); ?>
   </div>
 
 
-  <div style="border-top:1px solid rgba(255,255,255,.15)">
+  <div style="border-top:1px solid rgba(255,255,255,.15)" class="footer-bottom">
     <div class="container"
-      style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;font-size:.9rem">
+      style="display:flex;justify-content:space-between;align-items:center;padding:12px 1rem;font-size:.9rem">
       <span>© <span id="y"></span> Хочу Сала</span>
       <span><?php _e('Wykonanie: ', 'start'); ?> <a href="https://arturiko-web.eu/" target="_blank" rel="noopener noreferrer">arturiko-web</a></span>
+      <?php echo my_custom_attachment_image($payment); ?>
     </div>
   </div>
 </footer><!-- #colophon -->
