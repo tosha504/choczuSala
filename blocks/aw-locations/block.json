@@ -1,0 +1,11 @@
+{
+  "name": "aw-theme/aw-locations",
+  "title": "AwLocations",
+  "category": "aw-theme",
+  "acf": { "mode": "preview", "renderTemplate": "render.php" },
+  "supports": { "align": ["wide", "full"], "anchor": true },
+  "keywords": ["arturiko.web", "aw-locations"],
+    "style": [
+    "file:../../css-blocks/aw-locations.css"
+  ]
+}

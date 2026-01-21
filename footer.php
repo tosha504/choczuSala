@@ -52,7 +52,7 @@ $payment = get_field('payment', 'options');  ?>
       <?php echo !empty($kontakt_title) ? '<h4>' . $kontakt_title . '</h4>' : "";
       ?>
 
-      <p class="muted"> NIP: 9571181815, <br />REGON: 540331049<br />Tytusa Chałubińskiego 39, <br />80-807 Gdańsk<br /><a href="tel:+48792741241">+48 792 741 241</a><br />email: sklep@chce-salo.pl</p>
+      <p class="muted"> NIP: 9571181815, <br />REGON: 540331049<br />Tytusa Chałubińskiego 39, <br />80-807 Gdańsk<br /><a href="tel:+48792741241">+48 792 741 241</a><br /> <a href="mailto:sklep@chce-salo.pl"></a>sklep@chce-salo.pl</p>
     </div>
   </div>
 

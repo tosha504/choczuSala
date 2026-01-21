@@ -258,11 +258,10 @@
 
                                 #place_order {
                                     width: 100%;
-                                    border-radius: 50px;
                                     padding: 1em;
                                     border: none;
                                     text-align: center;
-                                    color: var(--white-color);
+                                    color: var(--color-surface);
                                     max-width: fit-content;
                                     // @media (hover: hover) {
                                     //     &:hover {
@@ -510,7 +509,13 @@
                                             .couponBtn {
 
                                                 #checkout_apply_coupon {
-                                                    color: var(--white-color);
+                                                    color: var(--color-surface);
+
+                                                    @media (hover: hover) {
+                                                        &:hover {
+                                                            color: var(--color-primary);
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }

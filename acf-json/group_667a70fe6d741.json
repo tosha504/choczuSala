@@ -144,6 +144,13 @@
                 "operator": "==",
                 "value": "aw-theme\/statystyki"
             }
+        ],
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "aw-theme\/aw-locations"
+            }
         ]
     ],
     "menu_order": -1,
@@ -156,5 +163,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1764854764
+    "modified": 1767372135
 }

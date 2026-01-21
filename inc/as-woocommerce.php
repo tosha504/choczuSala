@@ -204,3 +204,84 @@ function woocommerce_header_add_to_cart_fragment($fragments)
 
     return $fragments;
 }
+add_action('wp_ajax_ajaxapplucoupon', 'aw_ajax_apply_coupon');
+add_action('wp_ajax_nopriv_ajaxapplucoupon', 'aw_ajax_apply_coupon');
+
+function aw_ajax_apply_coupon(): void
+{
+    if (! function_exists('WC') || ! WC()->cart) {
+        wp_send_json(['result' => 'error', 'message' => 'Koszyk nie jest dostępny.']);
+    }
+
+    // (Opcjonalnie, ale bardzo polecam) nonce
+    $nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
+    if ($nonce && ! wp_verify_nonce($nonce, 'aw_checkout_coupon')) {
+        wp_send_json(['result' => 'error', 'message' => 'Nieprawidłowy token bezpieczeństwa.']);
+    }
+
+    $code_raw = isset($_POST['coupon_code']) ? wp_unslash($_POST['coupon_code']) : '';
+    $code     = wc_format_coupon_code(sanitize_text_field($code_raw));
+
+    if ($code === '') {
+        wp_send_json(['result' => 'error', 'message' => 'Pole z kodem kuponu nie może być puste.']);
+    }
+
+    $coupon = new WC_Coupon($code);
+
+    // Jedyny poprawny check istnienia kuponu
+    if (! $coupon->get_id()) {
+        wp_send_json(['result' => 'error', 'message' => 'Nieprawidłowy kod kuponu.']);
+    }
+
+    if (WC()->cart->has_discount($code)) {
+        wp_send_json(['result' => 'error', 'message' => 'Ten kupon jest już zastosowany.']);
+    }
+
+    $applied = WC()->cart->apply_coupon($code);
+
+    if (! $applied) {
+        // WooCommerce często wrzuca konkretny powód w notices
+        $message = wp_strip_all_tags(wc_print_notices(true));
+        wc_clear_notices();
+
+        wp_send_json([
+            'result'  => 'error',
+            'message' => $message ?: 'Nie udało się zastosować kuponu.',
+        ]);
+    }
+
+    WC()->cart->calculate_totals();
+
+    wp_send_json(['result' => 'success', 'message' => 'Kupon zastosowany.']);
+}
+
+
+add_action('wp_ajax_aw_update_checkout_qty', 'aw_update_checkout_qty');
+add_action('wp_ajax_nopriv_aw_update_checkout_qty', 'aw_update_checkout_qty');
+function aw_update_checkout_qty(): void
+{
+    if (! WC()->cart) {
+        wp_send_json_error();
+    }
+
+    $key = sanitize_text_field($_POST['cart_item_key'] ?? '');
+    $qty = isset($_POST['qty']) ? (int) $_POST['qty'] : null;
+
+    if ($key === '' || $qty === null) {
+        wp_send_json_error();
+    }
+
+    WC()->cart->set_quantity($key, $qty, true);
+    WC()->cart->calculate_totals();
+
+    wp_send_json_success();
+}
+add_filter('wp_inline_script_attributes', function (array $attrs) {
+    if (function_exists('aw_get_csp_nonce')) {
+        $nonce = aw_get_csp_nonce();
+        if ($nonce) {
+            $attrs['nonce'] = $nonce;
+        }
+    }
+    return $attrs;
+});

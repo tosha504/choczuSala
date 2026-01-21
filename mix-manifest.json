@@ -1,10 +1,11 @@
 {
     "/dist/app.js": "/dist/app.js",
-    "/css-blocks/statystyki.css": "/css-blocks/statystyki.css",
     "/css-blocks/product-aw.css": "/css-blocks/product-aw.css",
     "/css-blocks/hero.css": "/css-blocks/hero.css",
     "/css-blocks/face-aw.css": "/css-blocks/face-aw.css",
+    "/css-blocks/aw-locations.css": "/css-blocks/aw-locations.css",
     "/css-blocks/aw-cat-product.css": "/css-blocks/aw-cat-product.css",
     "/src/index.css": "/src/index.css",
+    "/css-blocks/statystyki.css": "/css-blocks/statystyki.css",
     "/dist/app.min.js": "/dist/app.min.js"
 }

@@ -6,7 +6,7 @@
     body = jQuery("body");
   document.documentElement.style.setProperty(
     "--aw-header-h",
-    document.querySelector("#masthead").offsetHeight + "px"
+    document.querySelector("#masthead").offsetHeight + "px",
   );
   document.addEventListener("change", (e) => {
     const select = e.target.closest(".aw-lang__select");
@@ -22,22 +22,18 @@
   jQuery(document).on("click", ".cart-qty.plus, .cart-qty.minus", function (e) {
     e.preventDefault();
 
-    const input = jQuery(this).parent().find(".input-text.qty.text");
-    const input_val = parseInt(input.val());
-    if (jQuery(this).hasClass("plus")) {
-      input.val(input_val + 1);
-      input.attr("value", input_val + 1);
-    } else {
-      const new_val = input_val - 1;
-      if (new_val > 0) {
-        input.val(input_val - 1);
-        input.attr("value", input_val - 1);
-      }
-    }
+    const $input = jQuery(this)
+      .parent()
+      .find(".input-text.qty.text, input.qty");
+    const current = parseInt($input.val(), 10) || 0;
 
-    input.trigger("change");
+    let next = current;
+
+    if (jQuery(this).hasClass("plus")) next = current + 1;
+    else next = Math.max(0, current - 1);
+
+    $input.val(next).trigger("change");
   });
-
   let timeout;
   jQuery(".woocommerce").on("change", "input.qty", function () {
     if (timeout !== undefined) {
@@ -47,8 +43,6 @@
       jQuery("[name='update_cart']").trigger("click"); // trigger cart update
     }, 100); // 1 second delay, half a second (500) seems comfortable too
   });
-})(jQuery);
-document.addEventListener("DOMContentLoaded", () => {
   const roots = document.querySelectorAll("[data-aw-gr]");
   if (!roots.length) return;
 
@@ -134,4 +128,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     openBtn.addEventListener("click", open);
   });
-});
+})(jQuery);

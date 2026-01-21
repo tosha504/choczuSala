@@ -72,7 +72,28 @@ if (!function_exists('start_scripts')) {
 }
 add_action('wp_enqueue_scripts', 'start_scripts',);
 
+add_action('wp_enqueue_scripts', function () {
+	if (! function_exists('is_checkout') || ! is_checkout() || is_order_received_page()) {
+		return;
+	}
+	// Klucz: uruchom po tym jak Woo zarejestruje swoje skrypty
+	wp_enqueue_script('wc-checkout');
 
+	// Jeśli naprawdę potrzebujesz fragments (mini-cart), możesz, ale na checkout nie jest must-have:
+	wp_enqueue_script('wc-cart-fragments');
+
+	wp_enqueue_script(
+		'checkout_script',
+		get_template_directory_uri() . '/src/add_quantity.js',
+		['jquery', 'wc-checkout', 'wc-cart-fragments'],
+		filemtime(get_template_directory() . '/src/add_quantity.js'),
+		true
+	);
+
+	wp_localize_script('checkout_script', 'add_quantity', [
+		'ajax_url' => admin_url('admin-ajax.php'),
+	]);
+}, 100);
 function mytheme_preload_google_fonts()
 {
 ?>

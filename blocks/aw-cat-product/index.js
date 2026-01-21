@@ -1,7 +1,7 @@
 (function () {
   function initAwCatProductSlider() {
     var container = document.querySelector(
-      ".aw-cat-product.aw-cat-product--slider"
+      ".aw-cat-product.aw-cat-product--slider",
     );
     if (!container) return;
     if (typeof Swiper === "undefined") return;
@@ -66,6 +66,7 @@
       var width = window.innerWidth || document.documentElement.clientWidth;
       var minSlides = getMinSlidesForSlider(width);
       var shouldBeSlider = totalSlides > minSlides;
+      console.log(shouldBeSlider);
 
       if (shouldBeSlider) {
         enableSwiper();

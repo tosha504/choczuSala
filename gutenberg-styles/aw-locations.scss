@@ -1,0 +1,35 @@
+@use "../sass/components/_breakpoints" as b;
+@use "sass:map";
+
+.aw-locations {
+  padding-block: clamp(2rem, 5vw, 5rem);
+
+  &__wrap {
+
+    &--left {
+      margin-bottom: 1rem;
+      display: flex;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      .button {
+        padding: 0.625rem 2rem;
+        border-radius: .5rem;
+        font-size: clamp(.875rem, 2vw, 1.0125rem);
+        display: inline-flex;
+        // max-width: fit-content;
+        font-family: inherit;
+        font-weight: 500;
+      }
+    }
+
+    &--right {
+      .location-map {
+        iframe {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
