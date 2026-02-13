@@ -1206,3 +1206,23 @@ function aw_checkout_selected_shipping_label(): string
 	// Jeżeli kilka (rzadko) – zwróci po <br>.
 	return implode('<br>', array_map('wp_kses_post', $lines));
 }
+add_filter('woocommerce_update_order_review_fragments', 'filter_update_order_review_fragments');
+function filter_update_order_review_fragments($fradments)
+{
+	ob_start();
+	if (WC()->cart->needs_shipping() && WC()->cart->show_shipping()) :
+?>
+		<div class="ajax-shipp-method">
+			<?php do_action('woocommerce_review_order_before_shipping'); ?>
+
+			<?php wc_cart_totals_shipping_html(); ?>
+
+			<?php do_action('woocommerce_review_order_after_shipping'); ?>
+		</div>
+		<?php
+	endif;
+
+	$fradments['.ajax-shipp-method'] = ob_get_clean();
+
+	return $fradments;
+}
