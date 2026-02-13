@@ -112,25 +112,15 @@
 						<!-- <a href="#" class="search" role="search">
 							<?php echo aw_svg('search'); ?>
 						</a> -->
-
-						<?php
-						$account_page_id = get_option('woocommerce_myaccount_page_id');
-						$translated_id = function_exists('pll_get_post') ? pll_get_post($account_page_id) : $account_page_id;
-						$account_url = get_permalink($translated_id); ?>
 						<a
-							href="<?php echo esc_url($account_url); ?>"
+							href="<?php echo wc_get_account_endpoint_url('dashboard'); ?>"
 							title="<?php esc_attr_e('Moje konto', 'start'); ?>"
 							rel="noopener noreferrer"
 							target="_self">
 							<?php echo aw_svg('account'); ?>
 						</a>
-						<?php
-						$account_page_id = get_option('woocommerce_cart_page_id');
-						$translated_id = function_exists('pll_get_post') ? pll_get_post($account_page_id) : $account_page_id;
-						$account_url = get_permalink($translated_id);
-						?>
 						<a
-							href="<?php echo esc_url($account_url); ?>" class="cart-header"
+							href="<?php echo esc_url(wc_get_cart_url()); ?>" class="cart-header"
 							title="<?php esc_attr_e('Koszyk', 'start'); ?>"
 							rel="noopener noreferrer"
 							target="_self">

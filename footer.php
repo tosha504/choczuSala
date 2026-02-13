@@ -62,13 +62,14 @@ $payment = get_field('payment', 'options');  ?>
       style="display:flex;justify-content:space-between;align-items:center;padding:12px 1rem;font-size:.9rem">
       <span>© <span id="y"></span> Хочу Сала</span>
       <span><?php _e('Wykonanie: ', 'start'); ?> <a href="https://arturiko-web.eu/" target="_blank" rel="noopener noreferrer">arturiko-web</a></span>
-      <?php echo my_custom_attachment_image($payment); ?>
+      <?php if (!empty($payment)) {
+        echo my_custom_attachment_image($payment);
+      } ?>
     </div>
   </div>
 </footer><!-- #colophon -->
 </div><!-- #page -->
-<!-- <?php //echo do_shortcode('[aw_google_reviews limit="9" mode="badge"]'); 
-      ?> -->
+
 
 <?php wp_footer(); ?>
 

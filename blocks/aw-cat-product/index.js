@@ -27,16 +27,21 @@
       swiperInstance = new Swiper(container, {
         slidesPerView: 1.3,
         spaceBetween: 16,
+        loop: false,
         watchOverflow: true,
         grabCursor: true,
         // breakpoints – ile kart na szerokość
         breakpoints: {
+          575: {
+            slidesPerView: 2,
+            spaceBetween: 16,
+          },
           768: {
             slidesPerView: 3,
             spaceBetween: 24,
           },
           1024: {
-            slidesPerView: 1,
+            slidesPerView: 4,
             spaceBetween: 24,
           },
         },
@@ -66,7 +71,7 @@
       var width = window.innerWidth || document.documentElement.clientWidth;
       var minSlides = getMinSlidesForSlider(width);
       var shouldBeSlider = totalSlides > minSlides;
-      console.log(shouldBeSlider);
+      console.log(totalSlides);
 
       if (shouldBeSlider) {
         enableSwiper();

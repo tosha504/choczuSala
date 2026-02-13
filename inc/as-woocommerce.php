@@ -180,28 +180,13 @@ add_filter('woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_
 function woocommerce_header_add_to_cart_fragment($fragments)
 {
     global $woocommerce;
-
-    ob_start();
-    $account_page_id = get_option('woocommerce_cart_page_id');
-    $translated_id = function_exists('pll_get_post') ? pll_get_post($account_page_id) : $account_page_id;
-    $account_url = get_permalink($translated_id); ?>
-
-    <a href="<?php echo esc_url($account_url); ?>" class="cart-header"
-        title="<?php esc_attr_e('Koszyk', 'start'); ?>"
-        rel="noopener noreferrer"
-        target="_self">
-        <?php echo aw_svg('cart'); ?>
-        <span class="count">
-            <?php echo sprintf($woocommerce->cart->cart_contents_count); ?>
-        </span>
-    </a>
-
+    ob_start(); ?>
+    <span class="count">
+        <?php echo sprintf($woocommerce->cart->cart_contents_count); ?>
+    </span>
 <?php
-    $fragments['a.cart-header'] = ob_get_clean();
+    $fragments['a.cart-header span'] = ob_get_clean();
     ob_start();
-
-
-
     return $fragments;
 }
 add_action('wp_ajax_ajaxapplucoupon', 'aw_ajax_apply_coupon');

@@ -81,7 +81,7 @@ defined('ABSPATH') || exit;
                             echo apply_filters( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                 'woocommerce_cart_item_remove_link',
                                 sprintf(
-                                    '<a href="%s" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
+                                    '<a ... data-product_id="%s" data-product_sku="%s">&times;</a>',
                                     esc_url(wc_get_cart_remove_url($cart_item_key)),
                                     esc_html__('Remove this item', 'woocommerce'),
                                     esc_attr($_product->get_id()),
@@ -146,10 +146,15 @@ defined('ABSPATH') || exit;
         <?php endif; ?>
 
         <?php do_action('woocommerce_review_order_before_order_total'); ?>
-        <tr>
-            <th><?php esc_html_e('Shipping', 'woocommerce'); ?></th>
-            <td><?php echo  WC()->cart->get_cart_shipping_total(); ?></td>
-        </tr>
+
+        <?php if (WC()->cart->needs_shipping()) : ?>
+            <tr class="order-shipping">
+                <th><?php esc_html_e('Shipping', 'woocommerce'); ?></th>
+                <td data-title="<?php esc_attr_e('Shipping', 'woocommerce'); ?>">
+                    <?php echo wp_kses_post(aw_checkout_selected_shipping_label()); ?>
+                </td>
+            </tr>
+        <?php endif; ?>
         <tr class="order-total">
             <th><?php esc_html_e('Total', 'woocommerce'); ?></th>
             <td><?php wc_cart_totals_order_total_html(); ?></td>

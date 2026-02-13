@@ -1138,3 +1138,71 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
 
 	return $fields;
 });
+function aw_checkout_selected_shipping_label(): string
+{
+	if (!function_exists('WC') || !WC()->cart) {
+		return '';
+	}
+
+	// Brak wysyłki (np. produkty wirtualne)
+	if (!WC()->cart->needs_shipping()) {
+		return '';
+	}
+
+	$packages = WC()->shipping()->get_packages();
+	if (empty($packages)) {
+		return '';
+	}
+
+	$chosen = WC()->session->get('chosen_shipping_methods');
+	$chosen = is_array($chosen) ? $chosen : [];
+
+	$lines = [];
+
+	foreach ($packages as $package_index => $package) {
+		$chosen_rate_id = $chosen[$package_index] ?? '';
+
+		// Upewnij się, że rates są policzone
+		$rates = $package['rates'] ?? [];
+		if (empty($rates) || !$chosen_rate_id || !isset($rates[$chosen_rate_id])) {
+			// Fallback: pokaż total wysyłki (lepsze niż puste)
+			continue;
+		}
+
+		/** @var WC_Shipping_Rate $rate */
+		$rate = $rates[$chosen_rate_id];
+
+		// Nazwa metody (tłumaczenie zazwyczaj jest po stronie metody/wtyczki)
+		$label = $rate->get_label();
+
+		// Cena (Woo formatuje walutę)
+		$cost_html = wc_price((float) $rate->get_cost());
+
+		// Podatki do wysyłki jeśli są doliczane osobno
+		$taxes = $rate->get_taxes();
+		if (is_array($taxes) && array_sum($taxes) > 0 && !wc_prices_include_tax()) {
+			$cost_html .= ' <small class="includes_tax">' . esc_html__('(excl. tax)', 'woocommerce') . '</small>';
+		}
+
+		// Jeśli koszt = 0, to często chcesz “Za darmo” zamiast 0,00 zł:
+		if ((float) $rate->get_cost() <= 0.0) {
+			$cost_html = esc_html__('Free', 'woocommerce');
+		}
+
+		$lines[] = sprintf(
+			'%s — %s',
+			esc_html($label),
+			$cost_html // already HTML (wc_price)
+		);
+	}
+
+	// Jeśli z jakiegoś powodu nie znaleźliśmy rate — fallback do standardowego stringa Woo
+	if (empty($lines)) {
+		// To może zwrócić “Za darmo” wg locale (ważne, żeby ajax miał poprawny locale)
+		return esc_html(WC()->cart->get_cart_shipping_total());
+	}
+
+	// Jeżeli masz tylko jeden pakiet, zwróci jedną linię.
+	// Jeżeli kilka (rzadko) – zwróci po <br>.
+	return implode('<br>', array_map('wp_kses_post', $lines));
+}

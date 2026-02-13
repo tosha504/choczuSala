@@ -1,5 +1,5 @@
-
 <?php
+
 /**
  * AW – unified product badges (SALE + Nowość + Na wagę)
  * arturiko-web.eu

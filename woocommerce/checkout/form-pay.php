@@ -24,7 +24,8 @@ $totals = $order->get_order_item_totals(); // phpcs:ignore WordPress.WP.GlobalVa
     <table class="shop_table">
         <thead>
             <tr>
-                <th class="product-name"><?php esc_html_e('Product', 'woocommerce'); ?></th>
+                <th class="product-name"><?php esc_html_e('Product', 'woocommerce');
+                                            ?></th>
                 <th class="product-quantity"><?php esc_html_e('Qty', 'woocommerce'); ?></th>
                 <th class="product-total"><?php esc_html_e('Totals', 'woocommerce'); ?></th>
             </tr>
@@ -58,8 +59,8 @@ $totals = $order->get_order_item_totals(); // phpcs:ignore WordPress.WP.GlobalVa
             <?php endif; ?>
         </tbody>
         <tfoot>
-            <?php if ($totals) : ?>
-                <?php foreach ($totals as $total) : ?>
+            <?php if ($totals) :  var_dump($totals) ?>
+                <?php foreach ($totals as $total) :  ?>
                     <tr>
                         <th scope="row" colspan="2"><?php echo $total['label']; ?></th><?php // @codingStandardsIgnoreLine
                                                                                         ?>

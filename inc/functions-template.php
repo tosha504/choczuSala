@@ -122,45 +122,68 @@ function create_button_block($link, $class_btn = null)
 <?php
   }
 }
-function aw_svg($source = null)
+function aw_svg($source): string
 {
   static $cache = [];
 
-  // Jeśli podany argument to liczba → traktujemy jako ID załącznika
-  if (is_numeric($source)) {
-    $id = (int) $source;
-    $mime = get_post_mime_type($id);
+  // Obsługa tylko attachment ID (u Ciebie ten case)
+  if (!is_numeric($source)) {
+    return '';
+  }
 
-    if ($mime !== 'image/svg+xml') {
-      return ''; // nie jest SVG
-    }
+  $id = (int) $source;
+  if ($id <= 0) {
+    return '';
+  }
 
-    $url = wp_get_attachment_url($id);
-    if (!$url) {
-      return '';
-    }
-
-    // Cache wg attachment ID
-    if (!isset($cache[$id])) {
-      $svg = file_get_contents($url);
-
-      // Security: usuń ewentualny <script> i eventy w svg
-      $svg = preg_replace('/<script.*?<\/script>/is', '', $svg);
-      $svg = preg_replace('/on\w+=".*?"/', '', $svg);
-
-      $cache[$id] = $svg;
-    }
-
+  if (isset($cache[$id])) {
     return $cache[$id];
   }
 
-  // Inaczej → wczytaj z folderu /assets/images/*.svg
-  $name = sanitize_file_name($source);
-  $path = get_template_directory() . "/assets/image/icons/{$name}.svg";
-
-  if (!isset($cache[$name]) && file_exists($path)) {
-    $cache[$name] = file_get_contents($path);
+  $mime = get_post_mime_type($id);
+  if ($mime !== 'image/svg+xml') {
+    return $cache[$id] = '';
   }
 
-  return $cache[$name] ?? '';
+  // 1) Najlepiej: plik z dysku
+  $file_path = get_attached_file($id); // pełna ścieżka w filesystem
+  if ($file_path && is_string($file_path) && file_exists($file_path) && is_readable($file_path)) {
+    $svg = file_get_contents($file_path);
+  } else {
+    // 2) Fallback: pobierz po HTTP, ale bez warningów i z timeoutem
+    $url = wp_get_attachment_url($id);
+    if (!$url) {
+      return $cache[$id] = '';
+    }
+
+    $res = wp_remote_get($url, [
+      'timeout'   => 5,
+      'sslverify' => false, // na local czasem pomaga; na produkcji możesz usunąć
+    ]);
+
+    if (is_wp_error($res)) {
+      return $cache[$id] = '';
+    }
+
+    $code = (int) wp_remote_retrieve_response_code($res);
+    if ($code < 200 || $code >= 300) {
+      return $cache[$id] = '';
+    }
+
+    $svg = (string) wp_remote_retrieve_body($res);
+  }
+
+  if (empty($svg) || !is_string($svg)) {
+    return $cache[$id] = '';
+  }
+
+  // Minimalna sanitizacja
+  $svg = preg_replace('/<script\b[^>]*>.*?<\/script>/is', '', $svg);
+  $svg = preg_replace('/\son\w+=(["\']).*?\1/is', '', $svg);
+
+  // Opcjonalnie: usuń XML/DOCTYPE (czasem psuje HTML)
+  $svg = preg_replace('/<\?xml.*?\?>/is', '', $svg);
+  $svg = preg_replace('/<!DOCTYPE.*?>/is', '', $svg);
+
+  return $cache[$id] = $svg;
 }

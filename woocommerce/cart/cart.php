@@ -147,9 +147,9 @@ do_action('woocommerce_before_cart'); ?>
                                 class="button"
                                 data-aw-coupon-toggle
                                 aria-expanded="false"
-                                data-label-show="<?php echo esc_attr(__('Mam kupon', 'your-textdomain')); ?>"
-                                data-label-hide="<?php echo esc_attr(__('Ukryj kupon', 'your-textdomain')); ?>">
-                                <?php echo esc_html(__('Mam kupon', 'your-textdomain')); ?>
+                                data-label-show="<?php echo esc_attr(__('Mam kupon', 'start')); ?>"
+                                data-label-hide="<?php echo esc_attr(__('Ukryj kupon', 'start')); ?>">
+                                <?php echo esc_html(__('Mam kupon', 'start')); ?>
                             </button>
 
                             <div class="aw-coupon__panel" data-aw-coupon-panel hidden>

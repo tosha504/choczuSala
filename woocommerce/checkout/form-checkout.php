@@ -45,7 +45,7 @@ $order_button_text = __('I buy and pay', 'start');
                     <?php do_action('woocommerce_review_order_after_shipping'); ?>
                 </div>
             <?php } else {
-                echo '<p class="shipping-virtual">Produkt cyfrowy zostanie wysłany na podany adres e-mail po zrealizowaniu zamówienia.</p>';
+                echo '<p class="shipping-virtual">' . esc_html__('Digital product will be sent to the provided e-mail address after the order is completed.', 'start') . '</p>';
             } ?>
             <h3 class="stepCheckout-title"><?php echo __('3. Payments', 'start'); ?></h3>
             <?php do_action('custom_payment_position'); ?>
