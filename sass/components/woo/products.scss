@@ -170,6 +170,7 @@
     /* 2) Stała wysokość miniatury + obraz dopasowany */
     .wc-card__thumb {
         aspect-ratio: 4 / 3;
+        display: flex;
         overflow: hidden;
 
         img {
