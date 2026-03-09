@@ -1127,10 +1127,7 @@ add_filter('woocommerce_get_endpoint_url', function ($url, $endpoint, $value, $p
 	return $url;
 }, 20, 4);
 add_filter('woocommerce_checkout_fields', function ($fields) {
-	// echo '<pre>';
-	// var_dump($fields);
-	// echo '</pre>';
-	// przykład: usuwamy billing_company
+
 	unset($fields['shipping']['shipping_address_2']);
 
 	return $fields;
