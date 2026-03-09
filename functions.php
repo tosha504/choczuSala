@@ -177,6 +177,8 @@ $realestate_includes = array(
 	'/install-plugin-formthis-theme.php',
 	'/webp.php',
 	'/popuplang.php',
+	'/integrations/class-gtm.php',
+
 
 );
 
