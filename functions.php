@@ -1262,21 +1262,6 @@ add_action('init', function () {
 	exit;
 });
 
-// $response = wp_remote_get(
-//     'https://secure.przelewy24.pl/api/v1/payment/methods/pl',
-//     [
-//         'headers' => [
-//             'Authorization' => 'Basic ' . base64_encode('337632:bf9cc1b3deda30f57eb254eb58e56a0f'),
-//             'Accept'        => 'application/json',
-//         ],
-//         'timeout' => 20,
-//     ]
-// );
-
-// echo '<pre>';
-// print_r($response);
-// echo '</pre>';
-
 add_action('after_setup_theme', static function (): void {
 	(new AW_Google_Tag_Manager())->init();
 });
