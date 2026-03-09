@@ -5,7 +5,6 @@
  * Description: Kopiowanie i synchronizacja meta/tax WooCommerce między tłumaczeniami (Polylang Free).
  */
 
-
 /** =======================
  *  BEZPIECZNIK POLYLANG
  *  ======================= */
@@ -182,7 +181,7 @@ function aw_sync_product_data($source_id, $target_id, string $target_lang)
 
 
 	// --- Główne pola postu ---
-	$source_post = get_post($source_id);
+	$source_post = wc_get_product($source_id);
 	if ($source_post && $source_post instanceof WC_Product) {
 		wp_update_post([
 			'ID'           => $target_id,

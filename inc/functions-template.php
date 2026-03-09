@@ -125,63 +125,74 @@ function create_button_block($link, $class_btn = null)
 function aw_svg($source): string
 {
   static $cache = [];
+  // 1) Jeśli podano string np. "cart" albo "icons/cart"
+  if (is_string($source) && $source !== '') {
+    $key = 'icon:' . $source;
+    if (isset($cache[$key])) return $cache[$key];
 
-  // Obsługa tylko attachment ID (u Ciebie ten case)
-  if (!is_numeric($source)) {
-    return '';
+    // Ustal ścieżkę do pliku SVG w motywie
+    $relative = trim($source, '/');
+    // pozwalamy podać samo "cart" -> assets/icons/cart.svg
+    if (!str_ends_with($relative, '.svg')) {
+      $relative = 'assets/image/icons/' . $relative . '.svg';
+    }
+
+    $path = trailingslashit(get_stylesheet_directory()) . $relative;
+
+    if (!file_exists($path) || !is_readable($path)) {
+      return $cache[$key] = '';
+    }
+
+    $svg = (string) file_get_contents($path);
+    if ($svg === '') return $cache[$key] = '';
+
+    // Minimalna sanitizacja
+    $svg = preg_replace('/<script\b[^>]*>.*?<\/script>/is', '', $svg);
+    $svg = preg_replace('/\son\w+=(["\']).*?\1/is', '', $svg);
+    $svg = preg_replace('/<\?xml.*?\?>/is', '', $svg);
+    $svg = preg_replace('/<!DOCTYPE.*?>/is', '', $svg);
+
+    return $cache[$key] = $svg;
   }
+
+  // 2) Attachment ID (Twój dotychczasowy case)
+  if (!is_numeric($source)) return '';
 
   $id = (int) $source;
-  if ($id <= 0) {
-    return '';
-  }
+  if ($id <= 0) return '';
 
-  if (isset($cache[$id])) {
-    return $cache[$id];
-  }
+  if (isset($cache[$id])) return $cache[$id];
 
   $mime = get_post_mime_type($id);
   if ($mime !== 'image/svg+xml') {
     return $cache[$id] = '';
   }
 
-  // 1) Najlepiej: plik z dysku
-  $file_path = get_attached_file($id); // pełna ścieżka w filesystem
+  $file_path = get_attached_file($id);
   if ($file_path && is_string($file_path) && file_exists($file_path) && is_readable($file_path)) {
-    $svg = file_get_contents($file_path);
+    $svg = (string) file_get_contents($file_path);
   } else {
-    // 2) Fallback: pobierz po HTTP, ale bez warningów i z timeoutem
     $url = wp_get_attachment_url($id);
-    if (!$url) {
-      return $cache[$id] = '';
-    }
+    if (!$url) return $cache[$id] = '';
 
     $res = wp_remote_get($url, [
-      'timeout'   => 5,
-      'sslverify' => false, // na local czasem pomaga; na produkcji możesz usunąć
+      'timeout' => 5,
+      // sslverify false zostaw tylko na local, na produkcji usuń
+      'sslverify' => false,
     ]);
 
-    if (is_wp_error($res)) {
-      return $cache[$id] = '';
-    }
+    if (is_wp_error($res)) return $cache[$id] = '';
 
     $code = (int) wp_remote_retrieve_response_code($res);
-    if ($code < 200 || $code >= 300) {
-      return $cache[$id] = '';
-    }
+    if ($code < 200 || $code >= 300) return $cache[$id] = '';
 
     $svg = (string) wp_remote_retrieve_body($res);
   }
 
-  if (empty($svg) || !is_string($svg)) {
-    return $cache[$id] = '';
-  }
+  if ($svg === '') return $cache[$id] = '';
 
-  // Minimalna sanitizacja
   $svg = preg_replace('/<script\b[^>]*>.*?<\/script>/is', '', $svg);
   $svg = preg_replace('/\son\w+=(["\']).*?\1/is', '', $svg);
-
-  // Opcjonalnie: usuń XML/DOCTYPE (czasem psuje HTML)
   $svg = preg_replace('/<\?xml.*?\?>/is', '', $svg);
   $svg = preg_replace('/<!DOCTYPE.*?>/is', '', $svg);
 

@@ -354,20 +354,27 @@ add_filter('woocommerce_enable_order_notes_field', '__return_false');
  */
 function aw_pll_translate_wc_page_id($page_id)
 {
+	// Nie ruszaj admina, AJAX adminowego, REST i cron
+	if (is_admin() || wp_doing_ajax() || (defined('REST_REQUEST') && REST_REQUEST) || wp_doing_cron()) {
+		return $page_id;
+	}
+
 	if (function_exists('pll_get_post') && $page_id) {
-		$translated = pll_get_post($page_id);
-		if ($translated) {
-			return $translated;
+		$translated = pll_get_post((int) $page_id);
+
+		if (!empty($translated)) {
+			return (int) $translated;
 		}
 	}
 
-	return $page_id;
+	return (int) $page_id;
 }
-add_filter('option_woocommerce_shop_page_id', 'aw_pll_translate_wc_page_id');
-add_filter('option_woocommerce_cart_page_id', 'aw_pll_translate_wc_page_id');
-add_filter('option_woocommerce_checkout_page_id', 'aw_pll_translate_wc_page_id');
-add_filter('option_woocommerce_myaccount_page_id', 'aw_pll_translate_wc_page_id');
-add_filter('option_woocommerce_terms_page_id', 'aw_pll_translate_wc_page_id');
+
+// add_filter('option_woocommerce_shop_page_id', 'aw_pll_translate_wc_page_id');
+// add_filter('option_woocommerce_cart_page_id', 'aw_pll_translate_wc_page_id');
+// add_filter('option_woocommerce_checkout_page_id', 'aw_pll_translate_wc_page_id');
+// add_filter('option_woocommerce_myaccount_page_id', 'aw_pll_translate_wc_page_id');
+// add_filter('option_woocommerce_terms_page_id', 'aw_pll_translate_wc_page_id');
 
 
 // add_action('woocommerce_before_shop_loop', function () {
@@ -718,16 +725,6 @@ function aw_slug_transliterate(string $str): string
 
 	return $str !== '' ? $str : 'item';
 }
-
-add_filter('sanitize_title', function ($title, $raw_title = '', $context = 'display') {
-	if (!is_string($title) || $title === '') return $title;
-
-	if (aw_should_skip_slug_transliteration($title, (string)$raw_title, (string)$context)) {
-		return $title;
-	}
-
-	return aw_slug_transliterate($title);
-}, 9, 3);
 
 add_filter('pre_wp_unique_post_slug', function ($override, $slug, $post_ID, $post_status, $post_type, $post_parent) {
 	if (!is_string($slug) || $slug === '') return $override;
@@ -1219,7 +1216,7 @@ function filter_update_order_review_fragments($fradments)
 
 			<?php do_action('woocommerce_review_order_after_shipping'); ?>
 		</div>
-		<?php
+<?php
 	endif;
 
 	$fradments['.ajax-shipp-method'] = ob_get_clean();
@@ -1227,3 +1224,59 @@ function filter_update_order_review_fragments($fradments)
 	return $fradments;
 }
 // say hello
+add_filter('wp_redirect', function ($location, $status) {
+	if (strpos($_SERVER['REQUEST_URI'] ?? '', '/produkt/kalmary-suszone/') !== false) {
+		error_log("[DBG redirect] status={$status} location={$location}");
+		error_log("[DBG redirect backtrace] " . wp_json_encode(wp_debug_backtrace_summary(null, 0, false)));
+	}
+	return $location;
+}, 10, 2);
+
+add_filter('redirect_canonical', function ($redirect_url, $requested_url) {
+	if (strpos($requested_url, '/produkt/kalmary-suszone/') !== false) {
+		error_log("[DBG redirect_canonical] requested={$requested_url} redirect={$redirect_url}");
+	}
+	return $redirect_url;
+}, 10, 2);
+add_action('init', function () {
+	if (!current_user_can('manage_options')) return;
+	$slug = isset($_GET['aw_dbg_slug']) ? sanitize_title(wp_unslash($_GET['aw_dbg_slug'])) : '';
+	if (!$slug) return;
+
+	$q = new WP_Query([
+		'post_type'      => 'product',
+		'post_status'    => 'any',
+		'name'           => $slug,
+		'posts_per_page' => 50,
+		'fields'         => 'ids',
+		'suppress_filters' => false,
+	]);
+
+	echo "<pre>slug={$slug}\nfound=" . count($q->posts) . "\n";
+	foreach ($q->posts as $id) {
+		$lang = function_exists('pll_get_post_language') ? pll_get_post_language($id, 'slug') : '';
+		$tr   = function_exists('pll_get_post_translations') ? pll_get_post_translations($id) : [];
+		echo "ID={$id} lang={$lang} status=" . get_post_status($id) . " tr=" . json_encode($tr) . "\n";
+	}
+	echo "</pre>";
+	exit;
+});
+
+// $response = wp_remote_get(
+//     'https://secure.przelewy24.pl/api/v1/payment/methods/pl',
+//     [
+//         'headers' => [
+//             'Authorization' => 'Basic ' . base64_encode('337632:bf9cc1b3deda30f57eb254eb58e56a0f'),
+//             'Accept'        => 'application/json',
+//         ],
+//         'timeout' => 20,
+//     ]
+// );
+
+// echo '<pre>';
+// print_r($response);
+// echo '</pre>';
+
+add_action('after_setup_theme', static function (): void {
+	(new AW_Google_Tag_Manager())->init();
+});
