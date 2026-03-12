@@ -45,7 +45,7 @@ mix
     },
   })
   .browserSync({
-    proxy: "hochusala.local",
+    proxy: "http://startwpallin.local/",
     open: false,
     injectChanges: true,
     files: [

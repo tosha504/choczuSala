@@ -8,7 +8,7 @@ remove_action('woocommerce_shop_loop_header', 'woocommerce_product_taxonomy_arch
 add_action('woocommerce_shop_loop_header', function () {
 ?>
     <div class="banner-shop">
-        <?= my_custom_attachment_image(2792, [
+        <?php echo my_custom_attachment_image(85, [
             'szie' => 'large',
             'priority' => true,
             'sizes'    => '(max-width: 768px) 100vw, 50vw',

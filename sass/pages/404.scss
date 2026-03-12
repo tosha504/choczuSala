@@ -1,14 +1,311 @@
-.error {
-  &_content-title {
-    color: #000;
-    font-weight: 500;
+.error-404-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(620px, 82vh, 860px);
+  display: flex;
+  align-items: center;
+  background: var(--color-bg);
+  color: var(--color-text);
+
+  &__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(
+        90deg,
+        rgba(30, 26, 22, 0.72) 0%,
+        rgba(30, 26, 22, 0.55) 35%,
+        rgba(30, 26, 22, 0.2) 65%,
+        rgba(30, 26, 22, 0.08) 100%
+      ),
+      url("../assets/image/404-ukrainian-shop-bg..png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform: scale(1.02);
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        circle at 15% 30%,
+        rgba(227, 178, 122, 0.18),
+        transparent 35%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(244, 236, 220, 0.05),
+        rgba(244, 236, 220, 0.02)
+      );
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
+  &__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 620px);
+    padding: clamp(48px, 7vw, 96px) 0;
+    justify-content: center;
+  }
+
+  &__content {
+    position: relative;
+    padding: clamp(28px, 4vw, 42px);
+    border: 1px solid rgba(231, 222, 213, 0.45);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 24px 70px rgba(30, 26, 22, 0.14);
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    padding: 8px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: rgba(244, 236, 220, 0.88);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+
+    &::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-secondary);
+      flex-shrink: 0;
+    }
+  }
+
+  &__title {
+    margin: 0 0 16px;
+    font-family: var(--inter);
+    font-size: clamp(2.1rem, 5vw, 4.2rem);
+    line-height: 0.96;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--color-dark);
+    max-width: 10ch;
+  }
+
+  &__text {
+    margin: 0;
+    max-width: 58ch;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 0 22px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    &--primary {
+      background: var(--color-primary);
+      color: #fff;
+      border: 1px solid var(--color-primary);
+      box-shadow: 0 12px 30px rgba(191, 33, 30, 0.18);
+
+      &:hover,
+      &:focus-visible {
+        background: var(--color-primary-hover);
+        border-color: var(--color-primary-hover);
+        color: #fff;
+      }
+    }
+
+    &--secondary {
+      background: transparent;
+      color: var(--color-dark);
+      border: 1px solid var(--color-border);
+
+      &:hover,
+      &:focus-visible {
+        background: rgba(255, 255, 255, 0.75);
+        color: var(--color-dark);
+      }
+    }
+  }
+
+  &__search {
+    margin-top: 24px;
+  }
+
+  &__quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    margin: 22px 0 0;
+    padding: 0;
+    list-style: none;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--color-dark);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+
+      &::before {
+        content: "•";
+        color: var(--color-accent-dark);
+      }
+
+      &:hover,
+      &:focus-visible {
+        color: var(--color-primary);
+      }
+    }
   }
 }
 
-.e404 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.error-404-search-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
 
-  a {}
+  &__input {
+    width: 100%;
+    min-width: 0;
+    height: 52px;
+    padding: 0 16px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background: #fff;
+    color: var(--color-text);
+    font-size: 0.96rem;
+    outline: none;
+    box-shadow: none;
+
+    &::placeholder {
+      color: var(--color-text-muted);
+    }
+
+    &:focus {
+      border-color: var(--color-accent);
+    }
+  }
+
+  &__button {
+    height: 52px;
+    padding: 0 20px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--color-secondary);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-1px);
+      opacity: 0.92;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .error-404-hero {
+    min-height: auto;
+
+    &__media {
+      background-position: center center;
+    }
+
+    &__inner {
+      grid-template-columns: 1fr;
+    }
+
+    &__content {
+      max-width: 100%;
+    }
+
+    &__title {
+      max-width: none;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .error-404-hero {
+    &__media {
+      background-image:
+        linear-gradient(
+          180deg,
+          rgba(30, 26, 22, 0.62) 0%,
+          rgba(30, 26, 22, 0.3) 40%,
+          rgba(30, 26, 22, 0.15) 100%
+        ),
+        url("../img/404-ukrainian-shop-bg.webp");
+    }
+
+    &__content {
+      padding: 22px;
+      border-radius: 20px;
+    }
+
+    &__actions {
+      flex-direction: column;
+    }
+
+    &__button {
+      width: 100%;
+    }
+  }
+
+  .error-404-search-form {
+    grid-template-columns: 1fr;
+
+    &__button {
+      width: 100%;
+    }
+  }
 }

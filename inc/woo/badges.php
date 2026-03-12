@@ -7,23 +7,44 @@
 
 defined('ABSPATH') || exit;
 
-/**
- * Render badge overlay dla konkretnego produktu
- */
+
 function aw_wc_render_custom_badges_overlay($product): void
 {
     if (is_numeric($product)) {
         $product = wc_get_product((int) $product);
     }
 
-    if (!$product instanceof WC_Product) return;
+    if (!$product instanceof WC_Product) {
+        return;
+    }
 
     $badges = aw_wc_get_badges_for_product($product);
-    if (empty($badges)) return;
 
-    echo '<div class="aw-badges" aria-label="Product badges">';
+    /**
+     * Dodatkowy badge dla produktów niedostępnych.
+     * Możesz zmienić tekst na:
+     * - 'Wkrótce wracam'
+     * - 'Chwilowo niedostępny'
+     * - 'Wkrótce dostępny'
+     */
+    if (!$product->is_in_stock()) {
+        $badges[] = array(
+            'key'   => 'back-soon',
+            'label' => __('Wkrótce wracam', 'start'),
+        );
+    }
+
+    if (empty($badges)) {
+        return;
+    }
+
+    echo '<div class="aw-badges" aria-label="' . esc_attr__('Product badges', 'your-textdomain') . '">';
 
     foreach ($badges as $badge) {
+        if (empty($badge['key']) || empty($badge['label'])) {
+            continue;
+        }
+
         printf(
             '<span class="aw-badge aw-badge--%s">%s</span>',
             esc_attr($badge['key']),
@@ -33,7 +54,6 @@ function aw_wc_render_custom_badges_overlay($product): void
 
     echo '</div>';
 }
-
 /**
  * Logika badge (ZERO globali)
  */
