@@ -1,7 +1,6 @@
 @use "sass:list";
 @use "./__breakpoints" as b;
 @use "sass:map";
-
 @for $i from 1 through 6 {
   h#{$i} {
     font-weight: 600;
@@ -11,7 +10,7 @@
 }
 
 h1 {
-  font-size: clamp(2rem, calc(3vw + .5rem), 3.5rem);
+  font-size: clamp(2rem, calc(3vw + 0.5rem), 3.5rem);
   line-height: 1.15;
 }
 

@@ -1222,45 +1222,103 @@ function filter_update_order_review_fragments($fradments)
 
 	return $fradments;
 }
-// say hello
-add_filter('wp_redirect', function ($location, $status) {
-	if (strpos($_SERVER['REQUEST_URI'] ?? '', '/produkt/kalmary-suszone/') !== false) {
-		error_log("[DBG redirect] status={$status} location={$location}");
-		error_log("[DBG redirect backtrace] " . wp_json_encode(wp_debug_backtrace_summary(null, 0, false)));
-	}
-	return $location;
-}, 10, 2);
 
-add_filter('redirect_canonical', function ($redirect_url, $requested_url) {
-	if (strpos($requested_url, '/produkt/kalmary-suszone/') !== false) {
-		error_log("[DBG redirect_canonical] requested={$requested_url} redirect={$redirect_url}");
-	}
-	return $redirect_url;
-}, 10, 2);
-add_action('init', function () {
-	if (!current_user_can('manage_options')) return;
-	$slug = isset($_GET['aw_dbg_slug']) ? sanitize_title(wp_unslash($_GET['aw_dbg_slug'])) : '';
-	if (!$slug) return;
-
-	$q = new WP_Query([
-		'post_type'      => 'product',
-		'post_status'    => 'any',
-		'name'           => $slug,
-		'posts_per_page' => 50,
-		'fields'         => 'ids',
-		'suppress_filters' => false,
-	]);
-
-	echo "<pre>slug={$slug}\nfound=" . count($q->posts) . "\n";
-	foreach ($q->posts as $id) {
-		$lang = function_exists('pll_get_post_language') ? pll_get_post_language($id, 'slug') : '';
-		$tr   = function_exists('pll_get_post_translations') ? pll_get_post_translations($id) : [];
-		echo "ID={$id} lang={$lang} status=" . get_post_status($id) . " tr=" . json_encode($tr) . "\n";
-	}
-	echo "</pre>";
-	exit;
-});
 
 add_action('after_setup_theme', static function (): void {
 	(new AW_Google_Tag_Manager())->init();
+});
+add_filter('relevanssi_live_search_mode', function () {
+	return 'wp_query';
+});
+
+/**
+ * Dodaje aktualny język Polylang do zapytania live search.
+ */
+add_filter('relevanssi_live_search_query_args', function (array $args): array {
+	if (function_exists('pll_current_language')) {
+		$current_lang = pll_current_language('slug');
+
+		if (!empty($current_lang)) {
+			$args['lang'] = $current_lang;
+		}
+	}
+
+	$args['post_type'] = 'product';
+	$args['post_status'] = 'publish';
+
+	return $args;
+});
+
+/**
+ * Opcjonalnie: pilnuje zwykłego search results page,
+ * żeby wyszukiwanie z tego formularza było tylko po produktach.
+ */
+
+function aw_language_switcher()
+{
+	if (!function_exists('pll_the_languages')) return;
+
+	$langs = pll_the_languages([
+		'raw'           => 1,
+		'hide_if_empty' => 0,
+	]);
+
+	if (empty($langs)) return;
+
+	echo '<div class="aw-lang-switcher" data-aw-lang>';
+
+	// DESKTOP (select)
+	echo '<div class="aw-lang aw-lang--desktop">';
+	echo '<select class="aw-lang__select" aria-label="Language switcher">';
+	foreach ($langs as $lang) {
+		printf(
+			'<option value="%s" %s>%s</option>',
+			esc_url($lang['url']),
+			$lang['current_lang'] ? 'selected' : '',
+			esc_html(strtoupper($lang['slug']))
+		);
+	}
+	echo '</select>';
+	echo '</div>';
+
+	// MOBILE (buttons)
+	echo '<div class="aw-lang aw-lang--mobile">';
+	foreach ($langs as $lang) {
+		printf(
+			'<a href="%s" class="aw-lang__btn %s" aria-current="%s">%s</a>',
+			esc_url($lang['url']),
+			$lang['current_lang'] ? 'is-active' : '',
+			$lang['current_lang'] ? 'true' : 'false',
+			esc_html(strtoupper($lang['slug']))
+		);
+	}
+	echo '</div>';
+
+	echo '</div>';
+}
+add_filter('relevanssi_live_search_base_styles', '__return_false');
+/**
+ * Relevanssi Live Ajax Search:
+ * ograniczamy tylko do produktów i aktualnego języka.
+ */
+add_filter('relevanssi_live_search_query_args', function (array $args): array {
+	$args['post_type']   = 'product';
+	$args['post_status'] = 'publish';
+
+	if (function_exists('pll_current_language')) {
+		$current_lang = pll_current_language('slug');
+
+		if (!empty($current_lang)) {
+			$args['lang'] = $current_lang;
+		}
+	}
+
+	return $args;
+});
+
+/**
+ * Dla kompatybilności z integracjami wielojęzycznymi.
+ */
+add_filter('relevanssi_live_search_mode', function () {
+	return 'wp_query';
 });

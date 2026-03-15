@@ -62,56 +62,20 @@
 						),
 					);
 
-					function aw_language_switcher()
-					{
-						if (!function_exists('pll_the_languages')) return;
 
-						$langs = pll_the_languages([
-							'raw'           => 1,
-							'hide_if_empty' => 0,
-						]);
-
-						if (empty($langs)) return;
-
-						echo '<div class="aw-lang-switcher" data-aw-lang>';
-
-						// DESKTOP (select)
-						echo '<div class="aw-lang aw-lang--desktop">';
-						echo '<select class="aw-lang__select" aria-label="Language switcher">';
-						foreach ($langs as $lang) {
-							printf(
-								'<option value="%s" %s>%s</option>',
-								esc_url($lang['url']),
-								$lang['current_lang'] ? 'selected' : '',
-								esc_html(strtoupper($lang['slug']))
-							);
-						}
-						echo '</select>';
-						echo '</div>';
-
-						// MOBILE (buttons)
-						echo '<div class="aw-lang aw-lang--mobile">';
-						foreach ($langs as $lang) {
-							printf(
-								'<a href="%s" class="aw-lang__btn %s" aria-current="%s">%s</a>',
-								esc_url($lang['url']),
-								$lang['current_lang'] ? 'is-active' : '',
-								$lang['current_lang'] ? 'true' : 'false',
-								esc_html(strtoupper($lang['slug']))
-							);
-						}
-						echo '</div>';
-
-						echo '</div>';
-					}
 					aw_language_switcher();
 					?>
 				</nav><!-- #site-navigation -->
 				<div class="actions">
 					<div class="actions__woo">
-						<!-- <a href="#" class="search" role="search">
+						<button
+							type="button"
+							class="search-toggle js-search-open"
+							aria-label="<?php esc_attr_e('Otwórz wyszukiwarkę produktów', 'start'); ?>"
+							aria-controls="site-search-modal"
+							aria-expanded="false">
 							<?php echo aw_svg('search'); ?>
-						</a> -->
+						</button>
 						<a
 							href="<?php echo wc_get_account_endpoint_url('dashboard'); ?>"
 							title="<?php esc_attr_e('Moje konto', 'start'); ?>"
@@ -134,3 +98,82 @@
 				</div>
 			</div>
 		</header><!-- #masthead -->
+		<?php
+		$current_lang = function_exists('pll_current_language')
+			? pll_current_language('slug')
+			: '';
+		?>
+
+		<div
+			id="site-search-modal"
+			class="search-modal"
+			hidden
+			aria-hidden="true">
+			<div class="search-modal__backdrop js-search-close" aria-hidden="true"></div>
+
+			<div
+				class="search-modal__dialog"
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby="site-search-title">
+				<div class="search-modal__header">
+					<h2 id="site-search-title" class="search-modal__title">
+						<?php esc_html_e('Szukaj produktów', 'start'); ?>
+					</h2>
+
+					<button
+						type="button"
+						class="search-modal__close js-search-close"
+						aria-label="<?php esc_attr_e('Zamknij wyszukiwarkę', 'start'); ?>">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+
+				<div class="search-modal__body">
+					<p style="margin-bottom:0.5rem;"><?php esc_html_e('Wpisz min. 3 litery produktu', 'start'); ?></p>
+					<form
+						role="search"
+						method="get"
+						class="search-modal__form js-search-form"
+						action="#"
+						novalidate
+						autocomplete="off">
+						<label class="screen-reader-text" for="aw-header-search">
+							<?php esc_html_e('Szukaj produktów', 'start'); ?>
+						</label>
+
+						<div class="search-modal__field-wrap">
+							<input
+								id="aw-header-search"
+								type="search"
+								class="search-modal__input"
+								placeholder="<?php esc_attr_e('Wpisz nazwę produktu...', 'start'); ?>"
+								value=""
+								name="s"
+								autocomplete="off"
+								enterkeyhint="search"
+								data-rlvlive="true"
+								data-rlvconfig="default"
+								data-rlvparentel="#aw-search-live-results" />
+
+							<input type="hidden" name="post_type" value="product">
+
+							<?php if (!empty($current_lang)) : ?>
+								<input type="hidden" name="lang" value="<?php echo esc_attr($current_lang); ?>">
+							<?php endif; ?>
+
+							<button type="button" class="search-modal__submit js-search-refresh">
+								<?php echo aw_svg('search'); ?>
+								<span><?php esc_html_e('Szukaj', 'start'); ?></span>
+							</button>
+						</div>
+
+						<div
+							id="aw-search-live-results"
+							class="search-modal__results"
+							aria-live="polite"
+							aria-label="<?php esc_attr_e('Wyniki wyszukiwania', 'start'); ?>"></div>
+					</form>
+				</div>
+			</div>
+		</div>

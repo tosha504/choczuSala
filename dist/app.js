@@ -108,6 +108,138 @@
     openBtn.addEventListener("click", open);
   });
 })(jQuery);
+document.addEventListener("DOMContentLoaded", function () {
+  var modal = document.querySelector("#site-search-modal");
+  if (!modal) return;
+  var openButtons = document.querySelectorAll(".js-search-open");
+  var closeButtons = modal.querySelectorAll(".js-search-close");
+  var form = modal.querySelector(".js-search-form");
+  var input = modal.querySelector(".search-modal__input");
+  var results = modal.querySelector("#aw-search-live-results");
+  var refreshButton = modal.querySelector(".js-search-refresh");
+  var lastFocusedElement = null;
+  var getFocusableElements = function getFocusableElements() {
+    return modal.querySelectorAll('a[href], button:not([disabled]), textarea, input:not([disabled]), select, [tabindex]:not([tabindex="-1"])');
+  };
+  var triggerLiveSearch = function triggerLiveSearch() {
+    if (!input) return;
+    input.focus();
+
+    // Relevanssi Live Ajax Search zwykle nasłuchuje na input / keyup.
+    input.dispatchEvent(new Event("input", {
+      bubbles: true
+    }));
+    input.dispatchEvent(new KeyboardEvent("keyup", {
+      bubbles: true,
+      key: "a"
+    }));
+    window.dispatchEvent(new Event("resize"));
+  };
+  var openModal = function openModal() {
+    lastFocusedElement = document.activeElement;
+    modal.hidden = false;
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("search-modal-open");
+    openButtons.forEach(function (button) {
+      button.setAttribute("aria-expanded", "true");
+    });
+    window.requestAnimationFrame(function () {
+      input === null || input === void 0 ? void 0 : input.focus();
+      triggerLiveSearch();
+    });
+  };
+  var closeModal = function closeModal() {
+    modal.hidden = true;
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("search-modal-open");
+    openButtons.forEach(function (button) {
+      button.setAttribute("aria-expanded", "false");
+    });
+    if (lastFocusedElement) {
+      lastFocusedElement.focus();
+    }
+  };
+  openButtons.forEach(function (button) {
+    button.addEventListener("click", openModal);
+  });
+  closeButtons.forEach(function (button) {
+    button.addEventListener("click", closeModal);
+  });
+  modal.addEventListener("click", function (event) {
+    if (event.target.classList.contains("js-search-close")) {
+      closeModal();
+    }
+  });
+  document.addEventListener("keydown", function (event) {
+    if (modal.hidden) return;
+    if (event.key === "Escape") {
+      closeModal();
+      return;
+    }
+    if (event.key === "Tab") {
+      var focusable = Array.from(getFocusableElements());
+      if (!focusable.length) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  });
+
+  /**
+   * Twarda blokada klasycznego submitu.
+   */
+  if (form) {
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    });
+  }
+
+  /**
+   * Enter ma NIE robić redirectu.
+   * Ma tylko odświeżyć live search.
+   */
+  if (input) {
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        event.stopPropagation();
+        triggerLiveSearch();
+        return false;
+      }
+    });
+  }
+
+  /**
+   * Klik czerwonego guzika:
+   * tylko odświeżenie wyników Relevanssi.
+   */
+  if (refreshButton) {
+    refreshButton.addEventListener("click", function (event) {
+      event.preventDefault();
+      triggerLiveSearch();
+    });
+  }
+
+  /**
+   * Klik w wynik zamyka modal.
+   */
+  if (results) {
+    results.addEventListener("click", function (event) {
+      var link = event.target.closest("a");
+      if (link) {
+        closeModal();
+      }
+    });
+  }
+});
 
 /***/ }),
 

@@ -27,15 +27,11 @@ $count = count($results);
 
             $permalink = get_permalink($post->ID);
             $title     = get_the_title($post->ID);
-            $thumb     = get_the_post_thumbnail(
-                $post->ID,
-                'thumbnail',
-                [
-                    'class'   => 'aw-live-search__thumb-image',
-                    'loading' => 'lazy',
-                    'alt'     => $title,
-                ]
-            );
+            $thumb     = get_the_post_thumbnail($post->ID, 'thumbnail', [
+                'class'   => 'aw-live-search__thumb-image',
+                'loading' => 'lazy',
+                'alt'     => $title,
+            ]);
             ?>
             <article class="aw-live-search__item">
                 <a class="aw-live-search__link" href="<?php echo esc_url($permalink); ?>">

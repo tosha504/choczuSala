@@ -3,7 +3,7 @@
 
 button {
   border: none;
-
+  background: transparent;
   &.button {
     background-color: var(--color-primary);
     color: var(--color-surface);
