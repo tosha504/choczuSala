@@ -38,7 +38,7 @@ $payment = get_field('payment', 'options');  ?>
 
     </nav>
     <nav aria-label="Kategorie">
-      <?php echo !empty($title_menu) ? '<h4>' . $title_menu . '</h4>' : "";
+      <?php echo !empty($categories_aw_title) ? '<h4>' . $categories_aw_title . '</h4>' : "";
       wp_nav_menu(
         array(
           'theme_location' => 'menu-foot-cat',
