@@ -137,7 +137,6 @@ add_filter('pll_translate_post_meta', function ($value, $key, $lang, $from, $to)
 
 	return $value;
 }, 10, 5);
-	// var_dump('sdfsf', aw_pll_active(), 'ltest');
 
 /** =============================================
  *  3) SYNC po zapisie produktu (save_post_product)
@@ -255,7 +254,6 @@ add_filter('woocommerce_get_product_terms', function ($terms, $product_id, $taxo
 	if ($taxonomy !== 'product_cat') {
 		return $terms;
 	}
-	// var_dump($taxonomy);
 
 	// Język aktualnej wersji produktu
 	$lang = function_exists('pll_get_post_language')

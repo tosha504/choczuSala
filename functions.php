@@ -200,7 +200,7 @@ foreach ($realestate_includes as $file) {
 }
 
 require_once dirname(__FILE__) . '/inc/class-tgm-plugin-activation.php';
-
+require_once dirname(__FILE__) . '/search-functionality.php';
 
 add_action('after_switch_theme', function () {
 	$plugins = [
@@ -1227,27 +1227,6 @@ function filter_update_order_review_fragments($fradments)
 add_action('after_setup_theme', static function (): void {
 	(new AW_Google_Tag_Manager())->init();
 });
-add_filter('relevanssi_live_search_mode', function () {
-	return 'wp_query';
-});
-
-/**
- * Dodaje aktualny język Polylang do zapytania live search.
- */
-add_filter('relevanssi_live_search_query_args', function (array $args): array {
-	if (function_exists('pll_current_language')) {
-		$current_lang = pll_current_language('slug');
-
-		if (!empty($current_lang)) {
-			$args['lang'] = $current_lang;
-		}
-	}
-
-	$args['post_type'] = 'product';
-	$args['post_status'] = 'publish';
-
-	return $args;
-});
 
 /**
  * Opcjonalnie: pilnuje zwykłego search results page,
@@ -1296,32 +1275,7 @@ function aw_language_switcher()
 
 	echo '</div>';
 }
-add_filter('relevanssi_live_search_base_styles', '__return_false');
-/**
- * Relevanssi Live Ajax Search:
- * ograniczamy tylko do produktów i aktualnego języka.
- */
-add_filter('relevanssi_live_search_query_args', function (array $args): array {
-	$args['post_type']   = 'product';
-	$args['post_status'] = 'publish';
 
-	if (function_exists('pll_current_language')) {
-		$current_lang = pll_current_language('slug');
-
-		if (!empty($current_lang)) {
-			$args['lang'] = $current_lang;
-		}
-	}
-
-	return $args;
-});
-
-/**
- * Dla kompatybilności z integracjami wielojęzycznymi.
- */
-add_filter('relevanssi_live_search_mode', function () {
-	return 'wp_query';
-});
 add_filter('woocommerce_order_item_thumbnail', 'aw_wc_email_order_item_thumbnail_fallback', 10, 2);
 
 /**
@@ -1383,3 +1337,60 @@ function aw_wc_cart_item_thumbnail_fallback(string $thumbnail, array $cart_item,
 
 	return !empty($image_html) ? $image_html : $thumbnail;
 }
+
+
+
+function aw_get_search_action_url(): string
+{
+	$lang = aw_get_current_lang();
+
+	$raw_home = untrailingslashit((string) get_option('home'));
+
+	if (!empty($lang) && $lang !== 'pl') {
+		return $raw_home . '/' . $lang . '/';
+	}
+
+	return $raw_home . '/';
+}
+
+function aw_customize_product_search_query(WP_Query $query): void
+{
+	if (is_admin() || !$query->is_main_query() || !$query->is_search()) {
+		return;
+	}
+
+	$query->set('post_type', 'product');
+	$query->set('post_status', 'publish');
+
+	$lang = get_query_var('lang');
+
+	if (empty($lang) && !empty($_GET['lang'])) {
+		$lang = sanitize_text_field(wp_unslash($_GET['lang']));
+	}
+
+	if (empty($lang)) {
+		$lang = aw_get_current_lang();
+	}
+
+	if (!empty($lang)) {
+		$query->set('lang', $lang);
+	}
+}
+add_action('pre_get_posts', 'aw_customize_product_search_query', 20);
+
+add_filter('relevanssi_custom_fields', function (array $fields): array {
+	$fields[] = '_sku';
+	$fields[] = 'search_alias';
+
+	return array_values(array_unique($fields));
+});
+
+/**
+ * Relevanssi ma indeksować dodatkowe pola wspierające search.
+ */
+add_filter('relevanssi_custom_fields', function (array $fields): array {
+	$fields[] = '_sku';
+	$fields[] = 'search_alias';
+
+	return array_values(array_unique($fields));
+});

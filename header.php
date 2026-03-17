@@ -65,6 +65,7 @@
 
 					aw_language_switcher();
 					?>
+
 				</nav><!-- #site-navigation -->
 				<div class="actions">
 					<div class="actions__woo">
@@ -102,8 +103,13 @@
 		$current_lang = function_exists('pll_current_language')
 			? pll_current_language('slug')
 			: '';
-		?>
 
+		$search_action_url = home_url('/');
+
+		if (function_exists('pll_home_url') && !empty($current_lang)) {
+			$search_action_url = pll_home_url($current_lang);
+		}
+		?>
 		<div
 			id="site-search-modal"
 			class="search-modal"
@@ -130,14 +136,17 @@
 				</div>
 
 				<div class="search-modal__body">
-					<p style="margin-bottom:0.5rem;"><?php esc_html_e('Wpisz min. 3 litery produktu', 'start'); ?></p>
+					<p style="margin-bottom:0.5rem;">
+						<?php esc_html_e('Wpisz min. 2–3 litery produktu', 'start'); ?>
+					</p>
 					<form
 						role="search"
 						method="get"
 						class="search-modal__form js-search-form"
-						action="#"
-						novalidate
+						action="<?php echo esc_url(aw_get_search_action_url()); ?>"
+						data-search-action="<?php echo esc_url(aw_get_search_action_url()); ?>"
 						autocomplete="off">
+
 						<label class="screen-reader-text" for="aw-header-search">
 							<?php esc_html_e('Szukaj produktów', 'start'); ?>
 						</label>
@@ -157,12 +166,9 @@
 								data-rlvparentel="#aw-search-live-results" />
 
 							<input type="hidden" name="post_type" value="product">
+							<input type="hidden" name="lang" value="<?php echo esc_attr(aw_get_current_lang()); ?>">
 
-							<?php if (!empty($current_lang)) : ?>
-								<input type="hidden" name="lang" value="<?php echo esc_attr($current_lang); ?>">
-							<?php endif; ?>
-
-							<button type="button" class="search-modal__submit js-search-refresh">
+							<button type="submit" class="search-modal__submit js-search-refresh">
 								<?php echo aw_svg('search'); ?>
 								<span><?php esc_html_e('Szukaj', 'start'); ?></span>
 							</button>
@@ -172,7 +178,8 @@
 							id="aw-search-live-results"
 							class="search-modal__results"
 							aria-live="polite"
-							aria-label="<?php esc_attr_e('Wyniki wyszukiwania', 'start'); ?>"></div>
+							aria-label="<?php esc_attr_e('Wyniki wyszukiwania', 'start'); ?>">
+						</div>
 					</form>
 				</div>
 			</div>
