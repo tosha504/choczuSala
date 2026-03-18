@@ -7,239 +7,329 @@
   \**********************/
 /***/ (() => {
 
-(function () {
-  console.log("ready");
-  var burger = jQuery(".burger"),
-    burgerSpan = jQuery(".burger span"),
-    nav = jQuery("#site-navigation"),
-    body = jQuery("body");
-  document.documentElement.style.setProperty("--aw-header-h", document.querySelector("#masthead").offsetHeight + "px");
-  document.addEventListener("change", function (e) {
-    var select = e.target.closest(".aw-lang__select");
-    if (!select) return;
-    window.location.href = select.value;
-  });
-  burger.on("click", function () {
-    burgerSpan.toggleClass("active");
-    nav.toggleClass("active");
-    body.toggleClass("fixed-page");
-  });
-  jQuery(document).on("click", ".cart-qty.plus, .cart-qty.minus", function (e) {
-    e.preventDefault();
-    var $input = jQuery(this).parent().find(".input-text.qty.text, input.qty");
-    var current = parseInt($input.val(), 10) || 0;
-    var next = current;
-    if (jQuery(this).hasClass("plus")) next = current + 1;else next = Math.max(0, current - 1);
-    $input.val(next).trigger("change");
-  });
-  var timeout;
-  jQuery(".woocommerce").on("change", "input.qty", function () {
-    if (timeout !== undefined) {
-      clearTimeout(timeout);
-    }
-    timeout = setTimeout(function () {
-      jQuery("[name='update_cart']").trigger("click"); // trigger cart update
-    }, 100); // 1 second delay, half a second (500) seems comfortable too
-  });
+(function ($) {
+  "use strict";
 
-  var roots = document.querySelectorAll("[data-aw-gr]");
-  if (!roots.length) return;
-  var starSvg = "\n    <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\">\n      <path d=\"M12 17.27l5.18 3.04-1.39-5.9L20.5 10l-6.03-.52L12 4 9.53 9.48 3.5 10l4.71 4.41-1.39 5.9L12 17.27z\"></path>\n    </svg>\n  ";
-  function renderStars(container, rating) {
-    var theme = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "dark";
-    if (!container) return;
-    var r = Math.max(0, Math.min(5, Number(rating || 0)));
-    container.innerHTML = "";
-    for (var i = 1; i <= 5; i++) {
-      var span = document.createElement("span");
-      span.className = "aw-gr-star " + (i <= Math.round(r) ? "aw-gr-star--on" : "aw-gr-star--off");
-      // w badge off gwiazdy są półprzezroczyste na białym, w modalach też OK
-      span.innerHTML = starSvg;
-      container.appendChild(span);
-    }
-  }
-  roots.forEach(function (root) {
-    // badge stars (rating firmy)
-    var rating = root.getAttribute("data-rating") || "0";
-    renderStars(root.querySelector("[data-aw-gr-stars]"), rating);
-    var openBtn = root.querySelector("[data-aw-gr-open]");
-    var tpl = root.querySelector("[data-aw-gr-template]");
-    if (!openBtn || !tpl) return;
-    var modalEl = null;
-    var lastActive = null;
-    var open = function open() {
-      if (modalEl) return;
-      lastActive = document.activeElement;
-      modalEl = tpl.content.firstElementChild.cloneNode(true);
-      document.body.appendChild(modalEl);
+  var doc = document;
+  var win = window;
 
-      // modal stars
-      renderStars(modalEl.querySelector(".aw-gr-modal__stars"), rating);
-
-      // card stars per review
-      modalEl.querySelectorAll(".aw-gr-card__stars[data-rating]").forEach(function (el) {
-        renderStars(el, el.getAttribute("data-rating"));
-      });
-
-      // zamykanie
-      modalEl.querySelectorAll("[data-aw-gr-close]").forEach(function (btn) {
-        btn.addEventListener("click", close);
-      });
-      document.addEventListener("keydown", onKeydown);
-      document.body.style.overflow = "hidden";
-      openBtn.setAttribute("aria-expanded", "true");
-
-      // focus
-      var closeBtn = modalEl.querySelector(".aw-gr-modal__close");
-      closeBtn && closeBtn.focus();
-    };
-    var close = function close() {
-      if (!modalEl) return;
-      modalEl.remove();
-      modalEl = null;
-      document.removeEventListener("keydown", onKeydown);
-      document.body.style.overflow = "";
-      openBtn.setAttribute("aria-expanded", "false");
-      lastActive && lastActive.focus();
-    };
-    var onKeydown = function onKeydown(e) {
-      if (e.key === "Escape") close();
-    };
-    openBtn.addEventListener("click", open);
-  });
-})(jQuery);
-document.addEventListener("DOMContentLoaded", function () {
-  var modal = document.querySelector("#site-search-modal");
-  if (!modal) return;
-  var openButtons = document.querySelectorAll(".js-search-open");
-  var closeButtons = modal.querySelectorAll(".js-search-close");
-  var form = modal.querySelector(".js-search-form");
-  var input = modal.querySelector(".search-modal__input");
-  var results = modal.querySelector("#aw-search-live-results");
-  var refreshButton = modal.querySelector(".js-search-refresh");
-  var lastFocusedElement = null;
-  var getFocusableElements = function getFocusableElements() {
-    return modal.querySelectorAll('a[href], button:not([disabled]), textarea, input:not([disabled]), select, [tabindex]:not([tabindex="-1"])');
+  /**
+   * Helpers
+   */
+  var setHeaderHeightVar = function setHeaderHeightVar() {
+    var masthead = doc.querySelector("#masthead");
+    if (!masthead) return;
+    doc.documentElement.style.setProperty("--aw-header-h", "".concat(masthead.offsetHeight, "px"));
   };
-  var triggerLiveSearch = function triggerLiveSearch() {
-    if (!input) return;
-    input.focus();
 
-    // Relevanssi Live Ajax Search zwykle nasłuchuje na input / keyup.
-    input.dispatchEvent(new Event("input", {
-      bubbles: true
-    }));
-    input.dispatchEvent(new KeyboardEvent("keyup", {
-      bubbles: true,
-      key: "a"
-    }));
-    window.dispatchEvent(new Event("resize"));
-  };
-  var openModal = function openModal() {
-    lastFocusedElement = document.activeElement;
-    modal.hidden = false;
-    modal.setAttribute("aria-hidden", "false");
-    document.body.classList.add("search-modal-open");
-    openButtons.forEach(function (button) {
-      button.setAttribute("aria-expanded", "true");
-    });
-    window.requestAnimationFrame(function () {
-      input === null || input === void 0 ? void 0 : input.focus();
-      triggerLiveSearch();
+  /**
+   * Language switcher
+   */
+  var initLanguageSwitcher = function initLanguageSwitcher() {
+    doc.addEventListener("change", function (e) {
+      var select = e.target.closest(".aw-lang__select");
+      if (!select || !select.value) return;
+      win.location.href = select.value;
     });
   };
-  var closeModal = function closeModal() {
-    modal.hidden = true;
-    modal.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("search-modal-open");
-    openButtons.forEach(function (button) {
-      button.setAttribute("aria-expanded", "false");
+
+  /**
+   * Burger / mobile nav
+   */
+  var initBurger = function initBurger() {
+    var $burger = $(".burger");
+    var $burgerSpan = $(".burger span");
+    var $nav = $("#site-navigation");
+    var $body = $("body");
+    if (!$burger.length) return;
+    $burger.on("click", function () {
+      $burgerSpan.toggleClass("active");
+      $nav.toggleClass("active");
+      $body.toggleClass("fixed-page");
     });
-    if (lastFocusedElement) {
-      lastFocusedElement.focus();
-    }
   };
-  openButtons.forEach(function (button) {
-    button.addEventListener("click", openModal);
-  });
-  closeButtons.forEach(function (button) {
-    button.addEventListener("click", closeModal);
-  });
-  modal.addEventListener("click", function (event) {
-    if (event.target.classList.contains("js-search-close")) {
-      closeModal();
-    }
-  });
-  document.addEventListener("keydown", function (event) {
-    if (modal.hidden) return;
-    if (event.key === "Escape") {
-      closeModal();
-      return;
-    }
-    if (event.key === "Tab") {
-      var focusable = Array.from(getFocusableElements());
-      if (!focusable.length) return;
-      var first = focusable[0];
-      var last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
+
+  /**
+   * Cart qty controls
+   */
+  var initCartQtyControls = function initCartQtyControls() {
+    $(document).on("click", ".cart-qty.plus, .cart-qty.minus", function (e) {
+      e.preventDefault();
+      var $input = $(this).parent().find(".input-text.qty.text, input.qty");
+      if (!$input.length) return;
+      var current = parseInt($input.val(), 10) || 0;
+      var next = current;
+      if ($(this).hasClass("plus")) {
+        next = current + 1;
+      } else {
+        next = Math.max(0, current - 1);
       }
-    }
-  });
-
-  /**
-   * Twarda blokada klasycznego submitu.
-   */
-  if (form) {
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      return false;
+      $input.val(next).trigger("change");
     });
-  }
-
-  /**
-   * Enter ma NIE robić redirectu.
-   * Ma tylko odświeżyć live search.
-   */
-  if (input) {
-    input.addEventListener("keydown", function (event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        event.stopPropagation();
-        triggerLiveSearch();
-        return false;
+    var timeout;
+    $(".woocommerce").on("change", "input.qty", function () {
+      if (timeout) {
+        clearTimeout(timeout);
       }
+      timeout = setTimeout(function () {
+        $("[name='update_cart']").trigger("click");
+      }, 100);
     });
-  }
+  };
 
   /**
-   * Klik czerwonego guzika:
-   * tylko odświeżenie wyników Relevanssi.
+   * Google reviews modal
    */
-  if (refreshButton) {
-    refreshButton.addEventListener("click", function (event) {
-      event.preventDefault();
-      triggerLiveSearch();
+  var initGoogleReviews = function initGoogleReviews() {
+    var roots = doc.querySelectorAll("[data-aw-gr]");
+    if (!roots.length) return;
+    var starSvg = "\n      <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\">\n        <path d=\"M12 17.27l5.18 3.04-1.39-5.9L20.5 10l-6.03-.52L12 4 9.53 9.48 3.5 10l4.71 4.41-1.39 5.9L12 17.27z\"></path>\n      </svg>\n    ";
+    var renderStars = function renderStars(container, rating) {
+      if (!container) return;
+      var normalized = Math.max(0, Math.min(5, Number(rating || 0)));
+      container.innerHTML = "";
+      for (var i = 1; i <= 5; i++) {
+        var span = doc.createElement("span");
+        span.className = "aw-gr-star ".concat(i <= Math.round(normalized) ? "aw-gr-star--on" : "aw-gr-star--off");
+        span.innerHTML = starSvg;
+        container.appendChild(span);
+      }
+    };
+    roots.forEach(function (root) {
+      var rating = root.getAttribute("data-rating") || "0";
+      renderStars(root.querySelector("[data-aw-gr-stars]"), rating);
+      var openBtn = root.querySelector("[data-aw-gr-open]");
+      var tpl = root.querySelector("[data-aw-gr-template]");
+      if (!openBtn || !tpl) return;
+      var modalEl = null;
+      var lastActive = null;
+      var onKeydown = function onKeydown(e) {
+        if (e.key === "Escape") {
+          close();
+        }
+      };
+      var close = function close() {
+        if (!modalEl) return;
+        modalEl.remove();
+        modalEl = null;
+        doc.removeEventListener("keydown", onKeydown);
+        doc.body.style.overflow = "";
+        openBtn.setAttribute("aria-expanded", "false");
+        if (lastActive) {
+          lastActive.focus();
+        }
+      };
+      var open = function open() {
+        if (modalEl) return;
+        lastActive = doc.activeElement;
+        modalEl = tpl.content.firstElementChild.cloneNode(true);
+        doc.body.appendChild(modalEl);
+        renderStars(modalEl.querySelector(".aw-gr-modal__stars"), rating);
+        modalEl.querySelectorAll(".aw-gr-card__stars[data-rating]").forEach(function (el) {
+          renderStars(el, el.getAttribute("data-rating"));
+        });
+        modalEl.querySelectorAll("[data-aw-gr-close]").forEach(function (btn) {
+          btn.addEventListener("click", close);
+        });
+        doc.addEventListener("keydown", onKeydown);
+        doc.body.style.overflow = "hidden";
+        openBtn.setAttribute("aria-expanded", "true");
+        var closeBtn = modalEl.querySelector(".aw-gr-modal__close");
+        if (closeBtn) {
+          closeBtn.focus();
+        }
+      };
+      openBtn.addEventListener("click", open);
     });
-  }
+  };
 
   /**
-   * Klik w wynik zamyka modal.
+   * Search modal
    */
-  if (results) {
-    results.addEventListener("click", function (event) {
-      var link = event.target.closest("a");
-      if (link) {
+  var initSearchModal = function initSearchModal() {
+    var modal = doc.querySelector("#site-search-modal");
+    if (!modal) return;
+    var openButtons = doc.querySelectorAll(".js-search-open");
+    var closeButtons = modal.querySelectorAll(".js-search-close");
+    var form = modal.querySelector(".js-search-form");
+    var input = modal.querySelector(".search-modal__input");
+    var results = modal.querySelector("#aw-search-live-results");
+    var refreshButton = modal.querySelector(".js-search-refresh");
+    if (!form || !input) return;
+    var lastFocusedElement = null;
+    var getFocusableElements = function getFocusableElements() {
+      return modal.querySelectorAll('a[href], button:not([disabled]), textarea, input:not([disabled]), select, [tabindex]:not([tabindex="-1"])');
+    };
+    var triggerLiveSearch = function triggerLiveSearch() {
+      var _input$value;
+      input.dispatchEvent(new KeyboardEvent("keyup", {
+        bubbles: true,
+        key: ((_input$value = input.value) === null || _input$value === void 0 ? void 0 : _input$value.slice(-1)) || "a"
+      }));
+      win.dispatchEvent(new Event("resize"));
+    };
+    var openModal = function openModal() {
+      lastFocusedElement = doc.activeElement;
+      modal.hidden = false;
+      modal.setAttribute("aria-hidden", "false");
+      doc.body.classList.add("search-modal-open");
+      openButtons.forEach(function (button) {
+        button.setAttribute("aria-expanded", "true");
+      });
+      win.requestAnimationFrame(function () {
+        input.focus();
+        if (input.value.trim().length >= 2) {
+          triggerLiveSearch();
+        }
+      });
+    };
+    var closeModal = function closeModal() {
+      modal.hidden = true;
+      modal.setAttribute("aria-hidden", "true");
+      doc.body.classList.remove("search-modal-open");
+      openButtons.forEach(function (button) {
+        button.setAttribute("aria-expanded", "false");
+      });
+      if (lastFocusedElement) {
+        lastFocusedElement.focus();
+      }
+    };
+    openButtons.forEach(function (button) {
+      button.addEventListener("click", openModal);
+    });
+    closeButtons.forEach(function (button) {
+      button.addEventListener("click", closeModal);
+    });
+    modal.addEventListener("click", function (event) {
+      if (event.target.classList.contains("js-search-close")) {
         closeModal();
       }
     });
+    doc.addEventListener("keydown", function (event) {
+      if (modal.hidden) return;
+      if (event.key === "Escape") {
+        closeModal();
+        return;
+      }
+      if (event.key === "Tab") {
+        var focusable = Array.from(getFocusableElements());
+        if (!focusable.length) return;
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        if (event.shiftKey && doc.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && doc.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    /**
+     * Guard dla action formularza:
+     * jeśli action jest puste lub #, bierzemy data-search-action.
+     */
+    form.addEventListener("submit", function () {
+      var action = form.getAttribute("action");
+      var fallbackAction = form.dataset.searchAction;
+      if ((!action || action === "#") && fallbackAction) {
+        form.setAttribute("action", fallbackAction);
+      }
+    });
+
+    /**
+     * Klik w przycisk "Szukaj" -> zwykły submit formularza.
+     */
+    if (refreshButton) {
+      refreshButton.addEventListener("click", function () {
+        form.requestSubmit();
+      });
+    }
+
+    /**
+     * Klik w wynik zamyka modal.
+     */
+    if (results) {
+      results.addEventListener("click", function (event) {
+        var link = event.target.closest("a");
+        if (link) {
+          closeModal();
+        }
+      });
+    }
+  };
+
+  /**
+   * Init
+   */
+  var init = function init() {
+    setHeaderHeightVar();
+    initLanguageSwitcher();
+    initBurger();
+    initCartQtyControls();
+    initGoogleReviews();
+    initSearchModal();
+    win.addEventListener("resize", setHeaderHeightVar);
+  };
+  if (doc.readyState === "loading") {
+    doc.addEventListener("DOMContentLoaded", init, {
+      once: true
+    });
+  } else {
+    init();
   }
-});
+  var $nav = $("#site-navigation .header__nav");
+  var mobileBreakpoint = 1200;
+  if (!$nav.length) {
+    return;
+  }
+  $nav.find(".menu-item-has-children").each(function (index) {
+    var $item = $(this);
+    var $link = $item.children("a").first();
+    var $submenu = $item.children(".sub-menu").first();
+    if (!$link.length || !$submenu.length) {
+      return;
+    }
+
+    // nie duplikuj przy ponownym init
+    if ($item.children(".submenu-item-row").length) {
+      return;
+    }
+    var submenuId = $submenu.attr("id");
+    if (!submenuId) {
+      submenuId = "submenu-" + index + "-" + Math.random().toString(36).slice(2, 8);
+      $submenu.attr("id", submenuId);
+    }
+    var $row = $('<div class="submenu-item-row"></div>');
+    $link.before($row);
+    $row.append($link);
+    var $button = $('<button type="button" class="submenu-toggle" aria-expanded="false" aria-label="Rozwiń submenu"></button>');
+    $button.attr("aria-controls", submenuId);
+    $row.append($button);
+    $button.on("click", function (e) {
+      var isMobile = window.innerWidth < mobileBreakpoint;
+      if (!isMobile) {
+        return;
+      }
+      e.preventDefault();
+      e.stopPropagation();
+      var isOpen = $item.hasClass("is-open");
+      $item.toggleClass("is-open", !isOpen);
+      $button.attr("aria-expanded", !isOpen ? "true" : "false");
+    });
+  });
+  function resetDesktopSubmenus() {
+    if (window.innerWidth >= mobileBreakpoint) {
+      $nav.find(".menu-item-has-children.is-open").removeClass("is-open");
+      $nav.find(".submenu-toggle").attr("aria-expanded", "false");
+    }
+  }
+  $(window).on("resize", function () {
+    resetDesktopSubmenus();
+  });
+  resetDesktopSubmenus();
+})(jQuery);
 
 /***/ }),
 

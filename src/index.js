@@ -335,4 +335,73 @@
   } else {
     init();
   }
+
+  var $nav = $("#site-navigation .header__nav");
+  var mobileBreakpoint = 1200;
+
+  if (!$nav.length) {
+    return;
+  }
+
+  $nav.find(".menu-item-has-children").each(function (index) {
+    var $item = $(this);
+    var $link = $item.children("a").first();
+    var $submenu = $item.children(".sub-menu").first();
+
+    if (!$link.length || !$submenu.length) {
+      return;
+    }
+
+    // nie duplikuj przy ponownym init
+    if ($item.children(".submenu-item-row").length) {
+      return;
+    }
+
+    var submenuId = $submenu.attr("id");
+    if (!submenuId) {
+      submenuId =
+        "submenu-" + index + "-" + Math.random().toString(36).slice(2, 8);
+      $submenu.attr("id", submenuId);
+    }
+
+    var $row = $('<div class="submenu-item-row"></div>');
+    $link.before($row);
+    $row.append($link);
+
+    var $button = $(
+      '<button type="button" class="submenu-toggle" aria-expanded="false" aria-label="Rozwiń submenu"></button>',
+    );
+
+    $button.attr("aria-controls", submenuId);
+    $row.append($button);
+
+    $button.on("click", function (e) {
+      var isMobile = window.innerWidth < mobileBreakpoint;
+
+      if (!isMobile) {
+        return;
+      }
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      var isOpen = $item.hasClass("is-open");
+
+      $item.toggleClass("is-open", !isOpen);
+      $button.attr("aria-expanded", !isOpen ? "true" : "false");
+    });
+  });
+
+  function resetDesktopSubmenus() {
+    if (window.innerWidth >= mobileBreakpoint) {
+      $nav.find(".menu-item-has-children.is-open").removeClass("is-open");
+      $nav.find(".submenu-toggle").attr("aria-expanded", "false");
+    }
+  }
+
+  $(window).on("resize", function () {
+    resetDesktopSubmenus();
+  });
+
+  resetDesktopSubmenus();
 })(jQuery);

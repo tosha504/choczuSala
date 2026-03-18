@@ -26,7 +26,18 @@
 	<div id="page" class="wrapper">
 		<a class="skip" href="#main"
 			style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">Pomiń do treści</a>
-
+		<div class="header-launch-notice">
+			<p class="header-launch-notice__text">
+				<?php _e('Jesteśmy świeżo po starcie. Jeśli zauważysz problem techniczny, zgłoś go tutaj:', 'aw-theme'); ?>
+				<a
+					class="header-launch-notice__link"
+					href="<?php echo esc_url('https://t.me/aH_human'); ?>"
+					target="_blank"
+					rel="noopener noreferrer nofollow">
+					<?php _e('Telegram', 'aw-theme'); ?>
+				</a>
+			</p>
+		</div>
 		<!-- Top bar -->
 		<div class="topbar">
 			<div class="container">
@@ -99,6 +110,7 @@
 				</div>
 			</div>
 		</header><!-- #masthead -->
+
 		<?php
 		$current_lang = function_exists('pll_current_language')
 			? pll_current_language('slug')
