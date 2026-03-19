@@ -4,10 +4,9 @@
 .aw-cat-product {
   display: flex;
   align-items: flex-start;
-
+  padding: 1.75rem 0;
 
   &.aw-cat-product--slider {
-
     &:not(.swiper-initialized) {
       width: 100%;
     }
@@ -23,23 +22,29 @@
     .swiper-pagination {
       bottom: 0;
 
-      .swiper-pagination-bullets-dynamic .swiper-pagination-bullet:not(.swiper-pagination-bullet-active-prev,
-        .swiper-pagination-bullet-active-main,
-        .swiper-pagination-bullet-active-next) {
+      .swiper-pagination-bullets-dynamic
+        .swiper-pagination-bullet:not(
+          .swiper-pagination-bullet-active-prev,
+          .swiper-pagination-bullet-active-main,
+          .swiper-pagination-bullet-active-next
+        ) {
         display: none;
       }
 
       /* Styl tych trzech (dowolnie) */
       .swiper-pagination-bullet {
         opacity: 0;
-        transition: transform .2s, opacity .2s;
+        transition:
+          transform 0.2s,
+          opacity 0.2s;
         border: 1px solid var(--color-primary);
         background: transparent;
 
         &.swiper-pagination-bullet-active-main {
-          transition: transform .2s, opacity .2s;
+          transition:
+            transform 0.2s,
+            opacity 0.2s;
           background-color: var(--color-primary);
-
         }
       }
 
@@ -49,7 +54,6 @@
         opacity: 1;
         transform: scale(1);
       }
-
     }
   }
 
@@ -60,7 +64,6 @@
 
     @media (min-width: map.get(b.$grid-breakpoints, lg)) {
       gap: 1.6rem;
-
     }
   }
 
@@ -71,18 +74,18 @@
     padding: clamp(1rem, 5vw, 1.625rem);
     border: 1px solid var(--color-border);
     border-radius: 1rem;
-    font-size: .85rem;
+    font-size: 0.85rem;
 
     @media (min-width: map.get(b.$grid-breakpoints, sm)) {
-      max-width: calc(100%/2 - 0.65rem);
+      max-width: calc(100% / 2 - 0.65rem);
     }
 
     @media (min-width: map.get(b.$grid-breakpoints, md)) {
-      max-width: calc(100%/3 - 1.25rem);
+      max-width: calc(100% / 3 - 1.25rem);
     }
 
     @media (min-width: map.get(b.$grid-breakpoints, xl)) {
-      max-width: calc(100%/4 - 1.25rem);
+      max-width: calc(100% / 4 - 1.25rem);
     }
 
     @media (hover: hover) {
@@ -113,7 +116,6 @@
       max-width: 100%;
       max-height: 210px;
     }
-
   }
 
   &__label-text {
