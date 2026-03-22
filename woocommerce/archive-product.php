@@ -135,7 +135,8 @@ do_action('woocommerce_before_main_content');
                 window.addEventListener('resize', syncWithViewport);
             })();
         </script>
-    <?php
+        <div class="wrap-products__list">
+        <?php
         woocommerce_product_loop_start();
 
         if (wc_get_loop_prop('total')) {
@@ -175,7 +176,7 @@ do_action('woocommerce_before_main_content');
      * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
      */
 
-    ?>
+        ?></div>
     </div>
     <?php
     do_action('woocommerce_after_main_content');
