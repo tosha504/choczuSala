@@ -59,7 +59,7 @@ $totals = $order->get_order_item_totals(); // phpcs:ignore WordPress.WP.GlobalVa
             <?php endif; ?>
         </tbody>
         <tfoot>
-            <?php if ($totals) :  var_dump($totals) ?>
+            <?php if ($totals) : ?>
                 <?php foreach ($totals as $total) :  ?>
                     <tr>
                         <th scope="row" colspan="2"><?php echo $total['label']; ?></th><?php // @codingStandardsIgnoreLine
