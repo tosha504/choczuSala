@@ -1,0 +1,19 @@
+{
+  "apiVersion": 2,
+  "name": "aw-theme/category-banner-slider",
+  "title": "Slider bannerów kategorii",
+  "description": "Slider z bannerami linkującymi do kategorii WooCommerce.",
+  "category": "aw-theme",
+  "icon": "images-alt2",
+  "acf": {
+    "mode": "preview",
+    "blockVersion": 3,
+    "renderTemplate": "render.php"
+  },
+  "supports": {
+    "align": ["wide", "full"],
+    "anchor": true
+  },
+  "keywords": ["slider", "banner", "category", "woocommerce", "arturiko-web"],
+  "style": ["file:../../css-blocks/category-banner-slider.css"]
+}

@@ -18,6 +18,7 @@ final class AW_Google_Tag_Manager
 
     private const GTM_ID = 'GTM-5BP7DNR5';
 
+
     public function init(): void
     {
         add_action('wp_head', [$this, 'render_head_code'], 1);
@@ -29,10 +30,13 @@ final class AW_Google_Tag_Manager
      */
     public function render_head_code(): void
     {
+       
         if ($this->should_skip()) {
             return;
         }
+    
 ?>
+
         <!-- Google Tag Manager -->
         <script>
             (function(w, d, s, l, i) {

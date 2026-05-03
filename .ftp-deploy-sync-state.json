@@ -1,0 +1,1511 @@
+{
+    "description": "DO NOT DELETE THIS FILE. This file is used to keep track of which files have been synced in the most recent deployment. If you delete this file a resync will need to be done (which can take a while) - read more: https://github.com/SamKirkland/FTP-Deploy-Action",
+    "version": "1.0.0",
+    "generatedTime": 1776759287043,
+    "data": [
+        {
+            "type": "file",
+            "name": ".eslintrc",
+            "size": 120,
+            "hash": "f7333fa9c41790ddfe4e77f79e3d32175d0dc4349c5191e67332b6f4a9293ce0"
+        },
+        {
+            "type": "file",
+            "name": ".stylelintrc.json",
+            "size": 416,
+            "hash": "626983399912be08d2355878fc7c2c86ae1f4550b2702d5c25763907d40966b3"
+        },
+        {
+            "type": "file",
+            "name": "404.php",
+            "size": 2948,
+            "hash": "bf5329e4d4d26f0a268aa0208402f728bc77801bea55b20680b45526e02c1a92"
+        },
+        {
+            "type": "file",
+            "name": "LICENSE",
+            "size": 18046,
+            "hash": "db296f2f7f35bca3a174efb0eb392b3b17bd94b341851429a3dff411b1c2fc73"
+        },
+        {
+            "type": "file",
+            "name": "README.md",
+            "size": 4485,
+            "hash": "91fb21f043e1bd53b97cd251828b22a7c74d2770af3e6e02148caa310b7f4e51"
+        },
+        {
+            "type": "folder",
+            "name": "acf-json"
+        },
+        {
+            "type": "file",
+            "name": "archive.php",
+            "size": 1005,
+            "hash": "bbba5c83ebeb9271d4a85717ad8d024e176f5300e552db145f97f8620208e89b"
+        },
+        {
+            "type": "folder",
+            "name": "blocks"
+        },
+        {
+            "type": "file",
+            "name": "comments.php",
+            "size": 1962,
+            "hash": "4c856e764062c27dc9628d4fe40b7598e58793aa6667d50717f4b34656b212e3"
+        },
+        {
+            "type": "folder",
+            "name": "assets"
+        },
+        {
+            "type": "file",
+            "name": "composer.json",
+            "size": 1301,
+            "hash": "b61548a06de7e4be637da0123ffa690220084b84f603a6bee26fde19736ed694"
+        },
+        {
+            "type": "folder",
+            "name": "css-blocks"
+        },
+        {
+            "type": "folder",
+            "name": "dist"
+        },
+        {
+            "type": "file",
+            "name": "footer.php",
+            "size": 2485,
+            "hash": "a72de9559d5c6c4105d0205206e65cfe63ac0d5a0e00bc3a2dda2736303b6c64"
+        },
+        {
+            "type": "file",
+            "name": "functions.php",
+            "size": 39037,
+            "hash": "57d9b17a8e005ed27bb846596f81a2ab9ac232d692b1d03955968cbb29509864"
+        },
+        {
+            "type": "folder",
+            "name": "gutenberg-styles"
+        },
+        {
+            "type": "folder",
+            "name": "inc"
+        },
+        {
+            "type": "file",
+            "name": "header.php",
+            "size": 5951,
+            "hash": "9c93d8ab028b7b388d5f6891ba1c2f1b5284e2a36998e10f0ea1a2b76eaf67db"
+        },
+        {
+            "type": "file",
+            "name": "index.php",
+            "size": 1222,
+            "hash": "44df4aef7e43620905112e8423586e222351995b01d6f1ebea819db322ba1d89"
+        },
+        {
+            "type": "folder",
+            "name": "js"
+        },
+        {
+            "type": "folder",
+            "name": "languages"
+        },
+        {
+            "type": "folder",
+            "name": "libery"
+        },
+        {
+            "type": "file",
+            "name": "mix-manifest.json",
+            "size": 501,
+            "hash": "7c137c6c8321dcaeca131320c48b92088c683084d4e8206ec69a504226b93d00"
+        },
+        {
+            "type": "file",
+            "name": "package-lock.json",
+            "size": 1041098,
+            "hash": "3d6d327623cb03345962d93984e156385a9361ebc0c567181aae0ff0c2ba8bd5"
+        },
+        {
+            "type": "file",
+            "name": "package.json",
+            "size": 1301,
+            "hash": "f0cda6d027b978cd28e6b2e1883c80554aa17bf56cc86aebbf36defd3af51be5"
+        },
+        {
+            "type": "file",
+            "name": "page.php",
+            "size": 790,
+            "hash": "38568b60f601684be0ee115b0a1e1704646ddbf9354eeb74fcb369a36d509dc3"
+        },
+        {
+            "type": "file",
+            "name": "phpcs.xml.dist",
+            "size": 4042,
+            "hash": "2e4718a891426078c2521a427d3991fd680e402a41dee168d999cc737b82dd01"
+        },
+        {
+            "type": "folder",
+            "name": "plop-templates"
+        },
+        {
+            "type": "file",
+            "name": "plopfile.js",
+            "size": 2094,
+            "hash": "fcdac3a832f735e2957b5341b27cccb893f216d7b9f539ed301e20ace3569da7"
+        },
+        {
+            "type": "file",
+            "name": "postcss.config.js",
+            "size": 62,
+            "hash": "cc1fcc73da7fb4d0c0c4cf67f9c23787004d231bd5e50319387ec1795546145b"
+        },
+        {
+            "type": "file",
+            "name": "readme.txt",
+            "size": 1119,
+            "hash": "9f72d04bf43752b6cac8cd9d43df68c889a127e65c11ce49e0e1c35ba6f3b683"
+        },
+        {
+            "type": "folder",
+            "name": "relevanssi-live-ajax-search"
+        },
+        {
+            "type": "folder",
+            "name": "sass"
+        },
+        {
+            "type": "file",
+            "name": "screenshot.png",
+            "size": 264,
+            "hash": "7e4bc613f200af7487c0da58919280ce263cb66a7bc6b800922bbae6573d8bff"
+        },
+        {
+            "type": "file",
+            "name": "search-functionality.php",
+            "size": 1298,
+            "hash": "9ee1892a1ec5b6d68fd6f375ee2090bdf707f44331d869fd37806e30f18240ca"
+        },
+        {
+            "type": "file",
+            "name": "search.php",
+            "size": 2618,
+            "hash": "bd805e2789cfc2457c7a6cf94ee5fc327fca3f92766b473117e82718b7a2b80f"
+        },
+        {
+            "type": "file",
+            "name": "sidebar.php",
+            "size": 347,
+            "hash": "fdbd2c12f6a58effc72c43982d47fe9ce30f0bede807e63549e3480f3365997c"
+        },
+        {
+            "type": "file",
+            "name": "single.php",
+            "size": 990,
+            "hash": "90af2b722293f5e0068205d3be3ed254e43888b054d1cdf55a485680dfc7be61"
+        },
+        {
+            "type": "folder",
+            "name": "src"
+        },
+        {
+            "type": "file",
+            "name": "style-rtl.css",
+            "size": 207,
+            "hash": "022d5354eab54d86faea778851f69c973760e144dedebaf99c8bd25d6c13c34a"
+        },
+        {
+            "type": "file",
+            "name": "style.css",
+            "size": 207,
+            "hash": "022d5354eab54d86faea778851f69c973760e144dedebaf99c8bd25d6c13c34a"
+        },
+        {
+            "type": "file",
+            "name": "webpack.mix.js",
+            "size": 1855,
+            "hash": "ed6b487b85d7670b072931e64edff96a66ea037a44aaae922309532507783ca7"
+        },
+        {
+            "type": "folder",
+            "name": "template-parts"
+        },
+        {
+            "type": "folder",
+            "name": "woocommerce"
+        },
+        {
+            "type": "file",
+            "name": ".git/HEAD",
+            "size": 21,
+            "hash": "28d25bf82af4c0e2b72f50959b2beb859e3e60b9630a5e8c603dad4ddb2b6e80"
+        },
+        {
+            "type": "file",
+            "name": ".git/FETCH_HEAD",
+            "size": 127,
+            "hash": "177752cdebb08504783f2fed049f95ee3242ea34675250ce119175c81b21fca0"
+        },
+        {
+            "type": "file",
+            "name": ".git/config",
+            "size": 416,
+            "hash": "589a3967a0c8959f016964450a43d0dc758fb1247c555262d8904775bcdf9229"
+        },
+        {
+            "type": "file",
+            "name": ".git/config.worktree",
+            "size": 83,
+            "hash": "443a5f645c23c3d0c0aa09f634b2ad111d46ef61946b598a2fb311678ab47454"
+        },
+        {
+            "type": "file",
+            "name": ".git/description",
+            "size": 73,
+            "hash": "85ab6c163d43a17ea9cf7788308bca1466f1b0a8d1cc92e26e9bf63da4062aee"
+        },
+        {
+            "type": "folder",
+            "name": ".git/hooks"
+        },
+        {
+            "type": "file",
+            "name": ".git/index",
+            "size": 19034,
+            "hash": "003fbf2f41f5ad300379c1b1ffd539ac4937ce2ad13dbce7b97bc4a1f3ff8aab"
+        },
+        {
+            "type": "folder",
+            "name": ".git/info"
+        },
+        {
+            "type": "folder",
+            "name": ".git/logs"
+        },
+        {
+            "type": "folder",
+            "name": ".git/objects"
+        },
+        {
+            "type": "folder",
+            "name": ".git/refs"
+        },
+        {
+            "type": "file",
+            "name": ".git/shallow",
+            "size": 41,
+            "hash": "0fec8a02d34be6b3419ab093d5306bfc511574cb23d74711d02ed0c57365aeb4"
+        },
+        {
+            "type": "file",
+            "name": "acf-json/group_667a70fe6d741.json",
+            "size": 4427,
+            "hash": "5aff372f537f4bc384a661866ee82b670f5c9f60fa521e2eb6d21e805949a386"
+        },
+        {
+            "type": "file",
+            "name": "acf-json/group_687f6eb59f920.json",
+            "size": 1753,
+            "hash": "2cbed92f23494b95bd22099745be0d5953a964db1f80264ec94b9dee2fddec36"
+        },
+        {
+            "type": "file",
+            "name": "acf-json/group_687fabb268638.json",
+            "size": 3653,
+            "hash": "3f060cab40d9c0aa81c2431bee486788176d6494cb0b8f1efaca9c3794ca84c7"
+        },
+        {
+            "type": "file",
+            "name": "acf-json/group_687fda8271cf9.json",
+            "size": 1570,
+            "hash": "f99e006c61bf36824d1d5995e358e0bd6892c2242820604786d2c31154182eb6"
+        },
+        {
+            "type": "file",
+            "name": "acf-json/group_687fdaeba4aed.json",
+            "size": 3343,
+            "hash": "8ea2562addf1b94f196b08bbc842aa6a602965532a426847a17af6c370b33798"
+        },
+        {
+            "type": "file",
+            "name": "acf-json/group_68eab760410fb.json",
+            "size": 1681,
+            "hash": "d28d39eb3ce94df9af16642045d00daf9c19bcb0ce5754ee80d0955c6a1dad39"
+        },
+        {
+            "type": "file",
+            "name": "acf-json/group_691f22c9af2fa.json",
+            "size": 4979,
+            "hash": "a5b2179d27f3c92675ce67d098de2e382654c16d69465b316f690e7003f72a70"
+        },
+        {
+            "type": "file",
+            "name": "acf-json/group_692eb9c99299e.json",
+            "size": 2431,
+            "hash": "0a0a3b225d722e95961c8277595a9d379f001e7edfa1c325127c244c1efae370"
+        },
+        {
+            "type": "file",
+            "name": "acf-json/group_69306e41f26d9.json",
+            "size": 6833,
+            "hash": "a0a96ca533e16480d93466efa5e82675f6c836a3ba1e276338e8a7d3a6fcd815"
+        },
+        {
+            "type": "file",
+            "name": "acf-json/group_693189c048884.json",
+            "size": 3562,
+            "hash": "5f9765fe6e25eeadc9f69a7cdfb12b2838f1dc02c107f6cc97053f90fa68f4f7"
+        },
+        {
+            "type": "file",
+            "name": "acf-json/group_69318aed2065f.json",
+            "size": 3755,
+            "hash": "0897129f1dbc55afb5aa166b0a4916082f90d2036f054628d9db74baa5548cb1"
+        },
+        {
+            "type": "file",
+            "name": "acf-json/group_6944424f5c5ef.json",
+            "size": 3704,
+            "hash": "f7c5b457c2e5ac5e02ecdea89098addbe7a6ba8f490e6b3401b578e387cf9784"
+        },
+        {
+            "type": "file",
+            "name": "acf-json/group_6957f55c52021.json",
+            "size": 4682,
+            "hash": "f0373d5d88c32ff0160bc75dd16d496926324a19a2fc2fe2eeaf8604c6da9cb0"
+        },
+        {
+            "type": "folder",
+            "name": "blocks/aw-cat-product"
+        },
+        {
+            "type": "folder",
+            "name": "blocks/aw-locations"
+        },
+        {
+            "type": "folder",
+            "name": "blocks/face-aw"
+        },
+        {
+            "type": "folder",
+            "name": "blocks/hero"
+        },
+        {
+            "type": "folder",
+            "name": "blocks/product-aw"
+        },
+        {
+            "type": "folder",
+            "name": "blocks/statystyki"
+        },
+        {
+            "type": "folder",
+            "name": "assets/css"
+        },
+        {
+            "type": "folder",
+            "name": "assets/image"
+        },
+        {
+            "type": "folder",
+            "name": "assets/js"
+        },
+        {
+            "type": "file",
+            "name": "css-blocks/aw-cat-product.css",
+            "size": 2635,
+            "hash": "b02c6c70011808eb75e15824d84bd6a61399bbb4dcb81bc365800ad0070b66be"
+        },
+        {
+            "type": "file",
+            "name": "css-blocks/aw-locations.css",
+            "size": 455,
+            "hash": "7b002e8c286e6600d426023b760d0cfda2bbc0c8ac1817ee7f8a7971fa402549"
+        },
+        {
+            "type": "file",
+            "name": "css-blocks/face-aw.css",
+            "size": 854,
+            "hash": "f2cb48977e5472f18386c17785b4c7bb9acb2e89e3144724dca75c578caa35a5"
+        },
+        {
+            "type": "file",
+            "name": "css-blocks/hero.css",
+            "size": 1623,
+            "hash": "6e121977ce2716b658bff2753b07ba16ad2bb55a2593d7ef9ba419a9a26cf1b7"
+        },
+        {
+            "type": "file",
+            "name": "css-blocks/prep.css",
+            "size": 28,
+            "hash": "4a0584c90b8ca16fd1867ce87edc1becf14899cf47ea2314bf54fbd609ddd262"
+        },
+        {
+            "type": "file",
+            "name": "css-blocks/product-aw.css",
+            "size": 2265,
+            "hash": "0780eeabd656f93fa4091754cc3307e47ce58e94f4bb80dedc95572dc643cb8f"
+        },
+        {
+            "type": "file",
+            "name": "css-blocks/statystyki.css",
+            "size": 1024,
+            "hash": "dd85b855d0051a8a46a607717fa8a53188bda1bf0edd47ae6bf9ce0350c78cc2"
+        },
+        {
+            "type": "file",
+            "name": "dist/app.js",
+            "size": 21442,
+            "hash": "7d416ac19d5038801923465dab00f686a95a7542a31202c82399ea9ee9e650d3"
+        },
+        {
+            "type": "file",
+            "name": "dist/app.min.js",
+            "size": 21442,
+            "hash": "7d416ac19d5038801923465dab00f686a95a7542a31202c82399ea9ee9e650d3"
+        },
+        {
+            "type": "file",
+            "name": "dist/style.css",
+            "size": 355,
+            "hash": "f79a0e8a9ea6f0f1364876e093c3a7232969c4d7364224b690a95eff0622591b"
+        },
+        {
+            "type": "file",
+            "name": "gutenberg-styles/aw-cat-product.scss",
+            "size": 2790,
+            "hash": "0f742a9358ce57051af6ac673abadc145bf94046f8222f4514658dfe10880d25"
+        },
+        {
+            "type": "file",
+            "name": "gutenberg-styles/aw-locations.scss",
+            "size": 629,
+            "hash": "56f706db8255e47453cf36892e1febd469b04b2fddbf925b0072a5522b9a73bd"
+        },
+        {
+            "type": "file",
+            "name": "gutenberg-styles/face-aw.scss",
+            "size": 1178,
+            "hash": "9e9f452ab1b1974a24eb1e74f9973fee8c3f1e9681470bb3bb8bcd0846f314ea"
+        },
+        {
+            "type": "file",
+            "name": "gutenberg-styles/product-aw.scss",
+            "size": 2583,
+            "hash": "b953a55ed4fb9819067b3b3bfa0489f7c20a2430429a7f33fd3b8085a87678b5"
+        },
+        {
+            "type": "file",
+            "name": "gutenberg-styles/hero.scss",
+            "size": 2171,
+            "hash": "7d8ab4aa4e8a91a4de4267b94295a461de026eb9390edb7d5ebc6c4d7ece3f87"
+        },
+        {
+            "type": "file",
+            "name": "gutenberg-styles/statystyki.scss",
+            "size": 1386,
+            "hash": "d6a63077eaccdbb89a1bf8c93146b702039933a72a1b16df52e313b2479be55d"
+        },
+        {
+            "type": "file",
+            "name": "inc/.prettierrc",
+            "size": 178,
+            "hash": "c35858d8e2669342baf7f005baa43d1ca828c3a96718978214f2e055baa8f513"
+        },
+        {
+            "type": "folder",
+            "name": "inc/acf"
+        },
+        {
+            "type": "file",
+            "name": "inc/as-woocommerce.php",
+            "size": 9105,
+            "hash": "a32a374b0e5b6f2aa55bad98bf7cfb2eab6e3e46049fecc882cd250465afdb81"
+        },
+        {
+            "type": "file",
+            "name": "inc/blocks.php",
+            "size": 743,
+            "hash": "0b3ff694b977557d7f1495deb8663d9e1540619f7ddd98d548fd78def206ee8b"
+        },
+        {
+            "type": "file",
+            "name": "inc/class-tgm-plugin-activation.php",
+            "size": 124678,
+            "hash": "0dc34f6a1a8553c2c4ecbcb5f50fc323943ba499307b4c2dce1f0fc5b79a3439"
+        },
+        {
+            "type": "file",
+            "name": "inc/custom-header.php",
+            "size": 1874,
+            "hash": "7bf0f5d39ec238ce542e11317f2daaca2250dedaa93a3065549eb687aae3321c"
+        },
+        {
+            "type": "file",
+            "name": "inc/customizer.php",
+            "size": 1706,
+            "hash": "b017761319b40b17bbeaee1996d9bfcc50122e68284fc90ede0369e56c20a65e"
+        },
+        {
+            "type": "file",
+            "name": "inc/enqueue.php",
+            "size": 3554,
+            "hash": "92b3f1ab6826720bf636b8f8e60f5bba7c8746ce5a0216280c6e70f8b9c6d13a"
+        },
+        {
+            "type": "file",
+            "name": "inc/functions-template.php",
+            "size": 5773,
+            "hash": "54b64c4bcd1e4b0fa1f696527be33bcd2d473e92759e86fed8bcf205fce5bceb"
+        },
+        {
+            "type": "folder",
+            "name": "inc/integrations"
+        },
+        {
+            "type": "file",
+            "name": "inc/install-plugin-formthis-theme.php",
+            "size": 3521,
+            "hash": "88d91875ffa28224aac8e1715c8c2f2f4637ee19e4232cae8c91fc7c478e6ea4"
+        },
+        {
+            "type": "file",
+            "name": "inc/jetpack.php",
+            "size": 1540,
+            "hash": "2c0593b235f9cc84bd7b08f511732c3b2de667c2aea7cab0ec7ba306f1783978"
+        },
+        {
+            "type": "file",
+            "name": "inc/popuplang.php",
+            "size": 6026,
+            "hash": "f79b0d09122f03bd277a160c05dc7f81bf1ba1e0e9db524596f36a8f1d88bfac"
+        },
+        {
+            "type": "file",
+            "name": "inc/template-functions.php",
+            "size": 907,
+            "hash": "9278e6c6dd10c4b4de275f19068cb8a244b365bdecf6f27c9e6feb7822b7a860"
+        },
+        {
+            "type": "file",
+            "name": "inc/template-tags.php",
+            "size": 4764,
+            "hash": "9050944dcc27dd42b2cce973e10354b3ff89332de7b11eb831e5b84f048bfcb7"
+        },
+        {
+            "type": "file",
+            "name": "inc/webp.php",
+            "size": 11153,
+            "hash": "63f726fcfa539cb929ba40cf61999a9980554a680298dd00b3e1081d46eb65bd"
+        },
+        {
+            "type": "folder",
+            "name": "inc/woo"
+        },
+        {
+            "type": "file",
+            "name": "js/customizer.js",
+            "size": 1011,
+            "hash": "3b8dc385c6d78b8cb02a3e336f806b739d87135407388a9d314f374c7867cca2"
+        },
+        {
+            "type": "file",
+            "name": "js/navigation.js",
+            "size": 2980,
+            "hash": "8ee0654259fda0bbfeab4305b895e740659613080d90352bd36c1452fd426ef6"
+        },
+        {
+            "type": "file",
+            "name": "languages/readme.txt",
+            "size": 322,
+            "hash": "781de5d8fb9bdd29c92f0d3f777282f47fa326a6646a3c98d18b659c6d4abfff"
+        },
+        {
+            "type": "file",
+            "name": "languages/start-backup-202601211925120.pot~",
+            "size": 4632,
+            "hash": "793cb3e2b944a99e072d8171e73002578a4f9b6ba0ea13f1e6aff47ad3710a31"
+        },
+        {
+            "type": "file",
+            "name": "languages/start.pot",
+            "size": 5217,
+            "hash": "6641ba6372e681fa9b7658962d9aad6450819e3ca352921e40d638e70342f01d"
+        },
+        {
+            "type": "file",
+            "name": "languages/uk-backup-202601211940290.po~",
+            "size": 5284,
+            "hash": "6ecbc57d41ce9ff380da7a376c1e29c418b8eceffb579024c2decfb1f45b7ce9"
+        },
+        {
+            "type": "file",
+            "name": "languages/uk.l10n.php",
+            "size": 1649,
+            "hash": "9681b6229ba10533a9346810413dcf14319b19c23e5df1adf9481119c045956f"
+        },
+        {
+            "type": "file",
+            "name": "languages/uk.mo",
+            "size": 1864,
+            "hash": "b863339c8788f90521af7e79a79c707e19da91bd33fa24793e717b85a3582b21"
+        },
+        {
+            "type": "file",
+            "name": "languages/uk.po",
+            "size": 5836,
+            "hash": "d11c4ac94133f30afef54397399dd2d22e8df6b31edf56fec6a25ef4c7e01172"
+        },
+        {
+            "type": "file",
+            "name": "libery/slick.min.js",
+            "size": 68512,
+            "hash": "30030dbd31cff30e3f3707130cb5704bf82eeb4a176688f91e38405fb1d635cd"
+        },
+        {
+            "type": "file",
+            "name": "libery/fancybox.umd.js",
+            "size": 182120,
+            "hash": "49721296dbf38fd22f04f83c8a8cfe4b360edbb4c0a3ab0d5e21f8e09b8d808a"
+        },
+        {
+            "type": "folder",
+            "name": "libery/swiper"
+        },
+        {
+            "type": "folder",
+            "name": "plop-templates/block"
+        },
+        {
+            "type": "file",
+            "name": "relevanssi-live-ajax-search/search-results.php",
+            "size": 2131,
+            "hash": "a789a481750daa5bcf2c48fc06d1c67b359d8122d6fafc69d1c13c27bdd14c04"
+        },
+        {
+            "type": "folder",
+            "name": "sass/components"
+        },
+        {
+            "type": "file",
+            "name": "sass/index.scss",
+            "size": 10596,
+            "hash": "5e2dcc6b7e2f540f19a76961fb90c4d5e55ee81986c3b55ef61f5741c4a2b283"
+        },
+        {
+            "type": "folder",
+            "name": "sass/pages"
+        },
+        {
+            "type": "folder",
+            "name": "sass/woocommerce"
+        },
+        {
+            "type": "file",
+            "name": "src/add_quantity.js",
+            "size": 1444,
+            "hash": "c59e8385659c4bb4deb610d02769519173fecdf32f0bc4e36f75fbc99170d273"
+        },
+        {
+            "type": "file",
+            "name": "src/index.css",
+            "size": 119090,
+            "hash": "5899523e5e0ff721031205a4ec66b4282617564f610d96b489ffd66abcb32499"
+        },
+        {
+            "type": "file",
+            "name": "src/index.js",
+            "size": 10359,
+            "hash": "e9b0edb3fb419e1740b26e12d3181446a7c8be9aedff8c42590f68e067f114c3"
+        },
+        {
+            "type": "file",
+            "name": "template-parts/content-none.php",
+            "size": 1250,
+            "hash": "c99a97555a74fdfd5cc4242d5784148f93d585a0a88041af66b1bfbc4813c8ad"
+        },
+        {
+            "type": "file",
+            "name": "template-parts/content-page.php",
+            "size": 578,
+            "hash": "94ee62421f84bb6ccd20ff6d0ec0b77aad6753e797f9a4a15630a62aae75c20b"
+        },
+        {
+            "type": "file",
+            "name": "template-parts/content-search.php",
+            "size": 877,
+            "hash": "714c62f46434abdb7d6bd5c119036939151daee11c6cccaae5a12b355812fedd"
+        },
+        {
+            "type": "file",
+            "name": "template-parts/content.php",
+            "size": 1296,
+            "hash": "c142a39653e024133f6e9b8b353760deb2f95d7006a275739be72d51e3ef46aa"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/Untitled-1.html",
+            "size": 17213,
+            "hash": "5d37dc6a4d610c4088290092152c81ce97c6a148084faebfef97728e882ad0ae"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/archive-product.php",
+            "size": 6216,
+            "hash": "3cfec895610c38f1ac6ae272d05f360fe39ff37052c08218c72495df958817d7"
+        },
+        {
+            "type": "folder",
+            "name": "woocommerce/cart"
+        },
+        {
+            "type": "folder",
+            "name": "woocommerce/checkout"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/content-product.php",
+            "size": 3123,
+            "hash": "531c1d8135969ec811e47ef025ea25dcc3590b257df06503beea0cb1034cd41f"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/content-single-product.php",
+            "size": 2743,
+            "hash": "3b0b918492b4ddbdd0202d72309b68fee25c39232dc9a9046f29cf1552482efc"
+        },
+        {
+            "type": "folder",
+            "name": "woocommerce/global"
+        },
+        {
+            "type": "folder",
+            "name": "woocommerce/myaccount"
+        },
+        {
+            "type": "folder",
+            "name": "woocommerce/single-product"
+        },
+        {
+            "type": "file",
+            "name": ".git/hooks/applypatch-msg.sample",
+            "size": 478,
+            "hash": "0223497a0b8b033aa58a3a521b8629869386cf7ab0e2f101963d328aa62193f7"
+        },
+        {
+            "type": "file",
+            "name": ".git/hooks/commit-msg.sample",
+            "size": 896,
+            "hash": "1f74d5e9292979b573ebd59741d46cb93ff391acdd083d340b94370753d92437"
+        },
+        {
+            "type": "file",
+            "name": ".git/hooks/fsmonitor-watchman.sample",
+            "size": 4726,
+            "hash": "e0549964e93897b519bd8e333c037e51fff0f88ba13e086a331592bf801fa1d0"
+        },
+        {
+            "type": "file",
+            "name": ".git/hooks/post-update.sample",
+            "size": 189,
+            "hash": "81765af2daef323061dcbc5e61fc16481cb74b3bac9ad8a174b186523586f6c5"
+        },
+        {
+            "type": "file",
+            "name": ".git/hooks/pre-applypatch.sample",
+            "size": 424,
+            "hash": "e15c5b469ea3e0a695bea6f2c82bcf8e62821074939ddd85b77e0007ff165475"
+        },
+        {
+            "type": "file",
+            "name": ".git/hooks/pre-commit.sample",
+            "size": 1649,
+            "hash": "57185b7b9f05239d7ab52db045f5b89eb31348d7b2177eab214f5eb872e1971b"
+        },
+        {
+            "type": "file",
+            "name": ".git/hooks/pre-merge-commit.sample",
+            "size": 416,
+            "hash": "d3825a70337940ebbd0a5c072984e13245920cdf8898bd225c8d27a6dfc9cb53"
+        },
+        {
+            "type": "file",
+            "name": ".git/hooks/pre-push.sample",
+            "size": 1374,
+            "hash": "ecce9c7e04d3f5dd9d8ada81753dd1d549a9634b26770042b58dda00217d086a"
+        },
+        {
+            "type": "file",
+            "name": ".git/hooks/pre-rebase.sample",
+            "size": 4898,
+            "hash": "4febce867790052338076f4e66cc47efb14879d18097d1d61c8261859eaaa7b3"
+        },
+        {
+            "type": "file",
+            "name": ".git/hooks/pre-receive.sample",
+            "size": 544,
+            "hash": "a4c3d2b9c7bb3fd8d1441c31bd4ee71a595d66b44fcf49ddb310252320169989"
+        },
+        {
+            "type": "file",
+            "name": ".git/hooks/prepare-commit-msg.sample",
+            "size": 1492,
+            "hash": "e9ddcaa4189fddd25ed97fc8c789eca7b6ca16390b2392ae3276f0c8e1aa4619"
+        },
+        {
+            "type": "file",
+            "name": ".git/hooks/push-to-checkout.sample",
+            "size": 2783,
+            "hash": "a53d0741798b287c6dd7afa64aee473f305e65d3f49463bb9d7408ec3b12bf5f"
+        },
+        {
+            "type": "file",
+            "name": ".git/hooks/sendemail-validate.sample",
+            "size": 2308,
+            "hash": "44ebfc923dc5466bc009602f0ecf067b9c65459abfe8868ddc49b78e6ced7a92"
+        },
+        {
+            "type": "file",
+            "name": ".git/hooks/update.sample",
+            "size": 3650,
+            "hash": "8d5f2fa83e103cf08b57eaa67521df9194f45cbdbcb37da52ad586097a14d106"
+        },
+        {
+            "type": "file",
+            "name": ".git/info/exclude",
+            "size": 240,
+            "hash": "6671fe83b7a07c8932ee89164d1f2793b2318058eb8b98dc5c06ee0a5a3b0ec1"
+        },
+        {
+            "type": "file",
+            "name": ".git/logs/HEAD",
+            "size": 218,
+            "hash": "5816460104a6f43368bbf49c16cce7a1d23f0a5db62b340940091a0adc7b01c5"
+        },
+        {
+            "type": "folder",
+            "name": ".git/logs/refs"
+        },
+        {
+            "type": "folder",
+            "name": ".git/objects/info"
+        },
+        {
+            "type": "folder",
+            "name": ".git/objects/pack"
+        },
+        {
+            "type": "folder",
+            "name": ".git/refs/heads"
+        },
+        {
+            "type": "folder",
+            "name": ".git/refs/tags"
+        },
+        {
+            "type": "folder",
+            "name": ".git/refs/remotes"
+        },
+        {
+            "type": "file",
+            "name": "blocks/aw-cat-product/block.json",
+            "size": 335,
+            "hash": "4739dc32e740f3c3bd5e2bab17346dbfce17294493cc14c488d4890f8fa0676f"
+        },
+        {
+            "type": "file",
+            "name": "blocks/aw-cat-product/index.js",
+            "size": 2614,
+            "hash": "16ebb5ec3f3e47ff2597eb00896da8ea135ef401ee56f71e5d4eb22164fd9ff4"
+        },
+        {
+            "type": "file",
+            "name": "blocks/aw-cat-product/render.php",
+            "size": 3718,
+            "hash": "6404dedc2ead8702cf8cc3431a883daab41fb3ffbed43f70bf99e8024b688c3b"
+        },
+        {
+            "type": "file",
+            "name": "blocks/aw-locations/block.json",
+            "size": 328,
+            "hash": "4bf9e59ae231ba2c7d7602a711a3ac02e279ee6030106d0ed54e7b868127d4c4"
+        },
+        {
+            "type": "file",
+            "name": "blocks/aw-locations/index.js",
+            "size": 212,
+            "hash": "064283ef6de4f88bffce645691baf5a2158c2e7ccb8e37e2cd47b4e57a0b0277"
+        },
+        {
+            "type": "file",
+            "name": "blocks/aw-locations/render.php",
+            "size": 2954,
+            "hash": "fdb8d5b94d83e301991abd8950da083a5a940bddf418ba1c2dcb481f625ebeed"
+        },
+        {
+            "type": "file",
+            "name": "blocks/face-aw/block.json",
+            "size": 308,
+            "hash": "dfe7e84aaa96ca9e24adc7da5f6bc2cc7efe73b8cea41a47a508ec7620a21345"
+        },
+        {
+            "type": "file",
+            "name": "blocks/face-aw/render.php",
+            "size": 3661,
+            "hash": "53e2ccb706939124058903f877b3286454f8d92775b1af6ce187eaf5f16ecde7"
+        },
+        {
+            "type": "file",
+            "name": "blocks/hero/block.json",
+            "size": 344,
+            "hash": "6f19929f20ef5b6abe7b9736d6e962d09063e8bc0ac74e7582b0c166f071049d"
+        },
+        {
+            "type": "file",
+            "name": "blocks/hero/render.php",
+            "size": 2015,
+            "hash": "ff9b2d797019fa438fbc9e3c44ec60e29d301c3f1516a439945c6a1405a82365"
+        },
+        {
+            "type": "file",
+            "name": "blocks/product-aw/block.json",
+            "size": 320,
+            "hash": "224c6627e87c4c049bbf49b4ce42e99a341a9725aa3aeea3a51267d4d651b3e3"
+        },
+        {
+            "type": "file",
+            "name": "blocks/product-aw/index.js",
+            "size": 2851,
+            "hash": "e3cb8c7d0504318c904682486724a68d808beb2e5b947759927c19dfe1fce6b9"
+        },
+        {
+            "type": "file",
+            "name": "blocks/product-aw/render.php",
+            "size": 2748,
+            "hash": "dae1a665dcffd11d2d2034e669af2d7c0ecc441a7bea21e8a25439899b7ac0ee"
+        },
+        {
+            "type": "file",
+            "name": "blocks/statystyki/block.json",
+            "size": 321,
+            "hash": "9655c1325ca3de070ceb4f2f44998e17c32056b31da39508662815bfb4fdf1c9"
+        },
+        {
+            "type": "file",
+            "name": "blocks/statystyki/index.js",
+            "size": 1076,
+            "hash": "1131601278f088aea8ba5deaf721b4fd12861fd7ddb3e1413e7943fc2411d0fa"
+        },
+        {
+            "type": "file",
+            "name": "blocks/statystyki/render.php",
+            "size": 1910,
+            "hash": "60bcfb671163dbc440f649b2170eff5138e9e1152f8d945682ea2f059cc46931"
+        },
+        {
+            "type": "file",
+            "name": "assets/css/tailwind.css",
+            "size": 43,
+            "hash": "a500b7e67e39cde647e5d91baa7dcc7897463a69d71c75142dab6dd7e0bf0788"
+        },
+        {
+            "type": "file",
+            "name": "assets/image/404-ukrainian-shop-bg..png",
+            "size": 2742964,
+            "hash": "dcc72f6e60c4d7cb84f4fb93f0c5257e29ab128467e00640075eb9767e0bb987"
+        },
+        {
+            "type": "folder",
+            "name": "assets/image/icons"
+        },
+        {
+            "type": "file",
+            "name": "assets/image/next.svg",
+            "size": 180,
+            "hash": "cf43a98e0d4e8243111be14f2f060cfa77b74576d301b1484eac9a70440a708b"
+        },
+        {
+            "type": "file",
+            "name": "assets/image/prev.svg",
+            "size": 217,
+            "hash": "07355ec1aac94905daf60b5885ecdb99ae45db79c6acddebd236641c22d7e06c"
+        },
+        {
+            "type": "file",
+            "name": "assets/js/index.js",
+            "size": 11290,
+            "hash": "c64fb6c9475b4bb03a92c187cd15b1d8f4b7d9757215dfb060e472a48396316e"
+        },
+        {
+            "type": "file",
+            "name": "inc/acf/options-pages.php",
+            "size": 864,
+            "hash": "02c7970bfa8266130767fdd1715fd427ba9f31e8a4196938f55661b14d1e51cf"
+        },
+        {
+            "type": "file",
+            "name": "inc/acf/acf-json.php",
+            "size": 1089,
+            "hash": "92d74f90e7ba6b46bd64d44b103c01662ad1ac57f150abcff026cad2da804cc9"
+        },
+        {
+            "type": "file",
+            "name": "inc/integrations/class-gtm.php",
+            "size": 2582,
+            "hash": "a5f2dc35810479a03a6940bf9dfd9613ac8e53ae615bf86763ca15116e504555"
+        },
+        {
+            "type": "file",
+            "name": "inc/woo/archive.php",
+            "size": 749,
+            "hash": "867f46b5affa0b3c227c7b655a30af0b563c47064ddc27a5627fcefbd97714b3"
+        },
+        {
+            "type": "file",
+            "name": "inc/woo/badges.php",
+            "size": 5883,
+            "hash": "2b40f9578d7bad60be4356572dcb2e08f3728b8228685e4df3941d510142651a"
+        },
+        {
+            "type": "file",
+            "name": "inc/woo/cart.php",
+            "size": 1077,
+            "hash": "333702173f89605f3dd3a7b3ea5cd2938da4b97d971ecf6962618cb26caf2477"
+        },
+        {
+            "type": "file",
+            "name": "inc/woo/woopolyaw.php",
+            "size": 8886,
+            "hash": "278acd833cb088f1963576a88c11a53f0a4f479b19ea4f647ec314274217c888"
+        },
+        {
+            "type": "file",
+            "name": "libery/swiper/swiper-bundle.min.css",
+            "size": 20863,
+            "hash": "7d489d5f61ae06b2b2351a547ba14bc51aa7c76592c9b400157ad4e395d68cc1"
+        },
+        {
+            "type": "file",
+            "name": "libery/swiper/swiper-bundle.min.js",
+            "size": 262589,
+            "hash": "887464ac95e6c678cba310a13c3efb2942ec7fe808aa7d5cbfea2ffb88b38691"
+        },
+        {
+            "type": "file",
+            "name": "plop-templates/block/block.json.hbs",
+            "size": 338,
+            "hash": "84aa7580a31fc5d8a2bbaeeb9383653576de556f55fef9a871fae07e87b7f173"
+        },
+        {
+            "type": "file",
+            "name": "plop-templates/block/index.js.hbs",
+            "size": 196,
+            "hash": "2a1c0934380ad07c536de321367fc258680bebbf3b347543c2c86a59fff73aff"
+        },
+        {
+            "type": "file",
+            "name": "plop-templates/block/render.php.hbs",
+            "size": 1090,
+            "hash": "b4c04c6cec2e2526c6508ac5f95789063f00074192997b0b5bb36b017065d521"
+        },
+        {
+            "type": "file",
+            "name": "plop-templates/block/style.scss.hbs",
+            "size": 110,
+            "hash": "3c3f59c3799109c277037afdcaa18ee9327f2fef4aa52496485486b9b2967b70"
+        },
+        {
+            "type": "file",
+            "name": "sass/components/__breakpoints.scss",
+            "size": 272,
+            "hash": "78c9eebb1ea9057626c710eedb70b4e92dbdfe6828b05c2ea1f094d35decbd99"
+        },
+        {
+            "type": "file",
+            "name": "sass/components/__varibles.scss",
+            "size": 496,
+            "hash": "1a5ee208342c8152b0fff8d9bc346075c62150b4de25cbe3b7747161853df29f"
+        },
+        {
+            "type": "file",
+            "name": "sass/components/_base.scss",
+            "size": 2992,
+            "hash": "2c1f5878b81f062847973d31db1cc0fad295f2e136de37e7fc64295ca70e53bd"
+        },
+        {
+            "type": "file",
+            "name": "sass/components/_search-modal.scss",
+            "size": 6737,
+            "hash": "ac09c2cab71fe8aaa33e0f99bef5e75776092011d605bdecac2edd76c4953c8c"
+        },
+        {
+            "type": "file",
+            "name": "sass/components/burger.scss",
+            "size": 771,
+            "hash": "248744e88482c439e12b2bc94bca456b7b3b8d08924242dd4c9f7012144e8ff3"
+        },
+        {
+            "type": "file",
+            "name": "sass/components/buttons.scss",
+            "size": 324,
+            "hash": "c84e8958f6740fd84a3d3829e048074f617caa5894b472e84d155d7990755bdc"
+        },
+        {
+            "type": "file",
+            "name": "sass/components/extension.scss",
+            "size": 973,
+            "hash": "d02d3ff9a513e1564482ed4eb6a8e9fd64093cdb9f7493fe449f9cf5c0fee90d"
+        },
+        {
+            "type": "file",
+            "name": "sass/components/footer.scss",
+            "size": 1341,
+            "hash": "e7e9ba5d229875ace9a5d21c7510d8af9b549c0766e00aedff4f5b1587484c60"
+        },
+        {
+            "type": "file",
+            "name": "sass/components/header.scss",
+            "size": 12927,
+            "hash": "02b3829751f2019a99ea9cbcd22af1c8932cc29300f93b1a1ca59037d7ee4b9f"
+        },
+        {
+            "type": "file",
+            "name": "sass/components/heading.scss",
+            "size": 799,
+            "hash": "f1de52f0127f23abb94572db9f6dfd4974d9793848e056d839218afbed97284b"
+        },
+        {
+            "type": "file",
+            "name": "sass/components/inputs.scss",
+            "size": 768,
+            "hash": "d56200e6c9e1112931c5b5e7b4f95540d9c351bcc0d981b205d9c1dcdc681c70"
+        },
+        {
+            "type": "file",
+            "name": "sass/components/links.scss",
+            "size": 1206,
+            "hash": "264980d7e062ecf720a1f309ecdefa516a274c56d2af3462293fc1f9ef1e5aff"
+        },
+        {
+            "type": "folder",
+            "name": "sass/components/woo"
+        },
+        {
+            "type": "file",
+            "name": "sass/pages/404.scss",
+            "size": 6063,
+            "hash": "cb824ed347156ce80fb9af733d70830423941c15f55b8c12a7ebf1298ba6a22d"
+        },
+        {
+            "type": "file",
+            "name": "sass/pages/woo-account.scss",
+            "size": 12645,
+            "hash": "4d07b147028c72177de5422d741ca6f8750e3e68f3c492bc23f0682c1fd7bedb"
+        },
+        {
+            "type": "file",
+            "name": "sass/pages/woo.scss",
+            "size": 1303,
+            "hash": "5397ee5641175d0fc4e0f516dd98dd2ad8fb8b9ff8648f1ace98da6b3d91cb61"
+        },
+        {
+            "type": "file",
+            "name": "sass/pages/woocommerce-checkout.scss",
+            "size": 25967,
+            "hash": "f9c311d23df55f552851488d2a9a307cc864bdb1897baa73ed0e18b236aa72e0"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/archive-product.scss",
+            "size": 3743,
+            "hash": "5a1ade344887bb1adc22040933f6b9d4fca6051b01a78075da962869cb5460bd"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/cart.scss",
+            "size": 16096,
+            "hash": "afe9c5b7fe6445d024931937a3772c55093086b974ccc262392a1c5edf46ea36"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/content-single-product.scss",
+            "size": 3321,
+            "hash": "0d4063fae8cea23a0d2f31c4cfac281da9be1c44918832a2baaab3d12b603102"
+        },
+        {
+            "type": "folder",
+            "name": "sass/woocommerce/helpers"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/cart/cart-shipping.php",
+            "size": 5537,
+            "hash": "c13e693c8aef5dc1c433b90a0c136214e4704eac48dc31d4575ab93e1ccc9c0c"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/cart/cart-empty.php",
+            "size": 1103,
+            "hash": "5ee871fbecced9180553709f42c89a5ac76d592822ece3155cb80310441bf035"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/cart/cart.php",
+            "size": 14121,
+            "hash": "9b7a4ad393b4a226079ca64b7bd9d2db31b92baa1e86002933271750483a3280"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/checkout/form-billing.php",
+            "size": 2925,
+            "hash": "6e4d394b97e0f4b4e5542075adbd68f21c497b830251851d1215cbd85fbb18e8"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/checkout/form-checkout.php",
+            "size": 5686,
+            "hash": "ef3f0f0d78b052dba47cd0263c67d6e9d8e307a1db7b5c399948781288c4a260"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/checkout/form-pay.php",
+            "size": 5881,
+            "hash": "5560977f5f9ece35199d7b8e0ec03184a997e06af2b68d2e81c4786e5713c583"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/checkout/form-shipping.php",
+            "size": 2892,
+            "hash": "cfbf3c0ea396a0c8312d848080ae26da47ba33837ad0b18064a8e2427db879aa"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/checkout/payment.php",
+            "size": 1886,
+            "hash": "3a5d09907ae8d7edf5a702307e9e6c45094fb7c0f8b105a44da3f92003e8a655"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/checkout/review-order.php",
+            "size": 7414,
+            "hash": "9134e28ca461ced9eba13d20b587c6b3e06cf99ebf1755aa48fe284607dfa7d3"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/checkout/thankyou.php",
+            "size": 4430,
+            "hash": "6bf8a638dc3d8557abffd82a4fa0cc2a3a91df72925ec6a1ac3cb73c629f61f9"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/global/quantity-input.php",
+            "size": 2936,
+            "hash": "e7c1201f61d95090fa76303c5ef88bc650e211d52afbb369407f8deb2087d685"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/myaccount/form-login.php",
+            "size": 8434,
+            "hash": "7b74ba7e808a7a687a9910741a8a69cf45dba8a8da120de9a6cb7315c5c2462f"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/myaccount/my-account.php",
+            "size": 1057,
+            "hash": "7c6c3941e63727ff90a96020090945124e31b18589e1666c95876d0401c55bac"
+        },
+        {
+            "type": "file",
+            "name": "woocommerce/single-product/product-image.php",
+            "size": 8154,
+            "hash": "8c7198ba8909a3ac618f4ef7f637e7d69c49fc65ec32104341513a7aae63e4d0"
+        },
+        {
+            "type": "file",
+            "name": ".git/objects/pack/pack-10ecb241e9a9d85c1f7186e521cd30e54455abf9.idx",
+            "size": 7512,
+            "hash": "9e3c00cc4ff8bf2a4ca15a66b3c05fab6857c5dbfa69d601997f63f863c80c67"
+        },
+        {
+            "type": "file",
+            "name": ".git/objects/pack/pack-10ecb241e9a9d85c1f7186e521cd30e54455abf9.pack",
+            "size": 3289916,
+            "hash": "cdec4a4d2c30b0cc73873142f053d051f0ec7ddb2c70defe477395b445666a77"
+        },
+        {
+            "type": "file",
+            "name": ".git/objects/pack/pack-10ecb241e9a9d85c1f7186e521cd30e54455abf9.rev",
+            "size": 972,
+            "hash": "9006c3bef46756ce02c65e3634585dcca1c57287c5a3fd806ee28c0020e366ac"
+        },
+        {
+            "type": "folder",
+            "name": ".git/logs/refs/heads"
+        },
+        {
+            "type": "folder",
+            "name": ".git/logs/refs/remotes"
+        },
+        {
+            "type": "file",
+            "name": ".git/refs/heads/main",
+            "size": 41,
+            "hash": "0fec8a02d34be6b3419ab093d5306bfc511574cb23d74711d02ed0c57365aeb4"
+        },
+        {
+            "type": "folder",
+            "name": ".git/refs/remotes/origin"
+        },
+        {
+            "type": "file",
+            "name": "assets/image/icons/account.svg",
+            "size": 358,
+            "hash": "51a5d45b84176f3a75d9452282bc8a01494b66c3335cf577bca329a7065a8705"
+        },
+        {
+            "type": "file",
+            "name": "assets/image/icons/arrow.svg",
+            "size": 249,
+            "hash": "1cb5e61be8f92339d91570d4a44e36883594cb7f20eb8a3379307aff8bfb5531"
+        },
+        {
+            "type": "file",
+            "name": "assets/image/icons/cart.svg",
+            "size": 403,
+            "hash": "c6fb9bd6cf0326834f7be20c8889dd7c56d8ff5b71753024045d9d1e8bf4a939"
+        },
+        {
+            "type": "file",
+            "name": "assets/image/icons/search.svg",
+            "size": 305,
+            "hash": "cf40284534aeb1251bdd46c2e7daec73d55895c5f33b80648483e4398ac37c7d"
+        },
+        {
+            "type": "file",
+            "name": "sass/components/woo/products.scss",
+            "size": 5277,
+            "hash": "7e8a2e6a788103c281cd6292d4efac690491fb75c847c80ea0ab37011db6142f"
+        },
+        {
+            "type": "folder",
+            "name": "sass/woocommerce/helpers/archive-elements"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/helpers/button.scss",
+            "size": 865,
+            "hash": "496b5175ac41fd7a455ed34f587c7747360b2e833e9ad9395cd6c863e3daa5fe"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/helpers/price-extension.scss",
+            "size": 1244,
+            "hash": "3b27e02c0cd734eb9581acfd507dbdf71afae2c2e03a53a480801d320db262a8"
+        },
+        {
+            "type": "folder",
+            "name": "sass/woocommerce/helpers/single-product-elements"
+        },
+        {
+            "type": "file",
+            "name": ".git/logs/refs/heads/main",
+            "size": 227,
+            "hash": "b4d072edee16dece7fbe13f413733f098c14ed132f80489e372eae8b293c6c8d"
+        },
+        {
+            "type": "folder",
+            "name": ".git/logs/refs/remotes/origin"
+        },
+        {
+            "type": "file",
+            "name": ".git/refs/remotes/origin/main",
+            "size": 41,
+            "hash": "0fec8a02d34be6b3419ab093d5306bfc511574cb23d74711d02ed0c57365aeb4"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/helpers/archive-elements/aw-cat-carousel.scss",
+            "size": 2439,
+            "hash": "6fd6381c84d5cfc7171f1c58d62999f8666c80416c7897573285951544636935"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/helpers/archive-elements/shop-hero.scss",
+            "size": 540,
+            "hash": "72da52e756647b6121ec47e8cc8d41179b9acb39fa30a888f730ba75a3e2a871"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/helpers/archive-elements/woo-pagination.scss",
+            "size": 2693,
+            "hash": "a3f259a70d2a17346bfd821290fd646a3729ea8938dab6a1e56b4d3f0e32c827"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/helpers/single-product-elements/aw-product-meta.scss",
+            "size": 1690,
+            "hash": "e638ed867992b6c028060fe1a1b2edc7f5e81ef34b13e0b8bde002c881df064f"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/helpers/single-product-elements/aw-product-section.scss",
+            "size": 2210,
+            "hash": "5bfa01def301168854f50921e1ebe052a04c4b9809143f72ad637bda9ec428a7"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/helpers/single-product-elements/benefits.scss",
+            "size": 1368,
+            "hash": "77b07e02724231afb87530e11ef2891780c3abb84e1696fdb9b390e0472363b2"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/helpers/single-product-elements/aw-product-shipping-info.scss",
+            "size": 771,
+            "hash": "31ae4a358a8ded498d0ebef612a5c5f3d9360f747cb785f9a0cb56a581ac2217"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/helpers/single-product-elements/feature.scss",
+            "size": 2614,
+            "hash": "55a630a7581e15f0bb57da471366f91892232d6855b749d2c77afca1198eaa4d"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/helpers/single-product-elements/gallery.scss",
+            "size": 3423,
+            "hash": "57f01dd7d94320d7a62af10a8c3a8a42e756b7f75d6369dae8cabac132cbcdd0"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/helpers/single-product-elements/product-media.scss",
+            "size": 1881,
+            "hash": "860aa822574e501d20331ce4e8874b04e7b05daad47c72723d3c1dd7b9191f0a"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/helpers/single-product-elements/product-top-data.scss",
+            "size": 676,
+            "hash": "c78cfabce1b6416d0753f2cee60d5049cf6f4a30d17ec278c28b5c803677768b"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/helpers/single-product-elements/sub-box.scss",
+            "size": 1592,
+            "hash": "a7842cd23288faf836f180e0655b26fca1b529f266b2ce517525d54b2038f9b5"
+        },
+        {
+            "type": "file",
+            "name": "sass/woocommerce/helpers/single-product-elements/summary.scss",
+            "size": 4300,
+            "hash": "e615f22151e88f385ce6f8c5081f878660869be9f744d0b083e65b827939b019"
+        },
+        {
+            "type": "file",
+            "name": ".git/logs/refs/remotes/origin/main",
+            "size": 326,
+            "hash": "15949e053d9fae31fe0c2251ab9b83995978e41eabbdfa7c7ce3b0095723081d"
+        }
+    ]
+}

@@ -12,7 +12,7 @@ if (!defined('_S_VERSION')) {
 	// Replace the version number of the theme on each release.
 	define('_S_VERSION', '1.0.0');
 }
-
+require_once get_template_directory() . '/inc/components/product-catalog-menu.php';
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  *
@@ -1394,3 +1394,48 @@ add_filter('relevanssi_custom_fields', function (array $fields): array {
 
 	return array_values(array_unique($fields));
 });
+
+add_action('rest_api_init', function () {
+	register_rest_route('aw/v1', '/polylang-sync', [
+		'methods'  => 'POST',
+		'callback' => 'aw_polylang_sync_callback',
+		'permission_callback' => function () {
+			return current_user_can('edit_posts');
+		},
+	]);
+});
+
+function aw_polylang_sync_callback(WP_REST_Request $request)
+{
+	$post_id      = (int) $request->get_param('post_id');
+	$lang         = sanitize_text_field($request->get_param('lang'));
+	$translations = $request->get_param('translations');
+
+	if (!$post_id || !$lang) {
+		return new WP_REST_Response([
+			'success' => false,
+			'message' => 'Brak post_id lub lang',
+		], 400);
+	}
+
+	if (!function_exists('pll_set_post_language')) {
+		return new WP_REST_Response([
+			'success' => false,
+			'message' => 'Polylang nie jest aktywny',
+		], 500);
+	}
+
+	pll_set_post_language($post_id, $lang);
+
+	if (is_array($translations) && function_exists('pll_save_post_translations')) {
+		$translations[$lang] = $post_id;
+		pll_save_post_translations($translations);
+	}
+
+	return new WP_REST_Response([
+		'success'      => true,
+		'post_id'      => $post_id,
+		'lang'         => pll_get_post_language($post_id, 'slug'),
+		'translations' => pll_get_post_translations($post_id),
+	], 200);
+}

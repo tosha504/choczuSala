@@ -1,8 +1,7 @@
+const doc = document;
+const win = window;
 (function ($) {
   "use strict";
-
-  const doc = document;
-  const win = window;
 
   /**
    * Helpers
@@ -405,3 +404,226 @@
 
   resetDesktopSubmenus();
 })(jQuery);
+
+const initProductCatalogMenu = () => {
+  const menus = doc.querySelectorAll(".js-aw-product-menu");
+
+  if (!menus.length) {
+    return;
+  }
+
+  const getMenuHeader = (menu) => {
+    return (
+      menu.closest("header") ||
+      doc.querySelector("#masthead") ||
+      doc.querySelector(".header")
+    );
+  };
+
+  const disableHeaderSticky = (menu) => {
+    const header = getMenuHeader(menu);
+
+    if (header) {
+      header.classList.add("is-product-menu-open");
+    }
+
+    doc.body.classList.add("aw-product-menu-is-open");
+  };
+
+  const enableHeaderSticky = (menu) => {
+    const header = getMenuHeader(menu);
+
+    if (header) {
+      header.classList.remove("is-product-menu-open");
+    }
+
+    if (!doc.querySelector(".js-aw-product-menu.is-open")) {
+      doc.body.classList.remove("aw-product-menu-is-open");
+    }
+  };
+
+  const closeMenu = (menu) => {
+    const toggle = menu.querySelector(".js-aw-product-menu-toggle");
+    const panel = menu.querySelector(".js-aw-product-menu-panel");
+
+    if (!toggle || !panel) {
+      return;
+    }
+
+    toggle.setAttribute("aria-expanded", "false");
+    panel.hidden = true;
+    menu.classList.remove("is-open");
+
+    menu.querySelectorAll(".aw-product-menu__item.is-open").forEach((item) => {
+      item.classList.remove("is-open");
+
+      const button = item.querySelector(".js-aw-product-submenu-toggle");
+
+      if (button) {
+        button.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    enableHeaderSticky(menu);
+  };
+
+  const openMenu = (menu) => {
+    const toggle = menu.querySelector(".js-aw-product-menu-toggle");
+    const panel = menu.querySelector(".js-aw-product-menu-panel");
+
+    if (!toggle || !panel) {
+      return;
+    }
+
+    toggle.setAttribute("aria-expanded", "true");
+    panel.hidden = false;
+    menu.classList.add("is-open");
+
+    disableHeaderSticky(menu);
+  };
+
+  menus.forEach((menu) => {
+    const toggle = menu.querySelector(".js-aw-product-menu-toggle");
+
+    if (!toggle) {
+      return;
+    }
+
+    toggle.addEventListener("click", () => {
+      const isOpen = menu.classList.contains("is-open");
+
+      menus.forEach(closeMenu);
+
+      if (!isOpen) {
+        openMenu(menu);
+      }
+    });
+
+    menu.querySelectorAll(".js-aw-product-submenu-toggle").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const item = button.closest(".aw-product-menu__item");
+
+        if (!item) {
+          return;
+        }
+
+        const isOpen = item.classList.contains("is-open");
+
+        item.parentElement
+          ?.querySelectorAll(".aw-product-menu__item.is-open")
+          .forEach((openItem) => {
+            if (openItem !== item) {
+              openItem.classList.remove("is-open");
+
+              const openButton = openItem.querySelector(
+                ".js-aw-product-submenu-toggle",
+              );
+
+              if (openButton) {
+                openButton.setAttribute("aria-expanded", "false");
+              }
+            }
+          });
+
+        item.classList.toggle("is-open", !isOpen);
+        button.setAttribute("aria-expanded", String(!isOpen));
+      });
+    });
+  });
+
+  doc.addEventListener("click", (event) => {
+    if (event.target.closest(".js-aw-product-menu")) {
+      return;
+    }
+
+    menus.forEach(closeMenu);
+  });
+
+  doc.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") {
+      return;
+    }
+
+    menus.forEach(closeMenu);
+  });
+};
+
+const initMobileNavTabs = () => {
+  const tabs = doc.querySelectorAll(".js-aw-mobile-nav-tab");
+  const panels = doc.querySelectorAll(".js-aw-mobile-nav-panel");
+
+  if (!tabs.length || !panels.length) {
+    return;
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const target = tab.dataset.awMobileTab;
+
+      tabs.forEach((item) => {
+        const isActive = item === tab;
+
+        item.classList.toggle("is-active", isActive);
+        item.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+
+      panels.forEach((panel) => {
+        panel.classList.toggle(
+          "is-active",
+          panel.dataset.awMobilePanel === target,
+        );
+      });
+    });
+  });
+};
+
+const initMobileCategoryAccordion = () => {
+  const root = doc.querySelector(".js-aw-mobile-categories");
+
+  if (!root) {
+    return;
+  }
+
+  root.addEventListener("click", (event) => {
+    const button = event.target.closest(".js-aw-mobile-category-toggle");
+
+    if (!button) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const item = button.closest(".aw-mobile-categories__item");
+    const childrenId = button.getAttribute("aria-controls");
+    const children = childrenId ? doc.getElementById(childrenId) : null;
+
+    if (!item || !children) {
+      return;
+    }
+
+    const isOpen = item.classList.contains("is-open");
+
+    item.classList.toggle("is-open", !isOpen);
+    button.setAttribute("aria-expanded", !isOpen ? "true" : "false");
+    children.hidden = isOpen;
+  });
+};
+initProductCatalogMenu();
+initMobileNavTabs();
+initMobileCategoryAccordion();
+const init = () => {
+  setHeaderHeightVar();
+  initLanguageSwitcher();
+  initBurger();
+  initCartQtyControls();
+  initGoogleReviews();
+  initSearchModal();
+  initProductCatalogMenu();
+  initMobileNavTabs();
+  initMobileCategoryAccordion();
+
+  win.addEventListener("resize", setHeaderHeightVar);
+};

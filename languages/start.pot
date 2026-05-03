@@ -1,22 +1,20 @@
-# Copyright (C) 2020 Automattic
-# This file is distributed under the GNU General Public License v2 or later.
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: _s 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/_s\n"
+"Project-Id-Version: hochusala\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-15 15:08+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-21 19:25+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Domain: _s\n"
-"\n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
+"X-Loco-Version: 2.8.3; wp-6.9.4; php-8.3.30\n"
+"X-Domain: start"
 
 #. used between list items, there is a space after the comma
 #: inc/template-tags.php:63
@@ -55,7 +53,7 @@ msgstr ""
 msgid "Arturiko-web"
 msgstr ""
 
-#: inc/woo/badges.php:84
+#: inc/woo/badges.php:104
 msgid "Bestseller"
 msgstr ""
 
@@ -88,6 +86,12 @@ msgstr ""
 
 #: woocommerce/checkout/form-checkout.php:78
 msgid "Coupon code"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:48
+msgid ""
+"Digital product will be sent to the provided e-mail address after the order "
+"is completed."
 msgstr ""
 
 #. %s: Name of current post. Only visible to screen readers
@@ -126,7 +130,7 @@ msgid ""
 "searching can help."
 msgstr ""
 
-#: header.php:134 inc/as-woocommerce.php:190
+#: header.php:88
 msgid "Koszyk"
 msgstr ""
 
@@ -146,11 +150,15 @@ msgstr ""
 msgid "Lokalizacja "
 msgstr ""
 
-#: header.php:122
+#: woocommerce/cart/cart.php:150 woocommerce/cart/cart.php:152
+msgid "Mam kupon"
+msgstr ""
+
+#: header.php:81
 msgid "Moje konto"
 msgstr ""
 
-#: inc/woo/badges.php:65
+#: inc/woo/badges.php:85
 msgid "Na wagę"
 msgstr ""
 
@@ -162,7 +170,7 @@ msgstr ""
 msgid "Nothing Found"
 msgstr ""
 
-#: inc/woo/badges.php:75
+#: inc/woo/badges.php:95
 msgid "Nowość"
 msgstr ""
 
@@ -170,6 +178,10 @@ msgstr ""
 #: comments.php:35
 #, php-format
 msgid "One thought on &ldquo;%1$s&rdquo;"
+msgstr ""
+
+#: header.php:74
+msgid "Otwórz wyszukiwarkę produktów"
 msgstr ""
 
 #: template-parts/content.php:53
@@ -198,6 +210,10 @@ msgstr ""
 
 #: single.php:23
 msgid "Previous:"
+msgstr ""
+
+#: 404.php:47
+msgid "Przejdź do sklepu"
 msgstr ""
 
 #. 1: link to WP admin new post page.
@@ -230,10 +246,30 @@ msgid ""
 "You may be charged more than the amount stated above if you fail to do so."
 msgstr ""
 
+#: 404.php:33
+msgid "Sklep z produktami ze wschodu"
+msgstr ""
+
 #: template-parts/content-none.php:37
 msgid ""
 "Sorry, but nothing matched your search terms. Please try again with some "
 "different keywords."
+msgstr ""
+
+#: 404.php:41
+msgid ""
+"Strona, której szukasz, mogła zostać przeniesiona, usunięta albo adres "
+"został wpisany nieprawidłowo.\n"
+"\t\t\t\t\t\tAle spokojnie — możesz wrócić do sklepu i znaleźć swoje ulubione "
+"ukraińskie produkty."
+msgstr ""
+
+#: header.php:167 404.php:72
+msgid "Szukaj"
+msgstr ""
+
+#: header.php:121 header.php:142 404.php:58
+msgid "Szukaj produktów"
 msgstr ""
 
 #. 1: list of tags.
@@ -242,14 +278,50 @@ msgstr ""
 msgid "Tagged %1$s"
 msgstr ""
 
+#: 404.php:37
+msgid "Tutaj nic nie znaleźliśmy"
+msgstr ""
+
+#: woocommerce/cart/cart.php:151
+msgid "Ukryj kupon"
+msgstr ""
+
 #: woocommerce/checkout/form-checkout.php:69
 msgid "Update totals"
+msgstr ""
+
+#: inc/woo/badges.php:33
+msgid "Wkrótce wracam"
+msgstr ""
+
+#: header.php:133
+msgid "Wpisz min. 3 litery produktu"
+msgstr ""
+
+#: header.php:150
+msgid "Wpisz nazwę produktu..."
+msgstr ""
+
+#: 404.php:51
+msgid "Wróć na stronę główną"
+msgstr ""
+
+#: 404.php:78
+msgid "Wszystkie produkty"
 msgstr ""
 
 #: footer.php:64
 msgid "Wykonanie: "
 msgstr ""
 
+#: header.php:175
+msgid "Wyniki wyszukiwania"
+msgstr ""
+
 #: woocommerce/checkout/form-checkout.php:27
 msgid "You must be logged in to checkout."
+msgstr ""
+
+#: header.php:127
+msgid "Zamknij wyszukiwarkę"
 msgstr ""

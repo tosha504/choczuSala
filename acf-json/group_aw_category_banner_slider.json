@@ -1,0 +1,337 @@
+{
+  "key": "group_aw_category_banner_slider",
+  "title": "Slider bannerów kategorii",
+  "fields": [
+    {
+      "key": "field_aw_cbs_tab_banners",
+      "label": "Bannery",
+      "name": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_aw_cbs_banners",
+      "label": "Bannery",
+      "name": "banners",
+      "type": "repeater",
+      "instructions": "Dodaj bannery. Każdy banner linkuje do wybranej kategorii WooCommerce.",
+      "required": 1,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "layout": "block",
+      "pagination": 0,
+      "min": 1,
+      "max": 0,
+      "collapsed": "field_aw_cbs_banner_title",
+      "button_label": "Dodaj banner",
+      "rows_per_page": 20,
+      "sub_fields": [
+        {
+          "key": "field_aw_cbs_banner_image_desktop",
+          "label": "Obraz desktop",
+          "name": "image_desktop",
+          "type": "image",
+          "instructions": "Rekomendowany format: ok. 1920 × 650 px.",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "50",
+            "class": "",
+            "id": ""
+          },
+          "return_format": "id",
+          "library": "all",
+          "min_width": "",
+          "min_height": "",
+          "min_size": "",
+          "max_width": "",
+          "max_height": "",
+          "max_size": "",
+          "mime_types": "jpg,jpeg,png,webp",
+          "preview_size": "medium",
+          "parent_repeater": "field_aw_cbs_banners"
+        },
+        {
+          "key": "field_aw_cbs_banner_image_mobile",
+          "label": "Obraz mobile",
+          "name": "image_mobile",
+          "type": "image",
+          "instructions": "Opcjonalnie. Rekomendowany format: ok. 900 × 1100 px.",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "50",
+            "class": "",
+            "id": ""
+          },
+          "return_format": "id",
+          "library": "all",
+          "min_width": "",
+          "min_height": "",
+          "min_size": "",
+          "max_width": "",
+          "max_height": "",
+          "max_size": "",
+          "mime_types": "jpg,jpeg,png,webp",
+          "preview_size": "medium",
+          "parent_repeater": "field_aw_cbs_banners"
+        },
+        {
+          "key": "field_aw_cbs_banner_category",
+          "label": "Kategoria",
+          "name": "category",
+          "type": "taxonomy",
+          "instructions": "Po kliknięciu w banner użytkownik zostanie przeniesiony do tej kategorii.",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "50",
+            "class": "",
+            "id": ""
+          },
+          "taxonomy": "product_cat",
+          "add_term": 0,
+          "save_terms": 0,
+          "load_terms": 0,
+          "return_format": "id",
+          "field_type": "select",
+          "allow_null": 0,
+          "multiple": 0,
+          "parent_repeater": "field_aw_cbs_banners"
+        },
+        {
+          "key": "field_aw_cbs_banner_eyebrow",
+          "label": "Mały tekst nad tytułem",
+          "name": "eyebrow",
+          "type": "text",
+          "instructions": "Np. Promocja, Nowość, Polecane.",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "50",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": "",
+          "parent_repeater": "field_aw_cbs_banners"
+        },
+        {
+          "key": "field_aw_cbs_banner_title",
+          "label": "Tytuł",
+          "name": "title",
+          "type": "text",
+          "instructions": "Jeżeli zostawisz puste, blok użyje nazwy kategorii.",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "50",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": "",
+          "parent_repeater": "field_aw_cbs_banners"
+        },
+        {
+          "key": "field_aw_cbs_banner_button_label",
+          "label": "Tekst przycisku",
+          "name": "button_label",
+          "type": "text",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "50",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "Zobacz kategorię",
+          "maxlength": "",
+          "placeholder": "",
+          "prepend": "",
+          "append": "",
+          "parent_repeater": "field_aw_cbs_banners"
+        },
+        {
+          "key": "field_aw_cbs_banner_description",
+          "label": "Opis",
+          "name": "description",
+          "type": "textarea",
+          "instructions": "Krótki opis na bannerze. Najlepiej 1–2 zdania.",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "maxlength": "",
+          "rows": 3,
+          "placeholder": "",
+          "new_lines": "",
+          "parent_repeater": "field_aw_cbs_banners"
+        }
+      ]
+    },
+    {
+      "key": "field_aw_cbs_tab_settings",
+      "label": "Ustawienia",
+      "name": "",
+      "type": "tab",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "",
+        "class": "",
+        "id": ""
+      },
+      "placement": "top",
+      "endpoint": 0
+    },
+    {
+      "key": "field_aw_cbs_autoplay_enabled",
+      "label": "Autoplay",
+      "name": "autoplay_enabled",
+      "type": "true_false",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "25",
+        "class": "",
+        "id": ""
+      },
+      "message": "Włącz automatyczne przewijanie",
+      "default_value": 1,
+      "ui": 1,
+      "ui_on_text": "Tak",
+      "ui_off_text": "Nie"
+    },
+    {
+      "key": "field_aw_cbs_autoplay_delay",
+      "label": "Czas zmiany slajdu",
+      "name": "autoplay_delay",
+      "type": "number",
+      "instructions": "Rekomendacja: 4500 ms. Dla bannerów z dłuższym tekstem: 5000–6000 ms.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "25",
+        "class": "",
+        "id": ""
+      },
+      "default_value": 4500,
+      "min": 2500,
+      "max": 12000,
+      "placeholder": "",
+      "step": 500,
+      "prepend": "",
+      "append": "ms"
+    },
+    {
+      "key": "field_aw_cbs_show_arrows",
+      "label": "Strzałki",
+      "name": "show_arrows",
+      "type": "true_false",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "25",
+        "class": "",
+        "id": ""
+      },
+      "message": "Pokaż strzałki",
+      "default_value": 1,
+      "ui": 1,
+      "ui_on_text": "Tak",
+      "ui_off_text": "Nie"
+    },
+    {
+      "key": "field_aw_cbs_show_pagination",
+      "label": "Kropki",
+      "name": "show_pagination",
+      "type": "true_false",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "25",
+        "class": "",
+        "id": ""
+      },
+      "message": "Pokaż paginację",
+      "default_value": 1,
+      "ui": 1,
+      "ui_on_text": "Tak",
+      "ui_off_text": "Nie"
+    },
+    {
+      "key": "field_aw_cbs_height",
+      "label": "Wysokość slidera",
+      "name": "height",
+      "type": "select",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "50",
+        "class": "",
+        "id": ""
+      },
+      "choices": {
+        "compact": "Niski",
+        "default": "Standardowy",
+        "tall": "Wysoki"
+      },
+      "default_value": "default",
+      "return_format": "value",
+      "multiple": 0,
+      "allow_null": 0,
+      "ui": 0,
+      "ajax": 0,
+      "placeholder": ""
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "block",
+        "operator": "==",
+        "value": "aw-theme/category-banner-slider"
+      }
+    ]
+  ],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "hide_on_screen": "",
+  "active": true,
+  "description": "",
+  "show_in_rest": 0,
+  "modified": 1770000000
+}
