@@ -283,7 +283,7 @@
   background:
     linear-gradient(
       90deg,
-      rgba(30, 26, 22, 0.16) 0%,
+      rgba(30, 26, 22, 0.06) 0%,
       rgba(30, 26, 22, 0.08) 42%,
       rgba(30, 26, 22, 0.02) 100%
     ),
@@ -321,8 +321,8 @@
   .aw-category-slider__overlay {
     background: linear-gradient(
       0deg,
-      rgba(30, 26, 22, 0.48) 0%,
-      rgba(30, 26, 22, 0.26) 48%,
+      rgba(30, 26, 22, 0.06) 0%,
+      rgba(30, 26, 22, 0.06) 48%,
       rgba(30, 26, 22, 0.06) 100%
     );
   }
