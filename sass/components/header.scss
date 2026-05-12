@@ -74,7 +74,7 @@
   &__social-link:hover,
   &__social-link:focus-visible {
     color: var(--color-dark);
-    background: var(--color-surface);
+    // background: var(--color-surface);
     transform: translateY(-1px);
     outline: none;
   }
