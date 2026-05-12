@@ -179,6 +179,7 @@ $use_autoplay        = $autoplay_enabled && $has_multiple_slides;
                             </picture>
                         </span>
 
+
                         <span class="aw-category-slider__overlay"></span>
 
                         <span class="aw-category-slider__content">

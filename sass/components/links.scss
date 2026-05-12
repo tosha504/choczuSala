@@ -14,7 +14,6 @@ a {
       @extend %btn-secondary;
     }
 
-
     &.btn-primary {
       @extend %btn-primary;
     }
@@ -41,11 +40,11 @@ a {
     text-decoration: none;
   }
 
-  &:not(.header__logo_link) {
-    &:hover {
-      background-color: var(--white);
-    }
-  }
+  // &:not(.header__logo_link) {
+  //   &:hover {
+  //     background-color: var(--white);
+  //   }
+  // }
 
   &.link-arrow {
     // font-size: clamp(1.5rem, 2vw, 2.25rem);
@@ -55,7 +54,6 @@ a {
 
     @media (min-width: map.get(b.$grid-breakpoints, sm)) {
       margin-left: auto;
-
     }
 
     svg {
