@@ -115,7 +115,7 @@
 							),
 						);
 
-						aw_language_switcher();
+						// aw_language_switcher();
 						?>
 					</div>
 				</nav><!-- #site-navigation -->
