@@ -296,13 +296,13 @@
   color: var(--aw-slider-eyebrow-color);
 }
 
-.aw-category-slider__title {
+/* .aw-category-slider__title ,.aw-category-slider__description {
   color: var(--aw-slider-title-color);
 }
 
 .aw-category-slider__description {
   color: var(--aw-slider-text-color);
-}
+} */
 
 .aw-category-slider__button {
   background: var(--color-primary, #bf211e);
