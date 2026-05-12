@@ -53,57 +53,130 @@ $slides = [];
 foreach ($banners as $banner) {
     $image_desktop = absint($banner['image_desktop'] ?? 0);
     $image_mobile  = absint($banner['image_mobile'] ?? 0);
-    $category      = $banner['category'] ?? 0;
 
-    if ($category instanceof WP_Term) {
-        $category_id = (int) $category->term_id;
-    } else {
-        $category_id = absint($category);
-    }
-
-    if ($image_desktop <= 0 || $category_id <= 0) {
+    if ($image_desktop <= 0) {
         continue;
     }
 
-    $term = get_term($category_id, 'product_cat');
+    $link_type = sanitize_key((string) ($banner['link_type'] ?? 'category'));
 
-    if (! $term instanceof WP_Term || is_wp_error($term)) {
-        continue;
+    if (! in_array($link_type, ['category', 'product', 'custom_url'], true)) {
+        $link_type = 'category';
     }
 
-    $link = get_term_link($term);
+    $link       = '';
+    $link_label = '';
+    $link_title = '';
+    $aria_label = '';
+    $target     = ! empty($banner['open_in_new_tab']) ? '_blank' : '_self';
+    $rel        = '_blank' === $target ? 'noopener noreferrer' : '';
 
-    if (is_wp_error($link)) {
+    if ('category' === $link_type) {
+        $category = $banner['category'] ?? 0;
+
+        if ($category instanceof WP_Term) {
+            $category_id = (int) $category->term_id;
+        } else {
+            $category_id = absint($category);
+        }
+
+        if ($category_id <= 0) {
+            continue;
+        }
+
+        $term = get_term($category_id, 'product_cat');
+
+        if (! $term instanceof WP_Term || is_wp_error($term)) {
+            continue;
+        }
+
+        $term_link = get_term_link($term);
+
+        if (is_wp_error($term_link)) {
+            continue;
+        }
+
+        $link       = $term_link;
+        $link_label = $term->name;
+        $link_title = $term->name;
+        $aria_label = sprintf(__('Przejdź do kategorii: %s', 'start'), $term->name);
+    }
+
+    if ('product' === $link_type) {
+        $product_id = absint($banner['product'] ?? 0);
+
+        if ($product_id <= 0 || 'product' !== get_post_type($product_id)) {
+            continue;
+        }
+
+        $product_link = get_permalink($product_id);
+
+        if (! $product_link) {
+            continue;
+        }
+
+        $product_title = get_the_title($product_id);
+
+        $link       = $product_link;
+        $link_label = $product_title;
+        $link_title = $product_title;
+        $aria_label = sprintf(__('Przejdź do produktu: %s', 'start'), $product_title);
+    }
+
+    if ('custom_url' === $link_type) {
+        $custom_url = trim((string) ($banner['custom_url'] ?? ''));
+
+        if ('' === $custom_url) {
+            continue;
+        }
+
+        $link       = esc_url_raw($custom_url);
+        $link_label = __('Zobacz więcej', 'start');
+        $link_title = __('Zobacz więcej', 'start');
+        $aria_label = __('Przejdź do wybranej strony', 'start');
+    }
+
+    if ('' === $link) {
         continue;
     }
 
     $title = trim((string) ($banner['title'] ?? ''));
 
     if ('' === $title) {
-        $title = $term->name;
+        $title = $link_title;
     }
 
     $button_label = trim((string) ($banner['button_label'] ?? ''));
 
     if ('' === $button_label) {
-        $button_label = __('Zobacz kategorię', 'start');
+        if ('category' === $link_type) {
+            $button_label = __('Zobacz kategorię', 'start');
+        } elseif ('product' === $link_type) {
+            $button_label = __('Zobacz produkt', 'start');
+        } else {
+            $button_label = __('Zobacz więcej', 'start');
+        }
     }
 
     $slides[] = [
         'image_desktop' => $image_desktop,
         'image_mobile'  => $image_mobile,
         'link'          => $link,
+        'link_type'     => $link_type,
+        'link_label'    => $link_label,
+        'aria_label'    => $aria_label,
+        'target'        => $target,
+        'rel'           => $rel,
         'eyebrow'       => trim((string) ($banner['eyebrow'] ?? '')),
         'title'         => $title,
         'description'   => trim((string) ($banner['description'] ?? '')),
         'button_label'  => $button_label,
-        'term_name'     => $term->name,
     ];
 }
 
 if (empty($slides)) {
     if (! empty($is_preview)) {
-        echo '<div class="aw-category-slider-empty">' . esc_html__('Dodaj przynajmniej jeden banner kategorii.', 'start') . '</div>';
+        echo '<div class="aw-category-slider-empty">' . esc_html__('Dodaj przynajmniej jeden poprawny banner.', 'start') . '</div>';
     }
 
     return;
@@ -132,7 +205,11 @@ $use_autoplay        = $autoplay_enabled && $has_multiple_slides;
                     <a
                         class="swiper-slide aw-category-slider__slide"
                         href="<?php echo esc_url($slide['link']); ?>"
-                        aria-label="<?php echo esc_attr(sprintf(__('Przejdź do kategorii: %s', 'start'), $slide['term_name'])); ?>">
+                        aria-label="<?php echo esc_attr($slide['aria_label']); ?>"
+                        <?php if ('_blank' === $slide['target']) : ?>
+                        target="_blank"
+                        rel="<?php echo esc_attr($slide['rel']); ?>"
+                        <?php endif; ?>>
                         <span class="aw-category-slider__media" aria-hidden="true">
                             <picture>
                                 <?php if ($slide['image_mobile'] > 0) : ?>
@@ -178,7 +255,6 @@ $use_autoplay        = $autoplay_enabled && $has_multiple_slides;
                                 ?>
                             </picture>
                         </span>
-
 
                         <span class="aw-category-slider__overlay"></span>
 

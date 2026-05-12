@@ -23,7 +23,7 @@
       "label": "Bannery",
       "name": "banners",
       "type": "repeater",
-      "instructions": "Dodaj bannery. Każdy banner linkuje do wybranej kategorii WooCommerce.",
+      "instructions": "Dodaj bannery. Każdy banner może linkować do kategorii, produktu albo dowolnego URL.",
       "required": 1,
       "conditional_logic": 0,
       "wrapper": {
@@ -90,13 +90,48 @@
           "parent_repeater": "field_aw_cbs_banners"
         },
         {
+          "key": "field_aw_cbs_link_type",
+          "label": "Typ linku",
+          "name": "link_type",
+          "type": "select",
+          "instructions": "Wybierz, gdzie ma prowadzić banner.",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "50",
+            "class": "",
+            "id": ""
+          },
+          "choices": {
+            "category": "Kategoria WooCommerce",
+            "product": "Produkt WooCommerce",
+            "custom_url": "Dowolny URL"
+          },
+          "default_value": "category",
+          "return_format": "value",
+          "multiple": 0,
+          "allow_null": 0,
+          "ui": 0,
+          "ajax": 0,
+          "placeholder": "",
+          "parent_repeater": "field_aw_cbs_banners"
+        },
+        {
           "key": "field_aw_cbs_banner_category",
           "label": "Kategoria",
           "name": "category",
           "type": "taxonomy",
           "instructions": "Po kliknięciu w banner użytkownik zostanie przeniesiony do tej kategorii.",
-          "required": 1,
-          "conditional_logic": 0,
+          "required": 0,
+          "conditional_logic": [
+            [
+              {
+                "field": "field_aw_cbs_link_type",
+                "operator": "==",
+                "value": "category"
+              }
+            ]
+          ],
           "wrapper": {
             "width": "50",
             "class": "",
@@ -110,6 +145,80 @@
           "field_type": "select",
           "allow_null": 0,
           "multiple": 0,
+          "parent_repeater": "field_aw_cbs_banners"
+        },
+        {
+          "key": "field_aw_cbs_banner_product",
+          "label": "Produkt",
+          "name": "product",
+          "type": "post_object",
+          "instructions": "Po kliknięciu w banner użytkownik zostanie przeniesiony do wybranego produktu.",
+          "required": 0,
+          "conditional_logic": [
+            [
+              {
+                "field": "field_aw_cbs_link_type",
+                "operator": "==",
+                "value": "product"
+              }
+            ]
+          ],
+          "wrapper": {
+            "width": "50",
+            "class": "",
+            "id": ""
+          },
+          "post_type": ["product"],
+          "taxonomy": "",
+          "allow_null": 0,
+          "multiple": 0,
+          "return_format": "id",
+          "ui": 1,
+          "parent_repeater": "field_aw_cbs_banners"
+        },
+        {
+          "key": "field_aw_cbs_banner_custom_url",
+          "label": "Dowolny URL",
+          "name": "custom_url",
+          "type": "url",
+          "instructions": "Wpisz pełny adres URL, np. do promocji, wpisu, strony lub zewnętrznej oferty.",
+          "required": 0,
+          "conditional_logic": [
+            [
+              {
+                "field": "field_aw_cbs_link_type",
+                "operator": "==",
+                "value": "custom_url"
+              }
+            ]
+          ],
+          "wrapper": {
+            "width": "50",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "placeholder": "https://",
+          "parent_repeater": "field_aw_cbs_banners"
+        },
+        {
+          "key": "field_aw_cbs_banner_open_new_tab",
+          "label": "Otwórz w nowej karcie",
+          "name": "open_in_new_tab",
+          "type": "true_false",
+          "instructions": "Włącz głównie dla linków zewnętrznych.",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "50",
+            "class": "",
+            "id": ""
+          },
+          "message": "Tak, otwórz w nowej karcie",
+          "default_value": 0,
+          "ui": 1,
+          "ui_on_text": "Tak",
+          "ui_off_text": "Nie",
           "parent_repeater": "field_aw_cbs_banners"
         },
         {
@@ -137,7 +246,7 @@
           "label": "Tytuł",
           "name": "title",
           "type": "text",
-          "instructions": "Jeżeli zostawisz puste, blok użyje nazwy kategorii.",
+          "instructions": "Jeżeli zostawisz puste, blok użyje nazwy kategorii albo produktu.",
           "required": 0,
           "conditional_logic": 0,
           "wrapper": {
@@ -165,7 +274,7 @@
             "class": "",
             "id": ""
           },
-          "default_value": "Zobacz kategorię",
+          "default_value": "Zobacz więcej",
           "maxlength": "",
           "placeholder": "",
           "prepend": "",
@@ -333,5 +442,5 @@
   "active": true,
   "description": "",
   "show_in_rest": 0,
-  "modified": 1770000000
+  "modified": 1770001000
 }

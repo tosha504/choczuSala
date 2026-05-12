@@ -10,7 +10,6 @@
   overflow: hidden;
   border-radius: clamp(18px, 2vw, 30px);
   background: var(--color-dark, #1e1a16);
-  box-shadow: 0 24px 70px rgba(30, 26, 22, 0.16);
 }
 
 .aw-category-slider__slide {
@@ -55,14 +54,6 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  /* background:
-    linear-gradient(
-      90deg,
-      rgba(30, 26, 22, 0.86) 0%,
-      rgba(30, 26, 22, 0.62) 42%,
-      rgba(30, 26, 22, 0.16) 100%
-    ),
-    linear-gradient(0deg, rgba(30, 26, 22, 0.28), rgba(30, 26, 22, 0.08)); */
 }
 
 .aw-category-slider__content {
@@ -80,10 +71,10 @@
   width: fit-content;
   margin-bottom: 14px;
   padding: 7px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid var(--color-accent);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.12);
-  color: #fff;
+  color: var(--color-accent);
   font-size: clamp(12px, 1.3vw, 14px);
   font-weight: 700;
   line-height: 1;
@@ -95,8 +86,8 @@
 .aw-category-slider__title {
   display: block;
   max-width: 12ch;
-  color: #fff;
-  font-family: var(--inter, sans-serif);
+  /* color: #fff; */
+  color: inherit;
   font-size: clamp(34px, 5.5vw, 68px);
   font-weight: 800;
   line-height: 0.98;
@@ -125,7 +116,7 @@
   min-height: 48px;
   margin-top: 26px;
   padding: 13px 22px;
-  border-radius: 999px;
+  border-radius: 0.5rem;
   background: var(--color-primary, #bf211e);
   color: #fff;
   font-size: 15px;
@@ -133,16 +124,13 @@
   line-height: 1;
   transition:
     transform 0.25s ease,
-    background-color 0.25s ease,
-    box-shadow 0.25s ease;
-  box-shadow: 0 14px 34px rgba(191, 33, 30, 0.28);
+    background-color 0.25s ease;
 }
 
 .aw-category-slider__slide:hover .aw-category-slider__button,
 .aw-category-slider__slide:focus-visible .aw-category-slider__button {
   transform: translateY(-2px);
   background: var(--color-primary-hover, #641014);
-  box-shadow: 0 18px 40px rgba(191, 33, 30, 0.34);
 }
 
 .aw-category-slider__slide:focus-visible {
@@ -280,5 +268,70 @@
   .aw-category-slider__button,
   .aw-category-slider__arrow {
     transition: none;
+  }
+}
+/* Jasniejszy wariant slidera bannerów */
+.aw-category-slider {
+  --aw-slider-title-color: #fffaf0;
+  --aw-slider-text-color: rgba(255, 250, 240, 0.92);
+  --aw-slider-eyebrow-color: #ffe0a3;
+  --aw-slider-shadow: 0 4px 24px rgba(0, 0, 0, 0.38);
+}
+
+/* Desktop - dużo lżejsze przyciemnienie */
+.aw-category-slider__overlay {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(30, 26, 22, 0.16) 0%,
+      rgba(30, 26, 22, 0.08) 42%,
+      rgba(30, 26, 22, 0.02) 100%
+    ),
+    linear-gradient(0deg, rgba(30, 26, 22, 0.12), rgba(30, 26, 22, 0.03));
+}
+
+/* Teksty bardziej premium i czytelne na jasnym bannerze */
+.aw-category-slider__eyebrow {
+  border-color: rgba(255, 224, 163, 0.48);
+  background: rgba(30, 26, 22, 0.22);
+  color: var(--aw-slider-eyebrow-color);
+  text-shadow: var(--aw-slider-shadow);
+}
+
+.aw-category-slider__title {
+  color: var(--aw-slider-title-color);
+  text-shadow: var(--aw-slider-shadow);
+}
+
+.aw-category-slider__description {
+  color: var(--aw-slider-text-color);
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.36);
+}
+
+.aw-category-slider__button {
+  background: var(--color-primary, #bf211e);
+  color: #fffaf0;
+  box-shadow:
+    0 14px 34px rgba(191, 33, 30, 0.3),
+    0 4px 18px rgba(0, 0, 0, 0.18);
+}
+
+/* Mobile - nadal lekko ciemniej niż desktop, ale bez zabijania zdjęcia */
+@media (max-width: 767px) {
+  .aw-category-slider__overlay {
+    background: linear-gradient(
+      0deg,
+      rgba(30, 26, 22, 0.48) 0%,
+      rgba(30, 26, 22, 0.26) 48%,
+      rgba(30, 26, 22, 0.06) 100%
+    );
+  }
+
+  .aw-category-slider__title {
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.48);
+  }
+
+  .aw-category-slider__description {
+    text-shadow: 0 3px 18px rgba(0, 0, 0, 0.42);
   }
 }
