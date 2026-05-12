@@ -295,17 +295,14 @@
   border-color: rgba(255, 224, 163, 0.48);
   background: rgba(30, 26, 22, 0.22);
   color: var(--aw-slider-eyebrow-color);
-  text-shadow: var(--aw-slider-shadow);
 }
 
 .aw-category-slider__title {
   color: var(--aw-slider-title-color);
-  text-shadow: var(--aw-slider-shadow);
 }
 
 .aw-category-slider__description {
   color: var(--aw-slider-text-color);
-  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.36);
 }
 
 .aw-category-slider__button {
@@ -325,13 +322,5 @@
       rgba(30, 26, 22, 0.06) 48%,
       rgba(30, 26, 22, 0.06) 100%
     );
-  }
-
-  .aw-category-slider__title {
-    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.48);
-  }
-
-  .aw-category-slider__description {
-    text-shadow: 0 3px 18px rgba(0, 0, 0, 0.42);
   }
 }
