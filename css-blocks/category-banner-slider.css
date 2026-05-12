@@ -282,9 +282,9 @@
   background:
     linear-gradient(
       90deg,
-      rgba(30, 26, 22, 0.06) 0%,
-      rgba(30, 26, 22, 0.08) 42%,
-      rgba(30, 26, 22, 0.02) 100%
+      rgba(30, 26, 22, 0.16) 0%,
+      rgba(30, 26, 22, 0.18) 42%,
+      rgba(30, 26, 22, 0.2) 100%
     ),
     linear-gradient(0deg, rgba(30, 26, 22, 0.12), rgba(30, 26, 22, 0.03));
 }
@@ -317,9 +317,9 @@
   .aw-category-slider__overlay {
     background: linear-gradient(
       0deg,
-      rgba(30, 26, 22, 0.06) 0%,
-      rgba(30, 26, 22, 0.06) 48%,
-      rgba(30, 26, 22, 0.06) 100%
+      rgba(30, 26, 22, 0.16) 0%,
+      rgba(30, 26, 22, 0.18) 48%,
+      rgba(30, 26, 22, 0.19) 100%
     );
   }
 }
