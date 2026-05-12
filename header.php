@@ -39,14 +39,69 @@
 			</p>
 		</div>
 		<!-- Top bar -->
-		<div class="topbar">
-			<div class="container">
-				<?php $pre_header_text = aw_get_option('pre_header_text',);
-				$work_time = aw_get_option('work_time'); ?>
-				<div><?php if (! empty($pre_header_text)) echo $pre_header_text; ?></div>
-				<div><?php if (! empty($work_time)) echo $work_time; ?></div>
+		<?php
+		$pre_header_text = aw_get_option('pre_header_text');
+		$work_time       = aw_get_option('work_time');
+		$social_links    = aw_get_option('topbar_social_links');
+
+		$has_topbar_content = ! empty($pre_header_text) || ! empty($work_time) || ! empty($social_links);
+		?>
+
+		<?php if ($has_topbar_content) : ?>
+			<div class="topbar">
+				<div class="container topbar__inner">
+
+					<?php if (! empty($pre_header_text) || ! empty($work_time)) : ?>
+						<div class="topbar__notice">
+							<?php if (! empty($pre_header_text)) : ?>
+								<span class="topbar__notice-item">
+									<?php echo esc_html($pre_header_text); ?>
+								</span>
+							<?php endif; ?>
+
+							<?php if (! empty($work_time)) : ?>
+								<span class="topbar__notice-item">
+									<?php echo esc_html($work_time); ?>
+								</span>
+							<?php endif; ?>
+						</div>
+					<?php endif; ?>
+
+					<?php if (! empty($social_links) && is_array($social_links)) : ?>
+						<nav class="topbar__socials" aria-label="<?php echo esc_attr__('Social media', 'arturiko-web'); ?>">
+							<?php foreach ($social_links as $social_link) : ?>
+								<?php
+								$platform = ! empty($social_link['platform']) ? sanitize_key($social_link['platform']) : 'custom';
+								$url      = ! empty($social_link['url']) ? esc_url($social_link['url']) : '';
+								$label    = ! empty($social_link['label'])
+									? sanitize_text_field($social_link['label'])
+									: aw_get_social_label($platform);
+
+								$open_new_tab = ! empty($social_link['open_new_tab']);
+
+								if (empty($url)) {
+									continue;
+								}
+								?>
+
+								<a
+									class="topbar__social-link topbar__social-link--<?php echo esc_attr($platform); ?>"
+									href="<?php echo esc_url($url); ?>"
+									aria-label="<?php echo esc_attr($label); ?>"
+									<?php if ($open_new_tab) : ?>
+									target="_blank"
+									rel="noopener noreferrer"
+									<?php endif; ?>>
+									<?php echo aw_get_social_icon_svg($platform); ?>
+									<span class="screen-reader-text"><?php echo esc_html($label); ?></span>
+								</a>
+							<?php endforeach; ?>
+						</nav>
+					<?php endif; ?>
+
+				</div>
 			</div>
-		</div>
+		<?php endif; ?>
 		<header id="masthead" class="header">
 			<div class="container">
 				<?php
