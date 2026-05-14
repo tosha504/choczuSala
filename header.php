@@ -455,7 +455,7 @@
 				display: none;
 				position: absolute;
 				top: 0;
-				left: calc(100% + 12px);
+				left: 100%;
 				width: 360px;
 				max-height: 72vh;
 				overflow-y: auto;
